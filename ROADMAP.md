@@ -5,10 +5,12 @@ This roadmap lists every page and UI component in strict dependency/build order.
 ---
 
 ## 1. Core Utilities & Design Base (Zero Dependencies)
-*   [ ] `src/lib/utils.ts` — Tailwind class mergers and styling helpers.
+*   [x] `src/lib/utils.ts` — Tailwind class mergers and styling helpers (Created by shadcn/ui init).
 *   [ ] `src/types/database.types.ts` — TypeScript definitions for Supabase schema (based on `SCHEMA.md`).
-*   [ ] `src/app/globals.css` — Tailwind CSS v4 variables, custom brand gradients, typography tokens.
-*   [ ] Font Configuration (`next/font/google` serif & sans-serif).
+*   [x] `src/app/globals.css` — Tailwind CSS v4 variables, custom brand gradients, typography tokens.
+*   [x] Font Configuration (`next/font/google` serif & sans-serif).
+*   [x] `ThemeProvider` (`src/components/common/theme-provider.tsx`) — next-themes provider wrapper.
+
 
 ---
 
