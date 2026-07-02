@@ -25,9 +25,9 @@ This roadmap lists every page, UI component, and layout element in strict depend
 ---
 
 ## 3. Motion System & Micro-Interactions (Phase 3)
-*   [ ] `PageTransition` (`src/components/animations/PageTransition.tsx`) — Fade-slide framer-motion page wrapper.
-*   [ ] Transition utilities (Shared motion spring curves and layout components).
-*   [ ] `CustomCursor` (`src/components/common/CustomCursor.tsx`) — Star/sparkle-shaped cursor following mouse with lerp/spring physics.
+*   [x] `PageTransition` (`src/components/animations/PageTransition.tsx`) — Fade-slide framer-motion page wrapper.
+*   [x] Transition utilities (Shared motion spring curves and layout components).
+*   [x] `CustomCursor` (`src/components/common/CustomCursor.tsx`) — Star/sparkle-shaped cursor following mouse with lerp/spring physics.
 
 ---
 
