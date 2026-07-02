@@ -3,14 +3,14 @@
 import * as React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, Code, Play } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { PageTransition } from "@/components/animations/PageTransition";
 import { Card, CardContent } from "@/components/ui/card";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { JournalCard } from "@/components/journal/JournalCard";
 import { Timeline } from "@/components/journal/Timeline";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { ProjectStatus } from "@/components/ui/project-status";
 import { cn } from "@/lib/utils";
 import {
@@ -19,6 +19,7 @@ import {
   getTimelineEvents,
 } from "@/lib/supabase";
 import { Project, JournalEntry, TimelineEvent } from "@/types/database.types";
+import { Loader } from "@/components/ui/loader";
 
 export default function HomePage() {
   const [projects, setProjects] = React.useState<Project[]>([]);
@@ -45,14 +46,6 @@ export default function HomePage() {
     }
     loadData();
   }, []);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center font-mono text-xs text-muted-foreground bg-background">
-        Loading workspace...
-      </div>
-    );
-  }
 
   const currentlyBuilding = projects.find((p) => p.status === "in_progress");
   const featuredProjects = projects.filter((p) => p.featured_home);
@@ -128,23 +121,16 @@ export default function HomePage() {
                 }}
               >
                 <defs>
-                  {/* Smooth stop-color animated gradient to guarantee flicker-free color shifts across all renderers */}
+                  {/* Smooth stop-color animated gradient with expanding middle color stop to prevent branding lines */}
                   <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <motion.stop
-                      offset="0%"
-                      animate={{ stopColor: ["var(--brand-0)", "var(--brand-50)", "var(--brand-100)", "var(--brand-0)"] }}
-                      transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                    />
+                    <stop offset="0%" stopColor="var(--brand-0)" />
                     <motion.stop
                       offset="50%"
-                      animate={{ stopColor: ["var(--brand-50)", "var(--brand-100)", "var(--brand-0)", "var(--brand-50)"] }}
-                      transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                      animate={{ offset: ["30%", "70%", "30%"] }}
+                      transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                      stopColor="var(--brand-50)"
                     />
-                    <motion.stop
-                      offset="100%"
-                      animate={{ stopColor: ["var(--brand-100)", "var(--brand-0)", "var(--brand-50)", "var(--brand-100)"] }}
-                      transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                    />
+                    <stop offset="100%" stopColor="var(--brand-100)" />
                   </linearGradient>
                 </defs>
 
@@ -156,110 +142,154 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* 2. Currently Building */}
-          {currentlyBuilding && (
-            <div className="space-y-4">
-              <h2 className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
-                // Currently Building
-              </h2>
-              <Card
-                className="overflow-hidden border-border/80 dark:border-border/40 hover:border-brand-start/40 bg-card/30"
-                hoverable
-              >
-                <CardContent className="p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                  <div className="space-y-2 max-w-xl">
-                    <div className="flex items-center gap-3">
-                      <h3 className="font-serif text-xl md:text-2xl font-bold text-foreground">
-                        {currentlyBuilding.name}
-                      </h3>
-                      <ProjectStatus status="in_progress" />
-                    </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {currentlyBuilding.short_description}
-                    </p>
-                  </div>
-
-                  <div className="w-full md:w-72 space-y-2 font-mono text-xs shrink-0 pt-2 md:pt-0">
-                    <div className="flex justify-between text-muted-foreground">
-                      <span>Status Progress</span>
-                      <span>{currentlyBuilding.progress}%</span>
-                    </div>
-                    <div className="h-2 w-full rounded-full bg-secondary/80 dark:bg-secondary/20 overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: `${currentlyBuilding.progress}%` }}
-                        transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
-                        className="h-full bg-gradient-to-r from-brand-start via-brand-mid to-brand-end rounded-full"
-                      />
-                    </div>
-                    <div className="pt-2 text-right">
-                      <Link
-                        href={`/projects/${currentlyBuilding.slug}`}
-                        className="inline-flex items-center gap-1 text-xs text-brand-start hover:text-brand-mid hover:underline font-semibold transition-colors duration-200"
-                      >
-                        Open Progress Logs
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </Link>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          )}
-
-          {/* 3. Split: Recent Activity (Timeline) & Latest Journal */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pt-4">
-            {/* Timeline Column */}
-            <div className="lg:col-span-7 space-y-6">
-              <div className="flex justify-between items-baseline border-b border-border/40 pb-3 mb-6">
-                <h2 className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
-                  // Recent Workspace Activity
-                </h2>
-                <Link
-                  href="/journal"
-                  className="text-xs text-brand-start hover:text-brand-mid hover:underline font-semibold font-mono transition-colors duration-200"
+          {/* Dynamic Content Loader */}
+          {loading ? (
+            <Loader />
+          ) : (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="space-y-16"
+            >
+              {/* 2. Currently Building */}
+              {currentlyBuilding && (
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  className="space-y-4"
                 >
-                  View All Log History
-                </Link>
-              </div>
-              <Timeline events={recentTimeline} />
-            </div>
-
-            {/* Latest Journal Column */}
-            {latestJournal && (
-              <div className="lg:col-span-5 space-y-6 flex flex-col">
-                <div className="flex justify-between items-baseline border-b border-border/40 pb-3 mb-6">
                   <h2 className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
-                    // Latest Journal Log
+                    // Currently Building
                   </h2>
-                </div>
-                <div className="flex-grow">
-                  <JournalCard entry={latestJournal} />
-                </div>
-              </div>
-            )}
-          </div>
+                  <Card
+                    className="overflow-hidden border-border/80 dark:border-border/40 hover:border-brand-start/40 bg-card/30"
+                    hoverable
+                  >
+                    <CardContent className="p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                      <div className="space-y-2 max-w-xl">
+                        <div className="flex items-center gap-3">
+                          <h3 className="font-serif text-xl md:text-2xl font-bold text-foreground">
+                            {currentlyBuilding.name}
+                          </h3>
+                          <ProjectStatus status="in_progress" />
+                        </div>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {currentlyBuilding.short_description}
+                        </p>
+                      </div>
 
-          {/* 4. Featured Projects */}
-          {featuredProjects.length > 0 && (
-            <div className="space-y-6 pt-4">
-              <div className="flex justify-between items-baseline border-b border-border/40 pb-3 mb-6">
-                <h2 className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
-                  // Featured Project Showcase
-                </h2>
-                <Link
-                  href="/projects"
-                  className="text-xs text-brand-start hover:text-brand-mid hover:underline font-semibold font-mono transition-colors duration-200"
+                      <div className="w-full md:w-72 space-y-2 font-mono text-xs shrink-0 pt-2 md:pt-0">
+                        <div className="flex justify-between text-muted-foreground">
+                          <span>Status Progress</span>
+                          <span>{currentlyBuilding.progress}%</span>
+                        </div>
+                        <div className="h-2 w-full rounded-full bg-secondary/80 dark:bg-secondary/20 overflow-hidden">
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: `${currentlyBuilding.progress}%` }}
+                            transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
+                            className="h-full bg-gradient-to-r from-brand-start via-brand-mid to-brand-end rounded-full"
+                          />
+                        </div>
+                        <div className="pt-2 text-right">
+                          <Link
+                            href={`/projects/${currentlyBuilding.slug}`}
+                            className="inline-flex items-center gap-1 text-xs text-brand-start hover:text-brand-mid hover:underline font-semibold transition-colors duration-200"
+                          >
+                            Open Progress Logs
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </Link>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              )}
+
+              {/* 3. Split: Recent Activity (Timeline) & Latest Journal */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pt-4">
+                {/* Timeline Column */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  className="lg:col-span-7 space-y-6"
                 >
-                  View Full Showcase
-                </Link>
+                  <div className="flex justify-between items-baseline border-b border-border/40 pb-3 mb-6">
+                    <h2 className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+                      // Recent Workspace Activity
+                    </h2>
+                    <Link
+                      href="/journal"
+                      className="text-xs text-brand-start hover:text-brand-mid hover:underline font-semibold font-mono transition-colors duration-200"
+                    >
+                      View All Log History
+                    </Link>
+                  </div>
+                  <Timeline events={recentTimeline} />
+                </motion.div>
+
+                {/* Latest Journal Column */}
+                {latestJournal && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-40px" }}
+                    transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+                    className="lg:col-span-5 space-y-6 flex flex-col"
+                  >
+                    <div className="flex justify-between items-baseline border-b border-border/40 pb-3 mb-6">
+                      <h2 className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+                        // Latest Journal Log
+                      </h2>
+                    </div>
+                    <div className="flex-grow">
+                      <JournalCard entry={latestJournal} />
+                    </div>
+                  </motion.div>
+                )}
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {featuredProjects.map((project) => (
-                  <ProjectCard key={project.id} project={project} />
-                ))}
-              </div>
-            </div>
+
+              {/* 4. Featured Projects */}
+              {featuredProjects.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  className="space-y-6 pt-4"
+                >
+                  <div className="flex justify-between items-baseline border-b border-border/40 pb-3 mb-6">
+                    <h2 className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+                      // Featured Project Showcase
+                    </h2>
+                    <Link
+                      href="/projects"
+                      className="text-xs text-brand-start hover:text-brand-mid hover:underline font-semibold font-mono transition-colors duration-200"
+                    >
+                      View Full Showcase
+                    </Link>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {featuredProjects.map((project, idx) => (
+                      <motion.div
+                        key={project.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: idx * 0.1 }}
+                      >
+                        <ProjectCard project={project} />
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </motion.div>
           )}
         </Container>
       </div>

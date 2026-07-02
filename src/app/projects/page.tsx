@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { motion } from "framer-motion";
 import { Container } from "@/components/ui/container";
 import { PageTransition } from "@/components/animations/PageTransition";
 import { SectionHeader } from "@/components/ui/section-header";
@@ -10,6 +11,7 @@ import { ProjectCard } from "@/components/projects/ProjectCard";
 import { EmptyState } from "@/components/ui/empty-state";
 import { getProjects, getCategories } from "@/lib/supabase";
 import { Project, Category } from "@/types/database.types";
+import { Loader } from "@/components/ui/loader";
 
 export default function ProjectsPage() {
   const [projects, setProjects] = React.useState<Project[]>([]);
@@ -58,14 +60,6 @@ export default function ProjectsPage() {
     });
   }, [search, category, projects]);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center font-mono text-xs text-muted-foreground bg-background">
-        Loading showcase...
-      </div>
-    );
-  }
-
   return (
     <PageTransition>
       <div className="py-12 flex-grow">
@@ -85,15 +79,29 @@ export default function ProjectsPage() {
             <SearchBar value={search} onChange={setSearch} placeholder="Search projects or tech..." />
           </div>
 
-          {/* Grid Display */}
-          {filteredProjects.length > 0 ? (
+          {/* Dynamic Display Grid with Loader and Scroll-in-view Transitions */}
+          {loading ? (
+            <Loader />
+          ) : filteredProjects.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-6">
-              {filteredProjects.map((project) => (
-                <ProjectCard key={project.id} project={project} />
+              {filteredProjects.map((project, idx) => (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.5, delay: idx * 0.05 }}
+                >
+                  <ProjectCard project={project} />
+                </motion.div>
               ))}
             </div>
           ) : (
-            <div className="pt-12">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="pt-12"
+            >
               <EmptyState
                 title="No projects found"
                 description={`We couldn't find any projects matching "${search}" in the selected category. Try resetting your search filters.`}
@@ -109,7 +117,7 @@ export default function ProjectsPage() {
                   </button>
                 }
               />
-            </div>
+            </motion.div>
           )}
         </Container>
       </div>

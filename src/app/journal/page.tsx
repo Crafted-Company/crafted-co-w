@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { motion } from "framer-motion";
 import { Container } from "@/components/ui/container";
 import { PageTransition } from "@/components/animations/PageTransition";
 import { SectionHeader } from "@/components/ui/section-header";
@@ -9,6 +10,7 @@ import { JournalCard } from "@/components/journal/JournalCard";
 import { EmptyState } from "@/components/ui/empty-state";
 import { getJournalEntries } from "@/lib/supabase";
 import { JournalEntry } from "@/types/database.types";
+import { Loader } from "@/components/ui/loader";
 
 export default function JournalPage() {
   const [journalEntries, setJournalEntries] = React.useState<JournalEntry[]>([]);
@@ -50,14 +52,6 @@ export default function JournalPage() {
     });
   }, [search, sortedEntries]);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center font-mono text-xs text-muted-foreground bg-background">
-        Loading journal...
-      </div>
-    );
-  }
-
   return (
     <PageTransition>
       <div className="py-12 flex-grow">
@@ -77,14 +71,28 @@ export default function JournalPage() {
           </div>
 
           {/* Grid Display */}
-          {filteredEntries.length > 0 ? (
+          {loading ? (
+            <Loader />
+          ) : filteredEntries.length > 0 ? (
             <div className="grid grid-cols-1 gap-6 pt-6">
-              {filteredEntries.map((entry) => (
-                <JournalCard key={entry.id} entry={entry} />
+              {filteredEntries.map((entry, idx) => (
+                <motion.div
+                  key={entry.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.5, delay: idx * 0.05 }}
+                >
+                  <JournalCard entry={entry} />
+                </motion.div>
               ))}
             </div>
           ) : (
-            <div className="pt-12">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="pt-12"
+            >
               <EmptyState
                 title="No log entries found"
                 description={`We couldn't find any journal entries matching "${search}". Try adjusting your keywords.`}
@@ -97,7 +105,7 @@ export default function JournalPage() {
                   </button>
                 }
               />
-            </div>
+            </motion.div>
           )}
         </Container>
       </div>
