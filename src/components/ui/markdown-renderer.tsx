@@ -6,6 +6,24 @@ interface MarkdownRendererProps {
   className?: string;
 }
 
+function parseInlineMarkdown(text: string): React.ReactNode[] {
+  // Regex to match bold (**text**), italic (*text*), or inline code (`code`)
+  const regex = /(\*\*.*?\*\*|\*.*?\*|`.*?`)/g;
+  const parts = text.split(regex);
+  return parts.map((part, i) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return <strong key={i} className="font-bold text-foreground">{part.slice(2, -2)}</strong>;
+    }
+    if (part.startsWith("*") && part.endsWith("*")) {
+      return <em key={i} className="italic">{part.slice(1, -1)}</em>;
+    }
+    if (part.startsWith("`") && part.endsWith("`")) {
+      return <code key={i} className="bg-secondary/60 dark:bg-secondary/30 border border-border/40 px-1 py-0.5 rounded font-mono text-xs text-brand-start">{part.slice(1, -1)}</code>;
+    }
+    return part;
+  });
+}
+
 export function MarkdownRenderer({ content, className }: MarkdownRendererProps) {
   if (!content) return null;
 
@@ -61,7 +79,7 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
     if (line.startsWith("# ")) {
       flushList(idx);
       renderedElements.push(
-        <h1 key={idx} className="font-serif text-2xl md:text-3xl font-bold mt-6 mb-4 text-foreground">
+        <h1 key={idx} className="font-serif text-2xl md:text-3xl font-bold mt-6 mb-4 text-foreground border-b border-border/30 pb-2">
           {line.substring(2)}
         </h1>
       );
@@ -70,7 +88,7 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
     if (line.startsWith("## ")) {
       flushList(idx);
       renderedElements.push(
-        <h2 key={idx} className="font-serif text-xl md:text-2xl font-semibold mt-6 mb-3 text-foreground">
+        <h2 key={idx} className="font-serif text-xl md:text-2xl font-semibold mt-6 mb-3 text-foreground border-b border-border/20 pb-1.5">
           {line.substring(3)}
         </h2>
       );
@@ -93,7 +111,7 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
       }
       listItems.push(
         <li key={idx} className="leading-relaxed">
-          {line.trim().substring(2)}
+          {parseInlineMarkdown(line.trim().substring(2))}
         </li>
       );
       return;
@@ -119,7 +137,7 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
     if (line.trim() !== "") {
       renderedElements.push(
         <p key={idx} className="text-sm md:text-base text-muted-foreground leading-relaxed my-4">
-          {line}
+          {parseInlineMarkdown(line)}
         </p>
       );
     }
