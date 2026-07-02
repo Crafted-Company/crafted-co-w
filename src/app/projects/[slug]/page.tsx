@@ -8,17 +8,13 @@ import { ProjectHero } from "@/components/projects/ProjectHero";
 import { ImageGallery } from "@/components/projects/ImageGallery";
 import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
 import {
-  mockProjects,
-  mockProjectImages,
-  mockProjectVersions,
-  mockJournalEntries,
-} from "@/lib/mock-data";
+  getProjectBySlug,
+  getProjectImages,
+  getProjectVersions,
+  getJournalEntries,
+} from "@/lib/supabase";
 
-export function generateStaticParams() {
-  return mockProjects.map((project) => ({
-    slug: project.slug,
-  }));
-}
+export const dynamic = "force-dynamic";
 
 interface ProjectPageProps {
   params: Promise<{
@@ -28,19 +24,16 @@ interface ProjectPageProps {
 
 export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   const { slug } = await params;
-  const project = mockProjects.find((p) => p.slug === slug);
+  const project = await getProjectBySlug(slug);
 
   if (!project) {
     notFound();
   }
 
-  const relatedImages = mockProjectImages.filter((img) => img.project_id === project.id);
-  const relatedVersions = mockProjectVersions
-    .filter((ver) => ver.project_id === project.id)
-    .sort(
-      (a, b) => new Date(b.released_at).getTime() - new Date(a.released_at).getTime()
-    );
-  const relatedJournal = mockJournalEntries.filter((j) => j.project_id === project.id);
+  const relatedImages = await getProjectImages(project.id);
+  const relatedVersions = await getProjectVersions(project.id);
+  const allJournal = await getJournalEntries();
+  const relatedJournal = allJournal.filter((j) => j.project_id === project.id);
 
   return (
     <PageTransition>

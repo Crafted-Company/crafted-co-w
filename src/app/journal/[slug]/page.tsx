@@ -7,13 +7,9 @@ import { Container } from "@/components/ui/container";
 import { PageTransition } from "@/components/animations/PageTransition";
 import { JournalHero } from "@/components/journal/JournalHero";
 import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
-import { mockJournalEntries } from "@/lib/mock-data";
+import { getJournalEntryBySlug } from "@/lib/supabase";
 
-export function generateStaticParams() {
-  return mockJournalEntries.map((entry) => ({
-    slug: entry.slug,
-  }));
-}
+export const dynamic = "force-dynamic";
 
 interface JournalEntryPageProps {
   params: Promise<{
@@ -23,7 +19,7 @@ interface JournalEntryPageProps {
 
 export default async function JournalEntryPage({ params }: JournalEntryPageProps) {
   const { slug } = await params;
-  const entry = mockJournalEntries.find((j) => j.slug === slug);
+  const entry = await getJournalEntryBySlug(slug);
 
   if (!entry) {
     notFound();

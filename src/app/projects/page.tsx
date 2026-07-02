@@ -8,21 +8,41 @@ import { SearchBar } from "@/components/ui/search-bar";
 import { FilterBar } from "@/components/ui/filter-bar";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { EmptyState } from "@/components/ui/empty-state";
-import { mockProjects } from "@/lib/mock-data";
-
-const categories = [
-  { label: "All Projects", value: "all" },
-  { label: "Games", value: "games" },
-  { label: "Applications", value: "apps" },
-  { label: "Websites", value: "websites" },
-];
+import { getProjects, getCategories } from "@/lib/supabase";
+import { Project, Category } from "@/types/database.types";
 
 export default function ProjectsPage() {
+  const [projects, setProjects] = React.useState<Project[]>([]);
+  const [categories, setCategories] = React.useState<{ label: string; value: string }[]>([
+    { label: "All Projects", value: "all" },
+  ]);
   const [search, setSearch] = React.useState("");
   const [category, setCategory] = React.useState("all");
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    async function loadData() {
+      try {
+        const [projData, catData] = await Promise.all([
+          getProjects(),
+          getCategories(),
+        ]);
+        setProjects(projData);
+        setCategories([
+          { label: "All Projects", value: "all" },
+          ...catData.map((c) => ({ label: c.name, value: c.slug })),
+        ]);
+      } catch (e) {
+        console.error("Error loading projects data:", e);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadData();
+  }, []);
 
   const filteredProjects = React.useMemo(() => {
-    return mockProjects.filter((project) => {
+    return projects.filter((project) => {
       // Category Match
       const matchesCategory =
         category === "all" || (project.category && project.category.slug === category);
@@ -36,7 +56,15 @@ export default function ProjectsPage() {
 
       return matchesCategory && matchesSearch;
     });
-  }, [search, category]);
+  }, [search, category, projects]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center font-mono text-xs text-muted-foreground bg-background">
+        Loading showcase...
+      </div>
+    );
+  }
 
   return (
     <PageTransition>

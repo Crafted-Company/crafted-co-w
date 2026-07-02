@@ -7,19 +7,36 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { SearchBar } from "@/components/ui/search-bar";
 import { JournalCard } from "@/components/journal/JournalCard";
 import { EmptyState } from "@/components/ui/empty-state";
-import { mockJournalEntries } from "@/lib/mock-data";
+import { getJournalEntries } from "@/lib/supabase";
+import { JournalEntry } from "@/types/database.types";
 
 export default function JournalPage() {
+  const [journalEntries, setJournalEntries] = React.useState<JournalEntry[]>([]);
   const [search, setSearch] = React.useState("");
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    async function loadData() {
+      try {
+        const data = await getJournalEntries();
+        setJournalEntries(data);
+      } catch (e) {
+        console.error("Error loading journal entries:", e);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadData();
+  }, []);
 
   // Sort entries: pinned entries first, then newest published entries
   const sortedEntries = React.useMemo(() => {
-    return [...mockJournalEntries].sort((a, b) => {
+    return [...journalEntries].sort((a, b) => {
       if (a.pinned && !b.pinned) return -1;
       if (!a.pinned && b.pinned) return 1;
       return new Date(b.published_at).getTime() - new Date(a.published_at).getTime();
     });
-  }, []);
+  }, [journalEntries]);
 
   const filteredEntries = React.useMemo(() => {
     return sortedEntries.filter((entry) => {
@@ -32,6 +49,14 @@ export default function JournalPage() {
       );
     });
   }, [search, sortedEntries]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center font-mono text-xs text-muted-foreground bg-background">
+        Loading journal...
+      </div>
+    );
+  }
 
   return (
     <PageTransition>

@@ -14,17 +14,50 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { ProjectStatus } from "@/components/ui/project-status";
 import { cn } from "@/lib/utils";
 import {
-  mockProjects,
-  mockJournalEntries,
-  mockTimelineEvents,
-} from "@/lib/mock-data";
+  getProjects,
+  getJournalEntries,
+  getTimelineEvents,
+} from "@/lib/supabase";
+import { Project, JournalEntry, TimelineEvent } from "@/types/database.types";
 
 export default function HomePage() {
-  // Filter active, featured, and latest structures
-  const currentlyBuilding = mockProjects.find((p) => p.status === "in_progress");
-  const featuredProjects = mockProjects.filter((p) => p.featured_home);
-  const latestJournal = mockJournalEntries[0]; // Newest post
-  const recentTimeline = mockTimelineEvents.slice(0, 3); // Get latest 3 events
+  const [projects, setProjects] = React.useState<Project[]>([]);
+  const [journalEntries, setJournalEntries] = React.useState<JournalEntry[]>([]);
+  const [timelineEvents, setTimelineEvents] = React.useState<TimelineEvent[]>([]);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    async function loadData() {
+      try {
+        const [projData, journalData, timelineData] = await Promise.all([
+          getProjects(),
+          getJournalEntries(),
+          getTimelineEvents(),
+        ]);
+        setProjects(projData);
+        setJournalEntries(journalData);
+        setTimelineEvents(timelineData);
+      } catch (e) {
+        console.error("Error loading home data:", e);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center font-mono text-xs text-muted-foreground bg-background">
+        Loading workspace...
+      </div>
+    );
+  }
+
+  const currentlyBuilding = projects.find((p) => p.status === "in_progress");
+  const featuredProjects = projects.filter((p) => p.featured_home);
+  const latestJournal = journalEntries[0];
+  const recentTimeline = timelineEvents.slice(0, 3);
 
   // Stable kidney/bean shape path matching the signature design identity exactly from THE SHAPE.svg
   const beanPath = "M12.05 46.6653C20.85 41.0653 20.6 28.1032 21.05 21.6653C22.0499 16.1653 28.0502 6.66529 40.5502 5.66529C50.5502 4.86529 62.1 11.6032 65.5502 15.6653C73.5502 24.9986 85.9502 48.4653 71.5502 67.6653C57.1502 86.8653 36.5502 82.6653 28.0502 78.1653L10.05 64.6653C7.05002 60.9986 3.25002 52.2653 12.05 46.6653Z";

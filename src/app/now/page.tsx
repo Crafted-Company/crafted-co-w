@@ -5,20 +5,46 @@ import { Container } from "@/components/ui/container";
 import { PageTransition } from "@/components/animations/PageTransition";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Card, CardContent } from "@/components/ui/card";
-import { mockNowItems } from "@/lib/mock-data";
+import { getNowItems } from "@/lib/supabase";
+import { NowItem } from "@/types/database.types";
 
 export default function NowPage() {
+  const [nowItems, setNowItems] = React.useState<NowItem[]>([]);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    async function loadData() {
+      try {
+        const data = await getNowItems();
+        setNowItems(data);
+      } catch (e) {
+        console.error("Error loading now items:", e);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadData();
+  }, []);
+
   // Group now items by category
   const groupedItems = React.useMemo(() => {
-    const groups: { [key: string]: typeof mockNowItems } = {};
-    mockNowItems.forEach((item) => {
+    const groups: { [key: string]: NowItem[] } = {};
+    nowItems.forEach((item) => {
       if (!groups[item.category]) {
         groups[item.category] = [];
       }
       groups[item.category].push(item);
     });
     return groups;
-  }, []);
+  }, [nowItems]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center font-mono text-xs text-muted-foreground bg-background">
+        Loading status...
+      </div>
+    );
+  }
 
   return (
     <PageTransition>
