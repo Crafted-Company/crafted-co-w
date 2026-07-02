@@ -31,8 +31,8 @@ export function CustomCursor() {
     document.documentElement.classList.add("custom-cursor-active");
 
     const moveCursor = (e: MouseEvent) => {
-      mouseX.set(e.clientX - 12); // Offset half of cursor size (24px / 2 = 12)
-      mouseY.set(e.clientY - 12);
+      mouseX.set(e.clientX - 16); // Offset half of cursor size (32px / 2 = 16)
+      mouseY.set(e.clientY - 16);
       if (!isVisible) setIsVisible(true);
     };
 
@@ -86,7 +86,7 @@ export function CustomCursor() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 w-6 h-6 pointer-events-none z-[9999] mix-blend-difference select-none hidden md:block"
+      className="fixed top-0 left-0 w-8 h-8 pointer-events-none z-[9999] mix-blend-difference select-none hidden md:block"
       style={{
         x: cursorX,
         y: cursorY,
