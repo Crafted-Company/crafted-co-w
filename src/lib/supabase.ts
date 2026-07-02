@@ -60,7 +60,8 @@ export async function getProjectVersions(projectId: string): Promise<ProjectVers
     .from("project_versions")
     .select("*")
     .eq("project_id", projectId)
-    .order("released_at", { ascending: false });
+    .order("released_at", { ascending: false })
+    .order("version", { ascending: false });
   if (error) {
     console.error("Error fetching project versions:", error);
     return [];
