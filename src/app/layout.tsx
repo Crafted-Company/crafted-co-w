@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import { ThemeProvider } from "@/components/common/theme-provider";
+import { Navbar } from "@/components/common/Navbar";
+import { Footer } from "@/components/common/Footer";
+import { CustomCursor } from "@/components/common/CustomCursor";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -43,10 +46,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <CustomCursor />
+          <Navbar />
+          <main className="flex-grow flex flex-col">{children}</main>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
   );
 }
+
 
