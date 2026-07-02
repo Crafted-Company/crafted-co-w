@@ -14,13 +14,13 @@ This roadmap lists every page, UI component, and layout element in strict depend
 ---
 
 ## 2. Design System: Primitives & Atomic UI (Phase 2)
-*   [ ] `Container` (`src/components/ui/container.tsx`) — Max-width, responsive margins, and content padding.
-*   [ ] Primitives: Typography elements, Spacing, Shadows, Border-radius presets.
-*   [ ] `Button` / `GradientButton` (`src/components/ui/button.tsx`) — Base buttons and glowing brand gradients.
-*   [ ] `Card` (`src/components/ui/card.tsx`) — Idle and hover-ready physical container borders and shadows.
-*   [ ] `Badge` / `Tag` / `TechBadge` (`src/components/ui/badge.tsx`) — Category chips, tags, and technologies.
-*   [ ] `ProjectStatus` (`src/components/ui/project-status.tsx`) — Status indicators (Completed, In Progress, Paused).
-*   [ ] Form Inputs (`src/components/ui/input.tsx`, `src/components/ui/textarea.tsx`) — Text fields and message forms.
+*   [x] `Container` (`src/components/ui/container.tsx`) — Max-width, responsive margins, and content padding.
+*   [x] Primitives: Typography elements, Spacing, Shadows, Border-radius presets.
+*   [x] `Button` / `GradientButton` (`src/components/ui/button.tsx`) — Base buttons and glowing brand gradients.
+*   [x] `Card` (`src/components/ui/card.tsx`) — Idle and hover-ready physical container borders and shadows.
+*   [x] `Badge` / `Tag` / `TechBadge` (`src/components/ui/badge.tsx`) — Category chips, tags, and technologies.
+*   [x] `ProjectStatus` (`src/components/ui/project-status.tsx`) — Status indicators (Completed, In Progress, Paused).
+*   [x] Form Inputs (`src/components/ui/input.tsx`, `src/components/ui/textarea.tsx`) — Text fields and message forms.
 
 ---
 
