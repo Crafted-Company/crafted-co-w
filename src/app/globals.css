@@ -116,4 +116,17 @@
   html {
     @apply font-sans;
   }
+
+  /* Custom Cursor active class */
+  .custom-cursor-active,
+  .custom-cursor-active * {
+    cursor: none !important;
+  }
+  
+  /* Retain text beam cursor inside inputs & textareas for accessibility */
+  .custom-cursor-active input,
+  .custom-cursor-active textarea,
+  .custom-cursor-active [contenteditable] {
+    cursor: text !important;
+  }
 }
