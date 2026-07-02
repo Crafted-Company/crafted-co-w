@@ -38,17 +38,17 @@ This roadmap lists every page, UI component, and layout element in strict depend
 ---
 
 ## 5. Shared Layout & Composition Components (Phase 5)
-*   [ ] `ThemeToggle` (`src/components/common/ThemeToggle.tsx`) — Light/dark theme switch.
-*   [ ] `Navbar` (`src/components/common/Navbar.tsx`) — Global header with animated links.
-*   [ ] `Footer` (`src/components/common/Footer.tsx`) — Global footer.
-*   [ ] `ProjectCard` (`src/components/projects/ProjectCard.tsx`) — Rich interactive card utilizing design system cards and tags.
-*   [ ] `JournalCard` (`src/components/journal/JournalCard.tsx`) — Chronicle card item.
-*   [ ] `Timeline` (`src/components/journal/Timeline.tsx`) — Interactive workspace history timeline.
-*   [ ] `SectionHeader` (`src/components/ui/section-header.tsx`) — Unified title header for sections.
-*   [ ] `FilterBar` & `SearchBar` — Navigation search and select utilities.
-*   [ ] `EmptyState` & `LoadingSkeleton` — Status displays.
-*   [ ] `ImageGallery` & `MarkdownRenderer` — Content presenters.
-*   [ ] `ProjectHero` & `JournalHero` — Layout page headers.
+*   [x] `ThemeToggle` (`src/components/common/ThemeToggle.tsx`) — Light/dark theme switch.
+*   [x] `Navbar` (`src/components/common/Navbar.tsx`) — Global header with animated links.
+*   [x] `Footer` (`src/components/common/Footer.tsx`) — Global footer.
+*   [x] `ProjectCard` (`src/components/projects/ProjectCard.tsx`) — Rich interactive card utilizing design system cards and tags.
+*   [x] `JournalCard` (`src/components/journal/JournalCard.tsx`) — Chronicle card item.
+*   [x] `Timeline` (`src/components/journal/Timeline.tsx`) — Interactive workspace history timeline.
+*   [x] `SectionHeader` (`src/components/ui/section-header.tsx`) — Unified title header for sections.
+*   [x] `FilterBar` & `SearchBar` — Navigation search and select utilities.
+*   [x] `EmptyState` & `LoadingSkeleton` — Status displays.
+*   [x] `ImageGallery` & `MarkdownRenderer` — Content presenters.
+*   [x] `ProjectHero` & `JournalHero` — Layout page headers.
 
 ---
 
