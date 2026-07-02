@@ -53,7 +53,7 @@ This roadmap lists every page, UI component, and layout element in strict depend
 ---
 
 ## 6. Page Compositions (Phase 6)
-*   [ ] **Projects Page** (`src/app/projects/page.tsx`)
+*   [x] **Projects Page** (`src/app/projects/page.tsx`)
 *   [ ] **Project Detail Page** (`src/app/projects/[slug]/page.tsx`)
 *   [ ] **Journal Page** (`src/app/journal/page.tsx`)
 *   [ ] **Journal Entry Page** (`src/app/journal/[slug]/page.tsx`)
