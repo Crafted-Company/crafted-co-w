@@ -29,9 +29,16 @@ export function ProjectHero({ project }: ProjectHeroProps) {
 
       {/* Title & Short Description */}
       <div className="space-y-4">
-        <h1 className="font-serif text-3xl md:text-5xl font-bold tracking-tight text-foreground">
-          {project.name}
-        </h1>
+        <div className="flex items-center gap-4">
+          {project.icon && (
+            <div className="relative w-12 h-12 md:w-16 md:h-16 rounded-2xl overflow-hidden shrink-0 border border-border/80 bg-card/50 flex items-center justify-center p-1.5 shadow-sm">
+              <img src={project.icon} alt={`${project.name} icon`} className="object-contain max-w-full max-h-full" />
+            </div>
+          )}
+          <h1 className="font-serif text-3xl md:text-5xl font-bold tracking-tight text-foreground">
+            {project.name}
+          </h1>
+        </div>
         <p className="text-lg text-muted-foreground max-w-3xl leading-relaxed">
           {project.short_description}
         </p>
