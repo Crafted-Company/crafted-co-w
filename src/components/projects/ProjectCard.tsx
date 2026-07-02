@@ -69,14 +69,14 @@ export function ProjectCard({ project }: ProjectCardProps) {
         <CardContent className="p-5 flex-grow flex flex-col justify-between">
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <h3 className="font-serif text-xl font-semibold text-foreground group-hover:text-brand-start transition-colors duration-300 flex items-center gap-1">
+              <h3 className="font-serif text-xl font-semibold text-foreground group-hover:text-brand-mid transition-colors duration-300 flex items-center gap-1">
                 {project.name}
-                <ArrowUpRight className="w-4 h-4 opacity-0 -translate-x-1 translate-y-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300 text-brand-start" />
+                <ArrowUpRight className="w-4 h-4 opacity-0 -translate-x-1 translate-y-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300 text-brand-mid" />
               </h3>
               
               {/* Category chip if available */}
               {project.category && (
-                <span className="text-[10px] tracking-wider uppercase font-semibold text-muted-foreground">
+                <span className="text-[10px] tracking-wider uppercase font-semibold text-brand-start">
                   {project.category.name}
                 </span>
               )}
@@ -102,8 +102,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
             {/* Progress representation */}
             <div className="pt-2 border-t border-border/40 dark:border-border/10 flex items-center justify-between text-xs font-mono">
-              <span className="text-muted-foreground">Progress: {project.progress}%</span>
-              <span className="text-muted-foreground tracking-tight select-none">
+              <span className="text-brand-start">Progress: {project.progress}%</span>
+              <span className="text-brand-start tracking-tight select-none">
                 {getProgressBlocks(project.progress)}
               </span>
             </div>

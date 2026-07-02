@@ -50,9 +50,9 @@ export function JournalCard({ entry }: JournalCardProps) {
         <CardContent className="p-6 flex-grow flex flex-col justify-between">
           <div className="space-y-3">
             {/* Meta */}
-            <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground font-mono">
+            <div className="flex flex-wrap items-center gap-4 text-xs text-brand-start font-mono">
               {entry.project && (
-                <span className="font-semibold text-brand-start uppercase tracking-wider">
+                <span className="font-semibold uppercase tracking-wider">
                   {entry.project.name}
                 </span>
               )}
@@ -70,7 +70,7 @@ export function JournalCard({ entry }: JournalCardProps) {
 
             {/* Title & Excerpt */}
             <div className="space-y-1">
-              <h3 className="font-serif text-xl font-semibold text-foreground group-hover:text-brand-start transition-colors duration-300 flex items-center gap-1.5">
+              <h3 className="font-serif text-xl font-semibold text-foreground group-hover:text-brand-mid transition-colors duration-300 flex items-center gap-1.5">
                 {entry.title}
               </h3>
               {entry.excerpt && (
@@ -82,7 +82,7 @@ export function JournalCard({ entry }: JournalCardProps) {
           </div>
 
           {/* Read Action indicator */}
-          <div className="mt-4 pt-4 border-t border-border/40 dark:border-border/10 flex items-center justify-between text-xs font-semibold text-muted-foreground group-hover:text-brand-start transition-colors">
+          <div className="mt-4 pt-4 border-t border-border/40 dark:border-border/10 flex items-center justify-between text-xs font-semibold text-brand-start group-hover:text-brand-mid transition-colors">
             <span>Read Log Entry</span>
             <ArrowRight className="w-4 h-4 translate-x-0 group-hover:translate-x-1 transition-transform duration-300" />
           </div>

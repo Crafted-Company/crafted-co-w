@@ -62,7 +62,7 @@ export function Timeline({ events }: TimelineProps) {
 
             {/* Event Meta & Layout */}
             <div className="space-y-1">
-              <span className="text-[10px] font-mono tracking-wide text-muted-foreground">
+              <span className="text-[10px] font-mono tracking-wide text-brand-start">
                 {formattedDate}
               </span>
 
@@ -70,7 +70,7 @@ export function Timeline({ events }: TimelineProps) {
                 {hasLink ? (
                   <Link
                     href={href || "#"}
-                    className="font-serif text-base md:text-lg font-semibold text-foreground hover:text-brand-start transition-colors flex items-center gap-1 group/link"
+                    className="font-serif text-base md:text-lg font-semibold text-foreground hover:text-brand-mid transition-colors flex items-center gap-1 group/link"
                   >
                     {event.title}
                     <ArrowUpRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 translate-y-1 group-hover/link:opacity-100 group-hover/link:translate-x-0 group-hover/link:translate-y-0 transition-all duration-300" />
@@ -83,7 +83,7 @@ export function Timeline({ events }: TimelineProps) {
 
                 {/* Attached Project indicator */}
                 {event.project && (
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground/60 border border-border/40 px-1.5 py-0.2 rounded bg-secondary/10">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-brand-start border border-border/40 px-1.5 py-0.2 rounded bg-secondary/10">
                     {event.project.name}
                   </span>
                 )}

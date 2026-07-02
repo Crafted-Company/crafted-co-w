@@ -26,6 +26,13 @@ export default function HomePage() {
   const latestJournal = mockJournalEntries[0]; // Newest post
   const recentTimeline = mockTimelineEvents.slice(0, 3); // Get latest 3 events
 
+  // Morphing paths for the organic logo-inspired shape
+  const morphPaths = [
+    "M50,15 C70,15 90,30 85,55 C80,80 60,85 45,80 C30,75 15,60 20,40 C25,20 30,15 50,15 Z",
+    "M50,15 C60,20 85,15 90,45 C95,75 70,80 50,85 C30,90 10,70 15,45 C20,20 40,10 50,15 Z",
+    "M50,15 C70,10 80,30 80,50 C80,70 65,90 45,85 C25,80 20,65 20,50 C20,35 30,20 50,15 Z"
+  ];
+
   return (
     <PageTransition>
       <div className="flex-grow pb-16 relative overflow-hidden">
@@ -45,47 +52,88 @@ export default function HomePage() {
         />
 
         <Container className="space-y-16 pt-16 md:pt-24">
-          {/* 1. Hero Section */}
-          <div className="space-y-6 max-w-3xl relative">
-            {/* Sparkle Twinkle */}
-            <motion.div
-              animate={{
-                opacity: [0.4, 1, 0.4],
-                scale: [0.9, 1.1, 0.9],
-              }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-start/20 bg-brand-start/5 text-xs text-brand-start font-mono tracking-wider uppercase mb-2 select-none"
-            >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Workspace Active</span>
-            </motion.div>
-
-            <h1 className="font-serif text-4xl md:text-6xl font-bold tracking-tight text-foreground leading-[1.1] max-w-2xl">
-              I build software, document the journey, and study the details.
-            </h1>
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl">
-              Welcome to <strong>Crafted Co.</strong>, my personal creative vault and dev journal.
-              Here, ideas evolve from initial commits to finished products.
-            </p>
-
-            <div className="flex flex-wrap gap-4 pt-2">
-              <Link
-                href="/projects"
-                className={cn(buttonVariants({ variant: "gradient", size: "lg" }), "flex items-center gap-1.5")}
+          {/* 1. Hero Section (Split layout with morphing organic blob) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            {/* Left Column: Headline and Call to Actions */}
+            <div className="lg:col-span-7 space-y-6 relative">
+              {/* Sparkle Twinkle */}
+              <motion.div
+                animate={{
+                  opacity: [0.4, 1, 0.4],
+                  scale: [0.9, 1.1, 0.9],
+                }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-start/20 bg-brand-start/5 text-xs text-brand-start font-mono tracking-wider uppercase mb-2 select-none"
               >
-                View Showcase
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                href="/about"
-                className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Workspace Active</span>
+              </motion.div>
+
+              <h1 className="font-serif text-4xl md:text-6xl font-bold tracking-tight text-foreground leading-[1.1] max-w-2xl">
+                I build software, document the journey, and study the details.
+              </h1>
+              <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl">
+                Welcome to <strong>Crafted Co.</strong>, my personal creative vault and dev journal.
+                Here, ideas evolve from initial commits to finished products.
+              </p>
+
+              <div className="flex flex-wrap gap-4 pt-2">
+                <Link
+                  href="/projects"
+                  className={cn(buttonVariants({ variant: "gradient", size: "lg" }), "flex items-center gap-1.5")}
+                >
+                  View Showcase
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  href="/about"
+                  className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
+                >
+                  About My Practice
+                </Link>
+              </div>
+            </div>
+
+            {/* Right Column: Morphing, Floating Organic Shape */}
+            <div className="lg:col-span-5 hidden lg:flex justify-center items-center h-full relative select-none">
+              <div className="absolute inset-0 bg-gradient-to-tr from-brand-start/20 to-brand-end/10 blur-3xl rounded-full scale-75 opacity-70 pointer-events-none" />
+              <motion.svg
+                viewBox="0 0 100 100"
+                className="w-72 h-72 drop-shadow-[0_15px_30px_rgba(104,100,246,0.3)] dark:drop-shadow-[0_15px_30px_rgba(104,100,246,0.15)]"
+                animate={{
+                  y: [0, -12, 12, 0],
+                  rotate: [0, 4, -4, 0],
+                }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
               >
-                About My Practice
-              </Link>
+                <defs>
+                  <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="var(--brand-0)" />
+                    <stop offset="50%" stopColor="var(--brand-50)" />
+                    <stop offset="100%" stopColor="var(--brand-100)" />
+                  </linearGradient>
+                </defs>
+                <motion.path
+                  fill="url(#brandGrad)"
+                  animate={{
+                    d: morphPaths,
+                  }}
+                  transition={{
+                    duration: 12,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    repeatType: "mirror",
+                  }}
+                />
+              </motion.svg>
             </div>
           </div>
 
@@ -128,7 +176,7 @@ export default function HomePage() {
                     <div className="pt-2 text-right">
                       <Link
                         href={`/projects/${currentlyBuilding.slug}`}
-                        className="inline-flex items-center gap-1 text-xs text-brand-start hover:underline font-semibold"
+                        className="inline-flex items-center gap-1 text-xs text-brand-start hover:text-brand-mid hover:underline font-semibold transition-colors duration-200"
                       >
                         Open Progress Logs
                         <ArrowRight className="w-3.5 h-3.5" />
@@ -150,7 +198,7 @@ export default function HomePage() {
                 </h2>
                 <Link
                   href="/journal"
-                  className="text-xs text-brand-start hover:underline font-semibold font-mono"
+                  className="text-xs text-brand-start hover:text-brand-mid hover:underline font-semibold font-mono transition-colors duration-200"
                 >
                   View All Log History
                 </Link>
@@ -182,7 +230,7 @@ export default function HomePage() {
                 </h2>
                 <Link
                   href="/projects"
-                  className="text-xs text-brand-start hover:underline font-semibold font-mono"
+                  className="text-xs text-brand-start hover:text-brand-mid hover:underline font-semibold font-mono transition-colors duration-200"
                 >
                   View Full Showcase
                 </Link>

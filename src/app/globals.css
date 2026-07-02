@@ -76,10 +76,10 @@
   --ring: #1B1515;
   --radius: 0.625rem;
 
-  /* Brand Colors from Figma logo */
-  --brand-0: #433FA9;
+  /* Brand Colors from Figma logo (lightened for dark contrast readability) */
+  --brand-0: #6864F6;
   --brand-50: #A9452D;
-  --brand-100: #4641A9;
+  --brand-100: #6E6AF6;
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-serif), ui-serif, Georgia, serif;
