@@ -6,7 +6,7 @@ This roadmap lists every page, UI component, and layout element in strict depend
 
 ## 1. Core Utilities & Design Base (Zero Dependencies)
 *   [x] `src/lib/utils.ts` — Tailwind class mergers and styling helpers (Created by shadcn/ui init).
-*   [ ] `src/types/database.types.ts` — TypeScript definitions for Supabase schema (based on `SCHEMA.md`).
+*   [x] `src/types/database.types.ts` — TypeScript definitions for Supabase schema (based on `SCHEMA.md`).
 *   [x] `src/app/globals.css` — Tailwind CSS v4 variables, custom brand gradients, typography tokens.
 *   [x] Font Configuration (`next/font/google` serif & sans-serif).
 *   [x] `ThemeProvider` (`src/components/common/theme-provider.tsx`) — next-themes provider wrapper.
@@ -32,8 +32,8 @@ This roadmap lists every page, UI component, and layout element in strict depend
 ---
 
 ## 4. Supabase & Mock Data (Phase 4)
-*   [ ] Supabase connection clients and database queries.
-*   [ ] Mock Data (`src/lib/mock-data.ts`) — Seeding structures for projects, logs, timeline events, now items, and project versions.
+*   [x] Supabase connection clients and database queries.
+*   [x] Mock Data (`src/lib/mock-data.ts`) — Seeding structures for projects, logs, timeline events, now items, and project versions.
 
 ---
 
