@@ -26,12 +26,8 @@ export default function HomePage() {
   const latestJournal = mockJournalEntries[0]; // Newest post
   const recentTimeline = mockTimelineEvents.slice(0, 3); // Get latest 3 events
 
-  // Morphing paths for the organic logo-inspired shape
-  const morphPaths = [
-    "M50,15 C70,15 90,30 85,55 C80,80 60,85 45,80 C30,75 15,60 20,40 C25,20 30,15 50,15 Z",
-    "M50,15 C60,20 85,15 90,45 C95,75 70,80 50,85 C30,90 10,70 15,45 C20,20 40,10 50,15 Z",
-    "M50,15 C70,10 80,30 80,50 C80,70 65,90 45,85 C25,80 20,65 20,50 C20,35 30,20 50,15 Z"
-  ];
+  // Stable kidney/bean shape path (preserving signature logo form)
+  const beanPath = "M35,45 C35,25 50,20 70,25 C88,30 92,48 88,68 C80,86 48,90 35,78 C22,66 35,65 35,45 Z";
 
   return (
     <PageTransition>
@@ -52,7 +48,7 @@ export default function HomePage() {
         />
 
         <Container className="space-y-16 pt-16 md:pt-24">
-          {/* 1. Hero Section (Split layout with morphing organic blob) */}
+          {/* 1. Hero Section (Split layout with stable organic shape & drip interactions) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left Column: Headline and Call to Actions */}
             <div className="lg:col-span-7 space-y-6 relative">
@@ -73,8 +69,36 @@ export default function HomePage() {
                 <span>Workspace Active</span>
               </motion.div>
 
-              <h1 className="font-serif text-4xl md:text-6xl font-bold tracking-tight text-foreground leading-[1.1] max-w-2xl">
+              <h1 className="font-serif text-4xl md:text-6xl font-bold tracking-tight text-foreground leading-[1.1] max-w-2xl relative">
                 I build software, document the journey, and study the details.
+
+                {/* Liquid drip leaking from bottom of title details */}
+                <span className="absolute bottom-[-18px] left-[70%] hidden md:inline-block pointer-events-none select-none z-10">
+                  <svg className="w-6 h-8 overflow-visible" viewBox="0 0 20 40">
+                    <defs>
+                      <linearGradient id="titleDripGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stopColor="var(--brand-50)" />
+                        <stop offset="100%" stopColor="var(--brand-100)" />
+                      </linearGradient>
+                    </defs>
+                    <path d="M5,0 Q10,5 10,12 C10,16 6,20 0,20 C-6,20 -10,16 -10,12 C-10,5 -2,0 5,0 Z" fill="url(#titleDripGrad)" transform="translate(10, 0)" />
+                    <motion.circle
+                      r="2"
+                      cx="10"
+                      fill="url(#titleDripGrad)"
+                      animate={{
+                        cy: [16, 18, 38],
+                        scale: [0, 1.2, 0.2, 0],
+                        opacity: [0, 1, 0.8, 0],
+                      }}
+                      transition={{
+                        duration: 2.8,
+                        repeat: Infinity,
+                        ease: [0.6, 0.05, 0.8, 0.3],
+                      }}
+                    />
+                  </svg>
+                </span>
               </h1>
               <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl">
                 Welcome to <strong>Crafted Co.</strong>, my personal creative vault and dev journal.
@@ -98,15 +122,14 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Right Column: Morphing, Floating Organic Shape */}
+            {/* Right Column: Stable shape dripping liquid down (leaking goop theme, circle bg removed) */}
             <div className="lg:col-span-5 hidden lg:flex justify-center items-center h-full relative select-none">
-              <div className="absolute inset-0 bg-gradient-to-tr from-brand-start/20 to-brand-end/10 blur-3xl rounded-full scale-75 opacity-70 pointer-events-none" />
               <motion.svg
-                viewBox="0 0 100 100"
-                className="w-72 h-72 drop-shadow-[0_15px_30px_rgba(104,100,246,0.3)] dark:drop-shadow-[0_15px_30px_rgba(104,100,246,0.15)]"
+                viewBox="0 0 100 150"
+                className="w-72 h-[432px] drop-shadow-[0_15px_30px_rgba(104,100,246,0.3)] dark:drop-shadow-[0_15px_30px_rgba(104,100,246,0.15)] overflow-visible"
                 animate={{
-                  y: [0, -12, 12, 0],
-                  rotate: [0, 4, -4, 0],
+                  y: [0, -8, 8, 0],
+                  rotate: [0, 2, -2, 0],
                 }}
                 transition={{
                   duration: 8,
@@ -121,16 +144,55 @@ export default function HomePage() {
                     <stop offset="100%" stopColor="var(--brand-100)" />
                   </linearGradient>
                 </defs>
+
+                {/* Stable Bean Shape with subtle scale pulsing */}
                 <motion.path
                   fill="url(#brandGrad)"
+                  d={beanPath}
                   animate={{
-                    d: morphPaths,
+                    scale: [1, 1.02, 0.98, 1],
                   }}
                   transition={{
-                    duration: 12,
+                    duration: 6,
                     repeat: Infinity,
                     ease: "easeInOut",
-                    repeatType: "mirror",
+                  }}
+                  style={{ originX: "50px", originY: "50px" }}
+                />
+
+                {/* Dripping Drop 1 */}
+                <motion.circle
+                  fill="url(#brandGrad)"
+                  r="5"
+                  cx="50"
+                  animate={{
+                    cy: [75, 82, 135],
+                    scale: [0, 1.2, 0.4, 0],
+                    opacity: [0, 1, 0.8, 0],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: [0.6, 0.05, 0.8, 0.3],
+                    delay: 0.5,
+                  }}
+                />
+
+                {/* Dripping Drop 2 */}
+                <motion.circle
+                  fill="url(#brandGrad)"
+                  r="4"
+                  cx="65"
+                  animate={{
+                    cy: [72, 78, 125],
+                    scale: [0, 1.1, 0.3, 0],
+                    opacity: [0, 1, 0.7, 0],
+                  }}
+                  transition={{
+                    duration: 3.5,
+                    repeat: Infinity,
+                    ease: [0.6, 0.05, 0.8, 0.3],
+                    delay: 2,
                   }}
                 />
               </motion.svg>
@@ -144,9 +206,36 @@ export default function HomePage() {
                 // Currently Building
               </h2>
               <Card
-                className="overflow-hidden border-border/80 dark:border-border/40 hover:border-brand-start/40 bg-card/30"
+                className="overflow-hidden border-border/80 dark:border-border/40 hover:border-brand-start/40 bg-card/30 relative"
                 hoverable
               >
+                {/* Dripping pooling goop collected at the top border */}
+                <div className="absolute top-0 left-0 w-full h-[6px] overflow-hidden pointer-events-none z-20">
+                  <svg className="w-full h-full" viewBox="0 0 100 10" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="cardGoopGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="var(--brand-0)" />
+                        <stop offset="50%" stopColor="var(--brand-50)" />
+                        <stop offset="100%" stopColor="var(--brand-100)" />
+                      </linearGradient>
+                    </defs>
+                    <motion.path
+                      fill="url(#cardGoopGrad)"
+                      animate={{
+                        d: [
+                          "M0,0 L100,0 L100,5 Q75,10 50,4 T0,5 Z",
+                          "M0,0 L100,0 L100,3 Q75,2 50,8 T0,3 Z",
+                          "M0,0 L100,0 L100,5 Q75,10 50,4 T0,5 Z"
+                        ]
+                      }}
+                      transition={{
+                        duration: 5,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    />
+                  </svg>
+                </div>
                 <CardContent className="p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                   <div className="space-y-2 max-w-xl">
                     <div className="flex items-center gap-3">

@@ -10,6 +10,7 @@ import { ThemeToggle } from "@/components/common/ThemeToggle";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
+  { href: "/", label: "Home", exact: true },
   { href: "/projects", label: "Projects" },
   { href: "/journal", label: "Journal" },
   { href: "/now", label: "Now" },
@@ -45,7 +46,7 @@ export function Navbar() {
         {/* Desktop Navigation Links */}
         <nav className="hidden md:flex items-center gap-6">
           {navLinks.map((link) => {
-            const isActive = pathname.startsWith(link.href);
+            const isActive = link.exact ? pathname === link.href : pathname.startsWith(link.href);
             return (
               <Link
                 key={link.href}
@@ -93,7 +94,7 @@ export function Navbar() {
           className="md:hidden absolute top-14 left-0 w-full bg-background border-b border-border shadow-lg p-4 flex flex-col gap-3"
         >
           {navLinks.map((link) => {
-            const isActive = pathname.startsWith(link.href);
+            const isActive = link.exact ? pathname === link.href : pathname.startsWith(link.href);
             return (
               <Link
                 key={link.href}
