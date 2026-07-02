@@ -41,40 +41,60 @@ export const mockCategories: Category[] = [
 export const mockProjects: Project[] = [
   {
     id: "proj-commit",
-    name: "Commit",
-    slug: "commit",
+    name: "Commit - Habit Tracker",
+    slug: "commit-habit-tracker",
     category_id: "cat-1",
-    short_description: "A minimal, gesture-driven habit tracker designed to help you stay consistent.",
-    full_description_mdx: `
-# Commit — Gesture Habit Tracker
+    short_description: "A minimalist, offline-first habit tracking mobile application built with Flutter, featuring custom daily streak alarms, AdMob monetization, and secure Google Play in-app purchase ad removal.",
+    full_description_mdx: `# Commit: Minimalist Habit Tracker
 
-Commit is a personal habit tracker focused on simplicity and tactile feedback. It avoids streaks, points, or notifications, emphasizing the simple ritual of logging your progress daily.
+Commit is a sleek, offline-first habit-tracking application designed to help users build and sustain daily routines. Built using **Flutter** and **Dart**, the app prioritizes a lightweight, high-performance offline user experience.
 
-## Core Features
-*   **Tactile Completion**: Swipes and gestures designed with native iOS spring feel.
-*   **Archiving**: Old habits drift away quietly without inducing guilt.
-*   **Local-First Design**: Completely offline with encrypted backups.
+## Key Architecture & Features
 
-Built over 3 months using Swift and SwiftUI, focusing on custom animation curves and core data optimization.
-`,
+### 1. Local State & Storage
+* **State Management:** Uses the **Provider** pattern to manage habit checklists, streaks, settings, and billing states reactively.
+* **Persistent Cache:** Built on **SharedPreferences** for lightning-fast loads of habit records and user configuration.
+* **Offline Streak Recalculation:** Streak lengths are dynamically re-calculated and refreshed on app startup based on localized timezone checkpoints, avoiding state desynchronization.
+
+### 2. High-Reliability Local Notifications
+* **Doze-Mode Bypassing:** Utilizes \`flutter_local_notifications\` with \`AndroidScheduleMode.alarmClock\` to guarantee alerts trigger precisely at user-defined reminder times, even if the device is in a deep sleep state or the app process has been killed.
+* **Timezone Offset Conversion:** Implements robust UTC fallback checks and timezone offset calculations using the \`timezone\` and \`flutter_timezone\` libraries to support users traveling across timezone boundaries.
+
+### 3. Monetization & Billing Integration
+* **Dynamic AdMob Placement:** Shows banner and frequency-capped interstitial ads using the \`google_mobile_ads\` package. Ad layouts dynamically change or disappear once premium is unlocked.
+* **Secure Purchase Verification:** Uses \`in_app_purchase\` linked directly with Google Play Billing.
+* **Silent Entitlement Restoration:** Queries cached Google Play receipts silently on app startup. If the \`remove_ads\` product is owned, ads are permanently removed, restoring purchases seamlessly across user re-installations and device upgrades without requiring backend user accounts.
+
+## Engineering Challenges & Fixes
+* **R8/Minification Failures:** In release builds, R8 code/resource shrinking stripped raw notification drawables (\`ic_notification\`) and obfuscated critical **Gson** serializers used by the local notifications plugin. Custom ProGuard rules (\`proguard-rules.pro\`) and resource preservation overrides (\`keep.xml\`) resolved silent background alarm crashes.
+* **Google Play Policy Compliance:** Removed restricted \`USE_EXACT_ALARM\` permissions to ensure policy compliance with Google Play Store guidelines, successfully utilizing user-granted \`SCHEDULE_EXACT_ALARM\` permissions.`,
     status: "completed",
     progress: 100,
     sort_order: 1,
-    cover_image: "/inspiration from the company logo and design/crafted website design.png", // Use local image fallback
+    cover_image: "/inspiration from the company logo and design/crafted website design.png",
     icon: null,
-    color: "#433FA9",
-    tech_stack: ["Swift", "SwiftUI", "CoreData", "Combine"],
-    repository_url: "https://github.com/Aditya0973/commit-app",
-    website_url: "https://commit.crafted.co",
+    color: "#6864F6",
+    tech_stack: [
+      "Flutter",
+      "Dart",
+      "Google Mobile Ads",
+      "Shared Preferences",
+      "timezone",
+      "flutter_local_notifications",
+      "in_app_purchase",
+      "in_app_purchase_android"
+    ],
+    repository_url: "https://github.com/Aditya0973/commit_habit_tracker.git",
+    website_url: null,
     playstore_url: null,
     steam_url: null,
     featured_home: true,
     featured_projects: true,
-    search_text: "commit habit tracker swift swiftui ios app gesture offline local-first",
-    started_at: "2026-01-10T00:00:00Z",
-    completed_at: "2026-04-15T00:00:00Z",
-    created_at: "2026-01-10T00:00:00Z",
-    updated_at: "2026-04-15T00:00:00Z"
+    search_text: "commit habit tracker flutter dart android app offline playstore billing R8 notifications",
+    started_at: "2026-06-06T00:00:00Z",
+    completed_at: "2026-07-01T00:00:00Z",
+    created_at: "2026-06-06T00:00:00Z",
+    updated_at: "2026-07-01T00:00:00Z"
   },
   {
     id: "proj-champione",
@@ -181,23 +201,44 @@ export const mockProjectVersions: ProjectVersion[] = [
   {
     id: "ver-c1",
     project_id: "proj-commit",
-    version: "v1.2.0",
-    changes_mdx: `
-*   **Added Streak Freeze**: You can now skip a day without penalty.
-*   **Improved Animations**: Fluid gesture bounce behaviors.
-*   **Notification Engine**: Silent local reminders.
-`,
-    released_at: "2026-04-15T00:00:00Z"
+    version: "1.0.0",
+    changes_mdx: "Initial production release candidate build for Closed Testing.",
+    released_at: "2026-06-06T00:00:00Z"
   },
   {
     id: "ver-c2",
     project_id: "proj-commit",
-    version: "v1.1.0",
-    changes_mdx: `
-*   **Added iCloud Sync**: Encrypted user settings replication.
-*   **Performance Tweak**: CoreData indexing enhancements.
-`,
-    released_at: "2026-03-01T00:00:00Z"
+    version: "1.0.1",
+    changes_mdx: "Integrated banner ads placement optimizations, 12-hour AM/PM setting format support, and Proguard updates.",
+    released_at: "2026-06-15T00:00:00Z"
+  },
+  {
+    id: "ver-c3",
+    project_id: "proj-commit",
+    version: "1.0.4",
+    changes_mdx: "Patched notification recurrence timezone issues and integrated UTC offset conversion algorithms.",
+    released_at: "2026-06-18T00:00:00Z"
+  },
+  {
+    id: "ver-c4",
+    project_id: "proj-commit",
+    version: "1.0.5",
+    changes_mdx: "Upgraded reminder alarms to system alarmClock mode to bypass device Doze mode restrictions, and resolved habit streak refresh failures on startup.",
+    released_at: "2026-06-19T00:00:00Z"
+  },
+  {
+    id: "ver-c5",
+    project_id: "proj-commit",
+    version: "1.0.6",
+    changes_mdx: "Resolved R8 Gson serialization failures with updated ProGuard rules and removed restricted USE_EXACT_ALARM permission.",
+    released_at: "2026-06-19T00:00:00Z"
+  },
+  {
+    id: "ver-c6",
+    project_id: "proj-commit",
+    version: "1.0.7",
+    changes_mdx: "Implemented automatic silent purchase history validation on startup via Google Play Billing Client to persist ad-free status across app reinstalls.",
+    released_at: "2026-07-01T00:00:00Z"
   },
   {
     id: "ver-g1",
@@ -352,28 +393,72 @@ export const mockTimelineEvents: TimelineEvent[] = [
   },
   {
     id: "time-3",
-    title: "Released Commit Version 1.2",
-    description: "Launched the streak freeze updates and custom reminder alerts on the App Store.",
-    date: "2026-04-15",
+    title: "Project Initialization",
+    description: "Set up the initial Flutter codebase, database schema structures, and basic UI navigation wireframes.",
+    date: "2026-06-06",
     project_id: "proj-commit",
-    type: "release",
-    reference_slug: "commit",
+    type: "milestone",
+    reference_slug: "commit-habit-tracker",
     reference_type: "project",
-    created_at: "2026-04-15T00:00:00Z"
+    created_at: "2026-06-06T00:00:00Z"
   },
   {
     id: "time-4",
-    title: "CoreData Indexes Optimized",
-    description: "Sped up habit queries by adding indexing predicates to dates.",
-    date: "2026-04-01",
+    title: "AdMob Optimization & UI Polish",
+    description: "Formatted time inputs, added drawable assets, and verified AdMob unit configurations.",
+    date: "2026-06-15",
     project_id: "proj-commit",
     type: "commit",
-    reference_slug: "optimizing-ios-coredata-fetch-requests",
-    reference_type: "journal",
-    created_at: "2026-04-01T09:30:00Z"
+    reference_slug: "commit-habit-tracker",
+    reference_type: "project",
+    created_at: "2026-06-15T00:00:00Z"
   },
   {
     id: "time-5",
+    title: "Timezone Alignment",
+    description: "Patched repeating notification offsets working smoothly across daylight savings and UTC borders.",
+    date: "2026-06-18",
+    project_id: "proj-commit",
+    type: "commit",
+    reference_slug: "commit-habit-tracker",
+    reference_type: "project",
+    created_at: "2026-06-18T00:00:00Z"
+  },
+  {
+    id: "time-6",
+    title: "Doze Mode Fixes",
+    description: "Switched notifications to system alarm clock triggers to bypass OS power-saving limits.",
+    date: "2026-06-19",
+    project_id: "proj-commit",
+    type: "commit",
+    reference_slug: "commit-habit-tracker",
+    reference_type: "project",
+    created_at: "2026-06-19T00:00:00Z"
+  },
+  {
+    id: "time-7",
+    title: "R8 & Play Store Policy Hotfixes",
+    description: "Modified ProGuard rules to keep Gson and timezone classes, and adjusted permissions for compliance.",
+    date: "2026-06-19",
+    project_id: "proj-commit",
+    type: "commit",
+    reference_slug: "commit-habit-tracker",
+    reference_type: "project",
+    created_at: "2026-06-19T00:00:00Z"
+  },
+  {
+    id: "time-8",
+    title: "Play Billing Restoration Integration",
+    description: "Implemented silent startup purchase entitlement verification via InAppPurchase Android Platform additions.",
+    date: "2026-07-01",
+    project_id: "proj-commit",
+    type: "release",
+    reference_slug: "commit-habit-tracker",
+    reference_type: "project",
+    created_at: "2026-07-01T00:00:00Z"
+  },
+  {
+    id: "time-9",
     title: "Launched Abyss Archive Catalog",
     description: "Public release of clockwork mechanical design vault catalog.",
     date: "2026-03-30",
