@@ -95,29 +95,24 @@ export default function HomePage() {
                 }}
               >
                 <defs>
-                  {/* Rotating Gradient for a perfectly smooth shifting color transition without banding */}
-                  <motion.linearGradient
-                    id="brandGrad"
-                    x1="0%"
-                    y1="0%"
-                    x2="100%"
-                    y2="100%"
-                    animate={{
-                      gradientTransform: [
-                        "rotate(0 45.5 48)",
-                        "rotate(360 45.5 48)",
-                      ],
-                    }}
-                    transition={{
-                      duration: 12,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                  >
-                    <stop offset="0%" stopColor="var(--brand-0)" />
-                    <stop offset="50%" stopColor="var(--brand-50)" />
-                    <stop offset="100%" stopColor="var(--brand-100)" />
-                  </motion.linearGradient>
+                  {/* Smooth stop-color animated gradient to guarantee flicker-free color shifts across all renderers */}
+                  <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <motion.stop
+                      offset="0%"
+                      animate={{ stopColor: ["var(--brand-0)", "var(--brand-50)", "var(--brand-100)", "var(--brand-0)"] }}
+                      transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                    />
+                    <motion.stop
+                      offset="50%"
+                      animate={{ stopColor: ["var(--brand-50)", "var(--brand-100)", "var(--brand-0)", "var(--brand-50)"] }}
+                      transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                    />
+                    <motion.stop
+                      offset="100%"
+                      animate={{ stopColor: ["var(--brand-100)", "var(--brand-0)", "var(--brand-50)", "var(--brand-100)"] }}
+                      transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                    />
+                  </linearGradient>
                 </defs>
 
                 <path
