@@ -32,11 +32,11 @@ export function Navbar() {
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-2 group">
           <svg
-            viewBox="0 0 24 24"
+            viewBox="0 0 100 100"
             fill="currentColor"
-            className="w-5 h-5 text-brand-start group-hover:rotate-95 transition-transform duration-500"
+            className="w-5 h-5 text-brand-start group-hover:rotate-12 transition-transform duration-500"
           >
-            <path d="M12 3 Q12 12 21 12 Q12 12 12 21 Q12 12 3 12 Q12 12 12 3 Z" />
+            <path d="M25,50 C25,30 40,20 65,25 C85,30 90,55 80,75 C70,95 40,90 25,80 C15,70 25,60 25,50 Z" />
           </svg>
           <span className="font-serif text-lg font-semibold tracking-tight text-foreground">
             Crafted Co.
