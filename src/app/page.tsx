@@ -1,65 +1,201 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import * as React from "react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { ArrowRight, Sparkles, Code, Play } from "lucide-react";
+import { Container } from "@/components/ui/container";
+import { PageTransition } from "@/components/animations/PageTransition";
+import { Card, CardContent } from "@/components/ui/card";
+import { ProjectCard } from "@/components/projects/ProjectCard";
+import { JournalCard } from "@/components/journal/JournalCard";
+import { Timeline } from "@/components/journal/Timeline";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { ProjectStatus } from "@/components/ui/project-status";
+import { cn } from "@/lib/utils";
+import {
+  mockProjects,
+  mockJournalEntries,
+  mockTimelineEvents,
+} from "@/lib/mock-data";
+
+export default function HomePage() {
+  // Filter active, featured, and latest structures
+  const currentlyBuilding = mockProjects.find((p) => p.status === "in_progress");
+  const featuredProjects = mockProjects.filter((p) => p.featured_home);
+  const latestJournal = mockJournalEntries[0]; // Newest post
+  const recentTimeline = mockTimelineEvents.slice(0, 3); // Get latest 3 events
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <PageTransition>
+      <div className="flex-grow pb-16 relative overflow-hidden">
+        {/* Organic Background Glow (inspired by Figma logo gradient) */}
+        <motion.div
+          animate={{
+            x: [0, 20, -10, 0],
+            y: [0, -30, 10, 0],
+            scale: [1, 1.05, 0.95, 1],
+          }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute -top-40 -right-40 md:top-12 md:-right-20 w-80 h-80 md:w-[450px] md:h-[450px] rounded-full bg-gradient-to-tr from-brand-start via-brand-mid to-brand-end opacity-[0.12] blur-[100px] pointer-events-none -z-10"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+
+        <Container className="space-y-16 pt-16 md:pt-24">
+          {/* 1. Hero Section */}
+          <div className="space-y-6 max-w-3xl relative">
+            {/* Sparkle Twinkle */}
+            <motion.div
+              animate={{
+                opacity: [0.4, 1, 0.4],
+                scale: [0.9, 1.1, 0.9],
+              }}
+              transition={{
+                duration: 5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-start/20 bg-brand-start/5 text-xs text-brand-start font-mono tracking-wider uppercase mb-2 select-none"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Workspace Active</span>
+            </motion.div>
+
+            <h1 className="font-serif text-4xl md:text-6xl font-bold tracking-tight text-foreground leading-[1.1] max-w-2xl">
+              I build software, document the journey, and study the details.
+            </h1>
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl">
+              Welcome to <strong>Crafted Co.</strong>, my personal creative vault and dev journal.
+              Here, ideas evolve from initial commits to finished products.
+            </p>
+
+            <div className="flex flex-wrap gap-4 pt-2">
+              <Link
+                href="/projects"
+                className={cn(buttonVariants({ variant: "gradient", size: "lg" }), "flex items-center gap-1.5")}
+              >
+                View Showcase
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                href="/about"
+                className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
+              >
+                About My Practice
+              </Link>
+            </div>
+          </div>
+
+          {/* 2. Currently Building */}
+          {currentlyBuilding && (
+            <div className="space-y-4">
+              <h2 className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+                // Currently Building
+              </h2>
+              <Card
+                className="overflow-hidden border-border/80 dark:border-border/40 hover:border-brand-start/40 bg-card/30"
+                hoverable
+              >
+                <CardContent className="p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                  <div className="space-y-2 max-w-xl">
+                    <div className="flex items-center gap-3">
+                      <h3 className="font-serif text-xl md:text-2xl font-bold text-foreground">
+                        {currentlyBuilding.name}
+                      </h3>
+                      <ProjectStatus status="in_progress" />
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {currentlyBuilding.short_description}
+                    </p>
+                  </div>
+
+                  <div className="w-full md:w-72 space-y-2 font-mono text-xs shrink-0 pt-2 md:pt-0">
+                    <div className="flex justify-between text-muted-foreground">
+                      <span>Status Progress</span>
+                      <span>{currentlyBuilding.progress}%</span>
+                    </div>
+                    <div className="h-2 w-full rounded-full bg-secondary/80 dark:bg-secondary/20 overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        animate={{ width: `${currentlyBuilding.progress}%` }}
+                        transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
+                        className="h-full bg-gradient-to-r from-brand-start via-brand-mid to-brand-end rounded-full"
+                      />
+                    </div>
+                    <div className="pt-2 text-right">
+                      <Link
+                        href={`/projects/${currentlyBuilding.slug}`}
+                        className="inline-flex items-center gap-1 text-xs text-brand-start hover:underline font-semibold"
+                      >
+                        Open Progress Logs
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
+          {/* 3. Split: Recent Activity (Timeline) & Latest Journal */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pt-4">
+            {/* Timeline Column */}
+            <div className="lg:col-span-7 space-y-6">
+              <div className="flex justify-between items-baseline border-b border-border/40 pb-3 mb-6">
+                <h2 className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+                  // Recent Workspace Activity
+                </h2>
+                <Link
+                  href="/journal"
+                  className="text-xs text-brand-start hover:underline font-semibold font-mono"
+                >
+                  View All Log History
+                </Link>
+              </div>
+              <Timeline events={recentTimeline} />
+            </div>
+
+            {/* Latest Journal Column */}
+            {latestJournal && (
+              <div className="lg:col-span-5 space-y-6 flex flex-col">
+                <div className="flex justify-between items-baseline border-b border-border/40 pb-3 mb-6">
+                  <h2 className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+                    // Latest Journal Log
+                  </h2>
+                </div>
+                <div className="flex-grow">
+                  <JournalCard entry={latestJournal} />
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* 4. Featured Projects */}
+          {featuredProjects.length > 0 && (
+            <div className="space-y-6 pt-4">
+              <div className="flex justify-between items-baseline border-b border-border/40 pb-3 mb-6">
+                <h2 className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+                  // Featured Project Showcase
+                </h2>
+                <Link
+                  href="/projects"
+                  className="text-xs text-brand-start hover:underline font-semibold font-mono"
+                >
+                  View Full Showcase
+                </Link>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {featuredProjects.map((project) => (
+                  <ProjectCard key={project.id} project={project} />
+                ))}
+              </div>
+            </div>
+          )}
+        </Container>
+      </div>
+    </PageTransition>
   );
 }
