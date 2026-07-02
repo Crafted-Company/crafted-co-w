@@ -59,7 +59,7 @@ This roadmap lists every page, UI component, and layout element in strict depend
 *   [x] **Journal Entry Page** (`src/app/journal/[slug]/page.tsx`)
 *   [x] **Now Page** (`src/app/now/page.tsx`)
 *   [x] **About Page** (`src/app/about/page.tsx`)
-*   [ ] **Home Page** (`src/app/page.tsx`)
+*   [x] **Home Page** (`src/app/page.tsx`)
 
 ---
 
