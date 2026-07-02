@@ -81,12 +81,21 @@ export default function HomePage() {
 
             {/* Right Column: Stable organic logo shape with flowing gradient (no outer glows) */}
             <div className="lg:col-span-5 hidden lg:flex justify-center items-center h-full relative select-none">
-              <motion.svg
-                viewBox="0 0 100 100"
-                className="w-72 h-72 overflow-visible"
+              <motion.div
+                className="w-[320px] h-[320px]"
+                style={{
+                  maskImage: "url('/THE SHAPE.png')",
+                  maskSize: "contain",
+                  maskRepeat: "no-repeat",
+                  maskPosition: "center",
+                  WebkitMaskImage: "url('/THE SHAPE.png')",
+                  WebkitMaskSize: "contain",
+                  WebkitMaskRepeat: "no-repeat",
+                  WebkitMaskPosition: "center",
+                }}
                 animate={{
                   y: [0, -8, 8, 0],
-                  rotate: [0, 2, -2, 0],
+                  rotate: [0, 1.5, -1.5, 0],
                 }}
                 transition={{
                   duration: 8,
@@ -94,46 +103,22 @@ export default function HomePage() {
                   ease: "easeInOut",
                 }}
               >
-                <defs>
-                  <motion.linearGradient
-                    id="brandGrad"
-                    x1="0%"
-                    y1="0%"
-                    x2="100%"
-                    y2="100%"
-                    animate={{
-                      x1: ["0%", "100%", "0%"],
-                      y1: ["0%", "100%", "0%"],
-                      x2: ["100%", "0%", "100%"],
-                      y2: ["100%", "0%", "100%"],
-                    }}
-                    transition={{
-                      duration: 8,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  >
-                    <stop offset="0%" stopColor="var(--brand-0)" />
-                    <stop offset="50%" stopColor="var(--brand-50)" />
-                    <stop offset="100%" stopColor="var(--brand-100)" />
-                  </motion.linearGradient>
-                </defs>
-
-                {/* Stable Shape matching the design logo form */}
-                <motion.path
-                  fill="url(#brandGrad)"
-                  d={beanPath}
+                {/* Animated flowing gradient inside */}
+                <motion.div
+                  className="w-full h-full bg-gradient-to-tr from-brand-start via-brand-mid to-brand-end"
                   animate={{
-                    scale: [1, 1.03, 0.97, 1],
+                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
                   }}
                   transition={{
-                    duration: 6,
+                    duration: 8,
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
-                  style={{ originX: "50px", originY: "50px" }}
+                  style={{
+                    backgroundSize: "200% 200%",
+                  }}
                 />
-              </motion.svg>
+              </motion.div>
             </div>
           </div>
 
