@@ -1,6 +1,6 @@
 # Crafted Co — Component & Page Roadmap
 
-This roadmap lists every page and UI component in strict dependency/build order. Building items in this sequence ensures that lower-level utilities and design components are already in place before building dynamic feature pages.
+This roadmap lists every page, UI component, and layout element in strict dependency/build order. Building items in this sequence ensures that lower-level utilities and design components are already in place before building dynamic feature pages.
 
 ---
 
@@ -11,33 +11,59 @@ This roadmap lists every page and UI component in strict dependency/build order.
 *   [x] Font Configuration (`next/font/google` serif & sans-serif).
 *   [x] `ThemeProvider` (`src/components/common/theme-provider.tsx`) — next-themes provider wrapper.
 
+---
+
+## 2. Design System: Primitives & Atomic UI (Phase 2)
+*   [ ] `Container` (`src/components/ui/container.tsx`) — Max-width, responsive margins, and content padding.
+*   [ ] Primitives: Typography elements, Spacing, Shadows, Border-radius presets.
+*   [ ] `Button` / `GradientButton` (`src/components/ui/button.tsx`) — Base buttons and glowing brand gradients.
+*   [ ] `Card` (`src/components/ui/card.tsx`) — Idle and hover-ready physical container borders and shadows.
+*   [ ] `Badge` / `Tag` / `TechBadge` (`src/components/ui/badge.tsx`) — Category chips, tags, and technologies.
+*   [ ] `ProjectStatus` (`src/components/ui/project-status.tsx`) — Status indicators (Completed, In Progress, Paused).
+*   [ ] Form Inputs (`src/components/ui/input.tsx`, `src/components/ui/textarea.tsx`) — Text fields and message forms.
 
 ---
 
-## 2. Design System Base & Layout Components
-*   [ ] `ThemeToggle` (`src/components/common/ThemeToggle.tsx`) — Switching between dark first/light second mode.
-*   [ ] `Navbar` (`src/components/common/Navbar.tsx`) — Global top navigation bar with active links and subtle underline transition.
-*   [ ] `Footer` (`src/components/common/Footer.tsx`) — Global footer with clean links and copyright.
+## 3. Motion System & Micro-Interactions (Phase 3)
+*   [ ] `PageTransition` (`src/components/animations/PageTransition.tsx`) — Fade-slide framer-motion page wrapper.
+*   [ ] Transition utilities (Shared motion spring curves and layout components).
 *   [ ] `CustomCursor` (`src/components/common/CustomCursor.tsx`) — Star/sparkle-shaped cursor following mouse with lerp/spring physics.
-*   [ ] `PageTransition` (`src/components/animations/PageTransition.tsx`) — Framer motion layout wrapper for page-to-page transitions.
 
 ---
 
-## 3. Reusable UI Components
-*   [ ] `Button` (`src/components/ui/button.tsx`) — Custom theme buttons supporting gradient glows and compress actions.
-*   [ ] `ProjectCard` (`src/components/projects/ProjectCard.tsx`) — Card with hover elevation, brand border glow, and image zoom.
-*   [ ] `JournalCard` (`src/components/journal/JournalCard.tsx`) — Compact item for journal entries.
-*   [ ] `Timeline` (`src/components/journal/Timeline.tsx`) — Vertical timeline showing journal progress logs.
+## 4. Supabase & Mock Data (Phase 4)
+*   [ ] Supabase connection clients and database queries.
+*   [ ] Mock Data (`src/lib/mock-data.ts`) — Seeding structures for projects, logs, timeline events, now items, and project versions.
 
 ---
 
-## 4. Pages (Depends on Components)
-*   [ ] **Layout**: `src/app/layout.tsx` — Combines `CustomCursor`, `Navbar`, `Footer`, `ThemeProviders`.
-*   [ ] **Home Page**: `src/app/page.tsx` — Introducing Crafted Co, featuring "Currently Building", "Featured Project", "Latest Journal", and "Project Categories".
-*   [ ] **Projects Page**: `src/app/projects/page.tsx` — Shows full list of projects via filter grids.
-*   [ ] **Project Detail Page**: `src/app/projects/[slug]/page.tsx` — Deep dive case study with associated journal entries and custom galleries.
-*   [ ] **Journal Page**: `src/app/journal/page.tsx` — Chronological dev logs.
-*   [ ] **Journal Entry Page**: `src/app/journal/[slug]/page.tsx` — Focused markdown journal post reading interface.
-*   [ ] **Now Page**: `src/app/now/page.tsx` — The current workspace, playing, reading, learning, listening logs.
-*   [ ] **About Page**: `src/app/about/page.tsx` — Narrative of vision and building practices.
-*   [ ] **Contact Page**: `src/app/contact/page.tsx` — Minimal feedback and email-first link page.
+## 5. Shared Layout & Composition Components (Phase 5)
+*   [ ] `ThemeToggle` (`src/components/common/ThemeToggle.tsx`) — Light/dark theme switch.
+*   [ ] `Navbar` (`src/components/common/Navbar.tsx`) — Global header with animated links.
+*   [ ] `Footer` (`src/components/common/Footer.tsx`) — Global footer.
+*   [ ] `ProjectCard` (`src/components/projects/ProjectCard.tsx`) — Rich interactive card utilizing design system cards and tags.
+*   [ ] `JournalCard` (`src/components/journal/JournalCard.tsx`) — Chronicle card item.
+*   [ ] `Timeline` (`src/components/journal/Timeline.tsx`) — Interactive workspace history timeline.
+*   [ ] `SectionHeader` (`src/components/ui/section-header.tsx`) — Unified title header for sections.
+*   [ ] `FilterBar` & `SearchBar` — Navigation search and select utilities.
+*   [ ] `EmptyState` & `LoadingSkeleton` — Status displays.
+*   [ ] `ImageGallery` & `MarkdownRenderer` — Content presenters.
+*   [ ] `ProjectHero` & `JournalHero` — Layout page headers.
+
+---
+
+## 6. Page Compositions (Phase 6)
+*   [ ] **Projects Page** (`src/app/projects/page.tsx`)
+*   [ ] **Project Detail Page** (`src/app/projects/[slug]/page.tsx`)
+*   [ ] **Journal Page** (`src/app/journal/page.tsx`)
+*   [ ] **Journal Entry Page** (`src/app/journal/[slug]/page.tsx`)
+*   [ ] **Now Page** (`src/app/now/page.tsx`)
+*   [ ] **About Page** (`src/app/about/page.tsx`)
+*   [ ] **Home Page** (`src/app/page.tsx`)
+
+---
+
+## 7. Polish, SEO & Error Handling (Phase 7)
+*   [ ] Custom `404` and `500` error pages.
+*   [ ] Metadata generation, sitemap, and SEO validation.
+*   [ ] Accessibility auditing and prefers-reduced-motion check.
