@@ -26,8 +26,8 @@ export default function HomePage() {
   const latestJournal = mockJournalEntries[0]; // Newest post
   const recentTimeline = mockTimelineEvents.slice(0, 3); // Get latest 3 events
 
-  // Stable kidney/bean shape path matching the signature design identity
-  const beanPath = "M25,50 C25,30 40,20 65,25 C85,30 90,55 80,75 C70,95 40,90 25,80 C15,70 25,60 25,50 Z";
+  // Stable kidney/bean shape path matching the signature design identity exactly from THE SHAPE.svg
+  const beanPath = "M12.05 46.6653C20.85 41.0653 20.6 28.1032 21.05 21.6653C22.0499 16.1653 28.0502 6.66529 40.5502 5.66529C50.5502 4.86529 62.1 11.6032 65.5502 15.6653C73.5502 24.9986 85.9502 48.4653 71.5502 67.6653C57.1502 86.8653 36.5502 82.6653 28.0502 78.1653L10.05 64.6653C7.05002 60.9986 3.25002 52.2653 12.05 46.6653Z";
 
   return (
     <PageTransition>
@@ -81,21 +81,12 @@ export default function HomePage() {
 
             {/* Right Column: Stable organic logo shape with flowing gradient (no outer glows) */}
             <div className="lg:col-span-5 hidden lg:flex justify-center items-center h-full relative select-none">
-              <motion.div
-                className="w-[320px] h-[320px]"
-                style={{
-                  maskImage: "url('/THE SHAPE.png')",
-                  maskSize: "contain",
-                  maskRepeat: "no-repeat",
-                  maskPosition: "center",
-                  WebkitMaskImage: "url('/THE SHAPE.png')",
-                  WebkitMaskSize: "contain",
-                  WebkitMaskRepeat: "no-repeat",
-                  WebkitMaskPosition: "center",
-                }}
+              <motion.svg
+                viewBox="0 0 91 96"
+                className="w-[320px] h-[320px] overflow-visible"
                 animate={{
-                  y: [0, -8, 8, 0],
-                  rotate: [0, 1.5, -1.5, 0],
+                  y: [0, -6, 6, 0],
+                  rotate: [0, 1, -1, 0],
                 }}
                 transition={{
                   duration: 8,
@@ -103,22 +94,37 @@ export default function HomePage() {
                   ease: "easeInOut",
                 }}
               >
-                {/* Animated flowing gradient inside */}
-                <motion.div
-                  className="w-full h-full bg-gradient-to-tr from-brand-start via-brand-mid to-brand-end"
-                  animate={{
-                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                  }}
-                  transition={{
-                    duration: 8,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  style={{
-                    backgroundSize: "200% 200%",
-                  }}
+                <defs>
+                  {/* Rotating Gradient for a perfectly smooth shifting color transition without banding */}
+                  <motion.linearGradient
+                    id="brandGrad"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="100%"
+                    animate={{
+                      gradientTransform: [
+                        "rotate(0 45.5 48)",
+                        "rotate(360 45.5 48)",
+                      ],
+                    }}
+                    transition={{
+                      duration: 12,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                  >
+                    <stop offset="0%" stopColor="var(--brand-0)" />
+                    <stop offset="50%" stopColor="var(--brand-50)" />
+                    <stop offset="100%" stopColor="var(--brand-100)" />
+                  </motion.linearGradient>
+                </defs>
+
+                <path
+                  fill="url(#brandGrad)"
+                  d={beanPath}
                 />
-              </motion.div>
+              </motion.svg>
             </div>
           </div>
 
