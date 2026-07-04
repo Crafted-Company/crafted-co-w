@@ -30,9 +30,12 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
     notFound();
   }
 
-  const relatedImages = await getProjectImages(project.id, project.slug);
-  const relatedVersions = await getProjectVersions(project.id);
-  const allJournal = await getJournalEntries();
+  // Fetch all related data in parallel to optimize server-side response times
+  const [relatedImages, relatedVersions, allJournal] = await Promise.all([
+    getProjectImages(project.id, project.slug),
+    getProjectVersions(project.id),
+    getJournalEntries(),
+  ]);
   const relatedJournal = allJournal.filter((j) => j.project_id === project.id);
 
   return (

@@ -14,7 +14,13 @@ async function testList() {
   if (error) {
     console.error("Storage list error:", error);
   } else {
-    console.log("Storage list success:", data);
+    console.log("Files:", data);
+    if (data && data.length > 0) {
+      const { data: { publicUrl } } = supabase.storage
+        .from("assets")
+        .getPublicUrl(`projects/DIANE/${data[0].name}`);
+      console.log("Sample URL:", publicUrl);
+    }
   }
 }
 
