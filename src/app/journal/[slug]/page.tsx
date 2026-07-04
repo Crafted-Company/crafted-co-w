@@ -6,8 +6,9 @@ import { ArrowLeft } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { PageTransition } from "@/components/animations/PageTransition";
 import { JournalHero } from "@/components/journal/JournalHero";
+import { ImageGallery } from "@/components/projects/ImageGallery";
 import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
-import { getJournalEntryBySlug } from "@/lib/supabase";
+import { getJournalEntryBySlug, getJournalImages } from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
 
@@ -24,6 +25,8 @@ export default async function JournalEntryPage({ params }: JournalEntryPageProps
   if (!entry) {
     notFound();
   }
+
+  const relatedImages = await getJournalImages(entry.id);
 
   return (
     <PageTransition>
@@ -61,6 +64,13 @@ export default async function JournalEntryPage({ params }: JournalEntryPageProps
             <div className="prose dark:prose-invert max-w-none pt-4">
               <MarkdownRenderer content={entry.content_mdx} />
             </div>
+
+            {/* Showcase Images Gallery */}
+            {relatedImages.length > 0 && (
+              <div className="pt-8 border-t border-border/40">
+                <ImageGallery images={relatedImages} />
+              </div>
+            )}
           </article>
         </Container>
       </div>

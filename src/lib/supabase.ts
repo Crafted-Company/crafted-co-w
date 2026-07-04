@@ -96,6 +96,19 @@ export async function getJournalEntryBySlug(slug: string): Promise<JournalEntry 
   return data;
 }
 
+export async function getJournalImages(journalEntryId: string): Promise<any[]> {
+  const { data, error } = await supabase
+    .from("journal_images")
+    .select("*")
+    .eq("journal_entry_id", journalEntryId)
+    .order("order_index", { ascending: true });
+  if (error) {
+    console.error("Error fetching journal images:", error);
+    return [];
+  }
+  return data || [];
+}
+
 export async function getTimelineEvents(): Promise<TimelineEvent[]> {
   const { data, error } = await supabase
     .from("timeline")
