@@ -45,11 +45,12 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
 export async function getProjectImages(projectId: string, projectSlug: string): Promise<ProjectImage[]> {
   // 1. Try to list files in the projects/[slug] folder in the assets storage bucket
   try {
-    // Try multiple possible casings of the folder name to be user-friendly (slug, lowercase, uppercase)
+    // Try multiple possible casings of the folder name to be user-friendly
     const folderPaths = [
-      `projects/${projectSlug}`,
-      `projects/${projectSlug.toLowerCase()}`,
-      `projects/${projectSlug.toUpperCase()}`,
+      `projects/${projectSlug}`,                                                           // diane
+      `projects/${projectSlug.toLowerCase()}`,                                             // diane
+      `projects/${projectSlug.charAt(0).toUpperCase() + projectSlug.slice(1).toLowerCase()}`,  // Diane
+      `projects/${projectSlug.toUpperCase()}`,                                             // DIANE
     ];
 
     for (const path of folderPaths) {
@@ -145,6 +146,7 @@ export async function getJournalImages(journalEntryId: string, journalSlug: stri
     const folderPaths = [
       `journal/${journalSlug}`,
       `journal/${journalSlug.toLowerCase()}`,
+      `journal/${journalSlug.charAt(0).toUpperCase() + journalSlug.slice(1).toLowerCase()}`,
       `journal/${journalSlug.toUpperCase()}`,
     ];
 
