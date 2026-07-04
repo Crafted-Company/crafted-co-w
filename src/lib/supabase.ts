@@ -139,7 +139,49 @@ export async function getJournalEntryBySlug(slug: string): Promise<JournalEntry 
   return data;
 }
 
-export async function getJournalImages(journalEntryId: string): Promise<any[]> {
+export async function getJournalImages(journalEntryId: string, journalSlug: string): Promise<any[]> {
+  // 1. Try to list files in the journal/[slug] folder in the assets storage bucket
+  try {
+    const folderPaths = [
+      `journal/${journalSlug}`,
+      `journal/${journalSlug.toLowerCase()}`,
+      `journal/${journalSlug.toUpperCase()}`,
+    ];
+
+    for (const path of folderPaths) {
+      const { data: files, error: storageError } = await supabase.storage
+        .from("assets")
+        .list(path);
+
+      if (!storageError && files && files.length > 0) {
+        const imageFiles = files.filter(f => f.name !== ".emptyFolderPlaceholder");
+        if (imageFiles.length > 0) {
+          // Sort alphabetically so files like 1.png, 2.png show up in order
+          imageFiles.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
+
+          return imageFiles.map((file, index) => {
+            const { data: { publicUrl } } = supabase.storage
+              .from("assets")
+              .getPublicUrl(`${path}/${file.name}`);
+
+            return {
+              id: file.id || `${journalSlug}-${index}`,
+              journal_entry_id: journalEntryId,
+              image_url: publicUrl,
+              alt_text: `${journalSlug} screenshot ${index + 1}`,
+              caption: null,
+              created_at: file.created_at || new Date().toISOString(),
+              order_index: index,
+            };
+          });
+        }
+      }
+    }
+  } catch (err) {
+    console.error("Error listing storage journal images:", err);
+  }
+
+  // 2. Fallback to database
   const { data, error } = await supabase
     .from("journal_images")
     .select("*")

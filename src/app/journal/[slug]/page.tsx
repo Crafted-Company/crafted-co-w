@@ -26,7 +26,7 @@ export default async function JournalEntryPage({ params }: JournalEntryPageProps
     notFound();
   }
 
-  const relatedImages = await getJournalImages(entry.id);
+  const relatedImages = await getJournalImages(entry.id, entry.slug);
 
   return (
     <PageTransition>
