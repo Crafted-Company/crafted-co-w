@@ -49,13 +49,10 @@ export default async function JournalEntryPage({ params }: JournalEntryPageProps
             {/* Featured Image Banner */}
             {entry.cover_image && (
               <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-border bg-muted">
-                <Image
+                <img
                   src={entry.cover_image}
                   alt={entry.title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 768px"
-                  priority
+                  className="object-cover w-full h-full"
                 />
               </div>
             )}

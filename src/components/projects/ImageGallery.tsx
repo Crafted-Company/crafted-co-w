@@ -59,12 +59,11 @@ export function ImageGallery({ images }: ImageGalleryProps) {
             className="overflow-hidden cursor-pointer border-border/60 hover:border-brand-start/40 aspect-video relative group"
             hoverable
           >
-            <Image
+            <img
               src={image.image_url}
               alt={image.alt_text}
-              fill
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
+              loading="lazy"
             />
             {image.caption && (
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/90 to-transparent p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -133,13 +132,10 @@ export function ImageGallery({ images }: ImageGalleryProps) {
               className="relative max-w-5xl w-full aspect-video rounded-2xl overflow-hidden border border-border shadow-2xl bg-card"
               onClick={(e) => e.stopPropagation()} // Prevent close on image click
             >
-              <Image
+              <img
                 src={activeImage.image_url}
                 alt={activeImage.alt_text}
-                fill
-                className="object-contain"
-                sizes="100vw"
-                priority
+                className="object-contain w-full h-full"
               />
               {activeImage.caption && (
                 <div className="absolute bottom-0 left-0 right-0 bg-background/90 border-t border-border p-4 text-center">

@@ -38,6 +38,47 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   ]);
   const relatedJournal = allJournal.filter((j) => j.project_id === project.id);
 
+  const renderVersionHistory = () => {
+    if (relatedVersions.length === 0) return null;
+    return (
+      <div className="rounded-2xl border border-border/40 p-6 bg-card/30 space-y-4">
+        <div className="flex items-center gap-2 pb-3 border-b border-border/40">
+          <History className="w-4 h-4 text-brand-start" />
+          <h3 className="font-serif text-lg font-semibold text-foreground">
+            Version History
+          </h3>
+        </div>
+        <div className="space-y-6">
+          {relatedVersions.map((version) => {
+            const releaseDate = new Date(version.released_at).toLocaleDateString(
+              "en-US",
+              {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+              }
+            );
+            return (
+              <div key={version.id} className="space-y-1.5 text-sm">
+                <div className="flex justify-between items-baseline gap-2">
+                  <span className="font-mono font-semibold text-foreground">
+                    {version.version}
+                  </span>
+                  <span className="text-[10px] text-muted-foreground font-mono">
+                    {releaseDate}
+                  </span>
+                </div>
+                <div className="text-muted-foreground pl-2 border-l border-border/60">
+                  <MarkdownRenderer content={version.changes_mdx} />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <PageTransition>
       <div className="py-12 flex-grow">
@@ -65,50 +106,21 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                 </div>
               )}
 
+              {/* Version History (Mobile Only) */}
+              <div className="block lg:hidden">
+                {renderVersionHistory()}
+              </div>
+
               {/* Gallery */}
               <ImageGallery images={relatedImages} />
             </div>
 
             {/* Sidebar column */}
             <div className="lg:col-span-4 space-y-8">
-              {/* Version History */}
-              {relatedVersions.length > 0 && (
-                <div className="rounded-2xl border border-border/40 p-6 bg-card/30 space-y-4">
-                  <div className="flex items-center gap-2 pb-3 border-b border-border/40">
-                    <History className="w-4 h-4 text-brand-start" />
-                    <h3 className="font-serif text-lg font-semibold text-foreground">
-                      Version History
-                    </h3>
-                  </div>
-                  <div className="space-y-6">
-                    {relatedVersions.map((version) => {
-                      const releaseDate = new Date(version.released_at).toLocaleDateString(
-                        "en-US",
-                        {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                        }
-                      );
-                      return (
-                        <div key={version.id} className="space-y-1.5 text-sm">
-                          <div className="flex justify-between items-baseline gap-2">
-                            <span className="font-mono font-semibold text-foreground">
-                              {version.version}
-                            </span>
-                            <span className="text-[10px] text-muted-foreground font-mono">
-                              {releaseDate}
-                            </span>
-                          </div>
-                          <div className="text-muted-foreground pl-2 border-l border-border/60">
-                            <MarkdownRenderer content={version.changes_mdx} />
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
+              {/* Version History (Desktop Only) */}
+              <div className="hidden lg:block">
+                {renderVersionHistory()}
+              </div>
 
               {/* Related Journal Logs */}
               {relatedJournal.length > 0 && (
