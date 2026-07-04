@@ -42,7 +42,50 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
   return data;
 }
 
-export async function getProjectImages(projectId: string): Promise<ProjectImage[]> {
+export async function getProjectImages(projectId: string, projectSlug: string): Promise<ProjectImage[]> {
+  // 1. Try to list files in the projects/[slug] folder in the assets storage bucket
+  try {
+    // Try multiple possible casings of the folder name to be user-friendly (slug, lowercase, uppercase)
+    const folderPaths = [
+      `projects/${projectSlug}`,
+      `projects/${projectSlug.toLowerCase()}`,
+      `projects/${projectSlug.toUpperCase()}`,
+    ];
+
+    for (const path of folderPaths) {
+      const { data: files, error: storageError } = await supabase.storage
+        .from("assets")
+        .list(path);
+
+      if (!storageError && files && files.length > 0) {
+        const imageFiles = files.filter(f => f.name !== ".emptyFolderPlaceholder");
+        if (imageFiles.length > 0) {
+          // Sort alphabetically so files like 1.png, 2.png show up in order
+          imageFiles.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
+
+          return imageFiles.map((file, index) => {
+            const { data: { publicUrl } } = supabase.storage
+              .from("assets")
+              .getPublicUrl(`${path}/${file.name}`);
+
+            return {
+              id: file.id || `${projectSlug}-${index}`,
+              project_id: projectId,
+              image_url: publicUrl,
+              alt_text: `${projectSlug} screenshot ${index + 1}`,
+              caption: null,
+              created_at: file.created_at || new Date().toISOString(),
+              order_index: index,
+            };
+          });
+        }
+      }
+    }
+  } catch (err) {
+    console.error("Error listing storage images:", err);
+  }
+
+  // 2. Fallback to database table if no storage folder/files exist
   const { data, error } = await supabase
     .from("project_images")
     .select("*")

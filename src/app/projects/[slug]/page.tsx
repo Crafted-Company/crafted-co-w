@@ -30,7 +30,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
     notFound();
   }
 
-  const relatedImages = await getProjectImages(project.id);
+  const relatedImages = await getProjectImages(project.id, project.slug);
   const relatedVersions = await getProjectVersions(project.id);
   const allJournal = await getJournalEntries();
   const relatedJournal = allJournal.filter((j) => j.project_id === project.id);
