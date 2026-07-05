@@ -119,9 +119,8 @@ export default function HomePage() {
             {/* Right Column: Stable organic logo shape with flowing gradient (no outer glows) */}
             <div className="lg:col-span-5 hidden lg:flex justify-center items-center h-full relative select-none">
               <motion.svg
-                id="easter-egg-trigger"
                 viewBox="0 0 91 96"
-                className="w-[320px] h-[320px] overflow-visible cursor-pointer pointer-events-auto"
+                className="w-[320px] h-[320px] overflow-visible"
                 animate={{
                   y: [0, -6, 6, 0],
                   rotate: [0, 1, -1, 0],
