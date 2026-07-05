@@ -91,10 +91,15 @@ export default function HomePage() {
               <div className="flex flex-wrap gap-4 pt-2">
                 <Link
                   href="/projects"
-                  className={cn(buttonVariants({ variant: "gradient", size: "lg" }), "flex items-center gap-1.5")}
+                  className="relative group overflow-hidden bg-gradient-to-r from-brand-start via-brand-mid to-brand-end text-white px-6 py-2.5 rounded-lg text-sm font-medium flex items-center justify-center gap-1.5 bg-[length:200%_auto] hover:bg-right transition-all duration-500 active:scale-[0.98] outline-none"
                 >
-                  View Showcase
-                  <ArrowRight className="w-4 h-4" />
+                  <span className="relative flex items-center gap-1.5 overflow-hidden h-5">
+                    <span className="flex flex-col transition-transform duration-300 transform group-hover:-translate-y-5">
+                      <span className="h-5 flex items-center">View Showcase</span>
+                      <span className="h-5 flex items-center font-bold text-white/95">Projects</span>
+                    </span>
+                    <ArrowRight className="w-4 h-4 transition-transform duration-300 transform group-hover:translate-x-1" />
+                  </span>
                 </Link>
                 <Link
                   href="/about"
