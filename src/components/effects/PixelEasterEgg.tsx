@@ -245,17 +245,15 @@ export function PixelEasterEgg() {
         }
       `}</style>
 
-      {/* SVG Displacement Glitch Filter Definition (ONLY mounted when transition is active to prevent page load compile lag) */}
-      {shatterScale > 0 && (
-        <svg style={{ position: "absolute", width: 0, height: 0, pointerEvents: "none" }}>
-          <defs>
-            <filter id="digital-shatter-filter">
-              <feTurbulence type="fractalNoise" baseFrequency="0.02 0.35" numOctaves="1" result="noise" />
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale={shatterScale} xChannelSelector="R" yChannelSelector="G" />
-            </filter>
-          </defs>
-        </svg>
-      )}
+      {/* SVG Displacement Glitch Filter Definition (always in DOM so browser registers ID) */}
+      <svg width="0" height="0" style={{ position: "absolute", width: 0, height: 0, pointerEvents: "none" }}>
+        <defs>
+          <filter id="digital-shatter-filter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.02 0.35" numOctaves="1" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale={shatterScale} xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+        </defs>
+      </svg>
 
       {/* Render Particles */}
       <div className="fixed inset-0 pointer-events-none z-[99999] overflow-hidden">
