@@ -109,7 +109,7 @@ export default function HomePage() {
                 </Link>
                 <Link
                   href="/about"
-                  className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
+                  className="border border-border bg-card/50 hover:bg-muted/80 text-foreground px-6 py-2.5 rounded-lg text-sm font-medium flex items-center justify-center h-10 w-[176px] transition-all duration-300 active:scale-[0.98] outline-none"
                 >
                   About My Practice
                 </Link>
