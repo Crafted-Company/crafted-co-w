@@ -22,17 +22,17 @@ const BRAND_COLORS = [
 ];
 
 export function PixelEasterEgg() {
-  const [clickCount, setClickCount] = React.useState(0);
+  const clickCountRef = React.useRef(0);
   const [particles, setParticles] = React.useState<Particle[]>([]);
   const [shatterScale, setShatterScale] = React.useState(0);
   const lastClickTime = React.useRef(0);
 
-  // Initialize from localStorage on mount
+  // Initialize from localStorage on mount (runs once)
   React.useEffect(() => {
     const saved = localStorage.getItem("pixelated-easter-egg");
     if (saved === "true") {
       document.documentElement.classList.add("pixelated-easter-egg");
-      setClickCount(5);
+      clickCountRef.current = 5;
     }
   }, []);
 
@@ -127,9 +127,10 @@ export function PixelEasterEgg() {
     if (now - lastClickTime.current < 100) return;
     lastClickTime.current = now;
 
-    // Calculate count cleanly outside the state updater side-effects
-    const nextCount = clickCount + 1;
-    console.log(`Easter egg clicked. Count: ${nextCount}`);
+    // Increment click count ref
+    clickCountRef.current = clickCountRef.current + 1;
+    const nextCount = clickCountRef.current;
+    console.log(`Easter egg click registered. Current count: ${nextCount}`);
 
     // Play Sound
     const soundIndex = nextCount > 5 ? nextCount - 5 : nextCount;
@@ -156,24 +157,33 @@ export function PixelEasterEgg() {
     }
     setParticles((curr) => [...curr, ...newParticles]);
 
-    // Handle transition and state setting
+    // Handle transition triggers
     if (nextCount === 5) {
       triggerShatterTransition(true);
-      setClickCount(5);
     } else if (nextCount === 10) {
       triggerShatterTransition(false);
-      setClickCount(0);
-    } else {
-      setClickCount(nextCount);
+      clickCountRef.current = 0;
     }
-  }, [clickCount, playRetroSound, triggerShatterTransition]);
+  }, [playRetroSound, triggerShatterTransition]);
 
-  // Hook up event listener to the logo shape SVG globally
+  // Hook up event listener globally (attaches once, reads Ref directly to avoid closure stale bugs)
   React.useEffect(() => {
     const handleDocumentClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      const trigger = target.closest("#easter-egg-trigger");
-      if (trigger) {
+      
+      // Climbing parent element tree to ensure compatibility with SVG elements
+      let current: HTMLElement | null = target;
+      let isTrigger = false;
+      
+      while (current && current !== document.documentElement) {
+        if (current.id === "easter-egg-trigger") {
+          isTrigger = true;
+          break;
+        }
+        current = current.parentElement;
+      }
+
+      if (isTrigger) {
         handleClick(e);
       }
     };
