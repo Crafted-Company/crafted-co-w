@@ -13,7 +13,6 @@ import { Timeline } from "@/components/journal/Timeline";
 import { buttonVariants } from "@/components/ui/button";
 import { ProjectStatus } from "@/components/ui/project-status";
 import { cn } from "@/lib/utils";
-import { PixelEasterEgg } from "@/components/effects/PixelEasterEgg";
 import {
   getProjects,
   getJournalEntries,
@@ -59,7 +58,6 @@ export default function HomePage() {
   return (
     <PageTransition>
       <div className="flex-grow pb-16 relative overflow-hidden">
-        <PixelEasterEgg />
         <Container className="space-y-16 pt-16 md:pt-24">
           {/* 1. Hero Section (Split layout with stable logo shape and flowing gradient) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -97,13 +95,13 @@ export default function HomePage() {
                 >
                   <span className="relative flex items-center justify-center w-full h-5 overflow-hidden">
                     {/* View Showcase & Arrow slides out to the right */}
-                    <span className="absolute flex items-center gap-1.5 transition-all duration-300 ease-in-out transform group-hover:translate-x-32 group-hover:opacity-0">
+                    <span className="absolute flex items-center gap-1.5 whitespace-nowrap transition-all duration-300 ease-in-out transform group-hover:translate-x-32 group-hover:opacity-0">
                       <span>View Showcase</span>
                       <ArrowRight className="w-4 h-4" />
                     </span>
                     
                     {/* Projects & Arrow slides in from the left */}
-                    <span className="absolute flex items-center gap-1.5 transition-all duration-300 ease-in-out transform -translate-x-32 opacity-0 group-hover:translate-x-0 group-hover:opacity-100">
+                    <span className="absolute flex items-center gap-1.5 whitespace-nowrap transition-all duration-300 ease-in-out transform -translate-x-32 opacity-0 group-hover:translate-x-0 group-hover:opacity-100">
                       <span>Projects</span>
                       <ArrowRight className="w-4 h-4" />
                     </span>

@@ -13,12 +13,28 @@ interface Particle {
   color: string;
 }
 
-const BRAND_COLORS = ["#433fa9", "#6864f6", "#7cff6b", "#60a5fa", "#3b82f6"];
+// Strictly purple, orange/rust site brand colors (avoiding random greens/blues)
+const BRAND_COLORS = [
+  "#433fa9", // deep purple (brand-start)
+  "#6864f6", // light purple (brand-mid accent)
+  "#a9452d", // rust red (brand-mid)
+  "#d97706", // amber orange (brand-end)
+  "#f97316", // bright orange
+];
 
 export function PixelEasterEgg() {
   const [clickCount, setClickCount] = React.useState(0);
   const [particles, setParticles] = React.useState<Particle[]>([]);
   const lastClickTime = React.useRef(0);
+
+  // Initialize from localStorage on mount (client-side only)
+  React.useEffect(() => {
+    const saved = localStorage.getItem("pixelated-easter-egg");
+    if (saved === "true") {
+      document.documentElement.classList.add("pixelated-easter-egg");
+      setClickCount(5);
+    }
+  }, []);
 
   // Play retro chiptune block crunch sound using Web Audio API
   const playRetroSound = React.useCallback((count: number) => {
@@ -51,34 +67,29 @@ export function PixelEasterEgg() {
       osc2.connect(gain2);
       gain2.connect(ctx.destination);
 
-      // Trigger start/stop
       osc1.start();
       osc1.stop(ctx.currentTime + 0.18);
       osc2.start();
       osc2.stop(ctx.currentTime + 0.08);
     } catch (e) {
-      console.warn("Web Audio API not allowed or supported yet.", e);
+      console.warn("Web Audio API blocked by autoplay restrictions.", e);
     }
   }, []);
 
   const handleClick = React.useCallback((e: MouseEvent) => {
     const now = Date.now();
-    // Throttle double clicks if too fast, but allow regular clicking
     if (now - lastClickTime.current < 80) return;
     lastClickTime.current = now;
 
     setClickCount((prev) => {
       const nextCount = prev + 1;
       
-      // Play sound
       const soundIndex = nextCount > 5 ? nextCount - 5 : nextCount;
       playRetroSound(soundIndex);
 
-      // Spawn particles at click coordinates
       const spawnX = e.clientX;
       const spawnY = e.clientY;
 
-      // Particle count increases with clicks!
       const burstSize = 8 + (nextCount % 5) * 5; 
       const newParticles: Particle[] = [];
 
@@ -91,39 +102,44 @@ export function PixelEasterEgg() {
           y: spawnY,
           vx: Math.cos(angle) * speed,
           vy: Math.sin(angle) * speed,
-          size: 6 + Math.floor(Math.random() * 8), // square pixel sizes
+          size: 6 + Math.floor(Math.random() * 8),
           color: BRAND_COLORS[Math.floor(Math.random() * BRAND_COLORS.length)],
         });
       }
 
       setParticles((curr) => [...curr, ...newParticles]);
 
-      // Handle document pixelation class toggle
       if (nextCount === 5) {
         document.documentElement.classList.add("pixelated-easter-egg");
+        localStorage.setItem("pixelated-easter-egg", "true");
       } else if (nextCount === 10) {
         document.documentElement.classList.remove("pixelated-easter-egg");
-        return 0; // reset
+        localStorage.removeItem("pixelated-easter-egg");
+        return 0;
       }
 
       return nextCount;
     });
   }, [playRetroSound]);
 
-  // Hook up event listener to the logo shape SVG
+  // Hook up event listener to the logo shape SVG globally
   React.useEffect(() => {
-    const trigger = document.getElementById("easter-egg-trigger");
-    if (!trigger) return;
+    const handleDocumentClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      // Check if target or parent has trigger ID
+      const trigger = target.closest("#easter-egg-trigger");
+      if (trigger) {
+        handleClick(e);
+      }
+    };
 
-    trigger.addEventListener("click", handleClick);
+    document.addEventListener("click", handleDocumentClick);
     return () => {
-      trigger.removeEventListener("click", handleClick);
-      // Clean up global class on unmount
-      document.documentElement.classList.remove("pixelated-easter-egg");
+      document.removeEventListener("click", handleDocumentClick);
     };
   }, [handleClick]);
 
-  // Cleanup old particles from memory
+  // Cleanup old particles
   React.useEffect(() => {
     if (particles.length === 0) return;
     const timer = setTimeout(() => {
@@ -134,13 +150,15 @@ export function PixelEasterEgg() {
 
   return (
     <>
-      {/* Self-contained styling injected dynamically. Deleting this component removes these styles automatically. */}
       <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+        
         .pixelated-easter-egg {
           image-rendering: pixelated !important;
           image-rendering: crisp-edges !important;
-          font-family: 'Courier New', Courier, monospace !important;
+          font-family: 'VT323', monospace !important;
         }
+        
         .pixelated-easter-egg::after {
           content: "";
           position: fixed;
@@ -153,16 +171,32 @@ export function PixelEasterEgg() {
           background-size: 100% 4px, 6px 100%;
           opacity: 0.85;
         }
-        .pixelated-easter-egg h1, 
-        .pixelated-easter-egg h2, 
-        .pixelated-easter-egg h3, 
-        .pixelated-easter-egg h4, 
+
+        .pixelated-easter-egg body {
+          font-size: 1.25rem !important;
+        }
+
+        .pixelated-easter-egg h1 {
+          font-size: 3.5rem !important;
+          font-weight: normal !important;
+        }
+
+        .pixelated-easter-egg h2 {
+          font-size: 2.2rem !important;
+          font-weight: normal !important;
+        }
+
+        .pixelated-easter-egg h3 {
+          font-size: 1.8rem !important;
+          font-weight: normal !important;
+        }
+
         .pixelated-easter-egg p, 
         .pixelated-easter-egg span, 
         .pixelated-easter-egg a,
         .pixelated-easter-egg button {
           text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
-          border-radius: 0px !important; /* Retro blocky styling override */
+          border-radius: 0px !important;
         }
       `}</style>
 
@@ -181,7 +215,7 @@ export function PixelEasterEgg() {
               }}
               animate={{ 
                 x: p.x + p.vx * 30, 
-                y: p.y + p.vy * 30 + 100, // drag down like gravity
+                y: p.y + p.vy * 30 + 100,
                 opacity: 0,
                 scale: 0.4,
                 rotate: Math.random() * 360
@@ -194,7 +228,7 @@ export function PixelEasterEgg() {
                 height: p.size,
                 backgroundColor: p.color,
                 boxShadow: `0 0 8px ${p.color}aa`,
-                borderRadius: "0px", // square pixel shape
+                borderRadius: "0px",
               }}
             />
           ))}

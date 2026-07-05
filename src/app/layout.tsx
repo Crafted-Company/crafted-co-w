@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/common/theme-provider";
 import { Navbar } from "@/components/common/Navbar";
 import { Footer } from "@/components/common/Footer";
 import { CustomCursor } from "@/components/common/CustomCursor";
+import { PixelEasterEgg } from "@/components/effects/PixelEasterEgg";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -47,6 +48,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <CustomCursor />
+          <PixelEasterEgg />
           <Navbar />
           <main className="flex-grow flex flex-col">{children}</main>
           <Footer />
