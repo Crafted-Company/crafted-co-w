@@ -121,7 +121,7 @@ export default function HomePage() {
               <motion.svg
                 id="easter-egg-trigger"
                 viewBox="0 0 91 96"
-                className="w-[320px] h-[320px] overflow-visible cursor-pointer"
+                className="w-[320px] h-[320px] overflow-visible cursor-pointer pointer-events-auto"
                 animate={{
                   y: [0, -6, 6, 0],
                   rotate: [0, 1, -1, 0],

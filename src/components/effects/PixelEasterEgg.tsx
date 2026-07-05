@@ -14,10 +14,10 @@ interface Particle {
 }
 
 const BRAND_COLORS = [
-  "#433fa9", // deep purple (brand-start)
-  "#6864f6", // light purple (brand-mid accent)
-  "#a9452d", // rust red (brand-mid)
-  "#d97706", // amber orange (brand-end)
+  "#433fa9", // deep purple
+  "#6864f6", // light purple
+  "#a9452d", // rust red
+  "#d97706", // amber orange
   "#f97316", // bright orange
 ];
 
@@ -36,7 +36,7 @@ export function PixelEasterEgg() {
     }
   }, []);
 
-  // Sync the SVG filter to the document root element style
+  // Sync the SVG filter to the document root style (only when transitioning)
   React.useEffect(() => {
     if (shatterScale > 0) {
       document.documentElement.style.filter = "url(#digital-shatter-filter)";
@@ -48,10 +48,10 @@ export function PixelEasterEgg() {
     };
   }, [shatterScale]);
 
-  // Dynamic SVG Displacement Wave transition (shatters and rebuilds the page layout)
+  // Dynamic SVG Displacement Wave transition
   const triggerShatterTransition = React.useCallback((applyPixelated: boolean) => {
     let start = performance.now();
-    const duration = 600; // 600ms total transition time (300ms shatter, 300ms rebuild)
+    const duration = 600;
 
     const animate = (time: number) => {
       const elapsed = time - start;
@@ -60,10 +60,8 @@ export function PixelEasterEgg() {
         let scale = 0;
 
         if (elapsed < peak) {
-          // Ramp up scale (warp the screen)
           scale = (elapsed / peak) * 160;
         } else {
-          // Exact peak moment (300ms): Apply/Remove styling class while completely distorted
           if (applyPixelated) {
             document.documentElement.classList.add("pixelated-easter-egg");
             localStorage.setItem("pixelated-easter-egg", "true");
@@ -71,8 +69,6 @@ export function PixelEasterEgg() {
             document.documentElement.classList.remove("pixelated-easter-egg");
             localStorage.removeItem("pixelated-easter-egg");
           }
-
-          // Ramp down scale (restore screen layout)
           scale = 160 - ((elapsed - peak) / peak) * 160;
         }
 
@@ -86,7 +82,7 @@ export function PixelEasterEgg() {
     requestAnimationFrame(animate);
   }, []);
 
-  // Play retro chiptune block crunch sound using Web Audio API
+  // Play retro sound using Web Audio API
   const playRetroSound = React.useCallback((count: number) => {
     try {
       const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
@@ -122,53 +118,55 @@ export function PixelEasterEgg() {
       osc2.start();
       osc2.stop(ctx.currentTime + 0.08);
     } catch (e) {
-      console.warn("Web Audio API blocked by autoplay restrictions.", e);
+      // Fail silently if browser blocks audio
     }
   }, []);
 
   const handleClick = React.useCallback((e: MouseEvent) => {
     const now = Date.now();
-    if (now - lastClickTime.current < 80) return;
+    if (now - lastClickTime.current < 100) return;
     lastClickTime.current = now;
 
-    setClickCount((prev) => {
-      const nextCount = prev + 1;
-      
-      const soundIndex = nextCount > 5 ? nextCount - 5 : nextCount;
-      playRetroSound(soundIndex);
+    // Calculate count cleanly outside the state updater side-effects
+    const nextCount = clickCount + 1;
+    console.log(`Easter egg clicked. Count: ${nextCount}`);
 
-      const spawnX = e.clientX;
-      const spawnY = e.clientY;
+    // Play Sound
+    const soundIndex = nextCount > 5 ? nextCount - 5 : nextCount;
+    playRetroSound(soundIndex);
 
-      const burstSize = 8 + (nextCount % 5) * 5; 
-      const newParticles: Particle[] = [];
+    // Spawn Particles
+    const spawnX = e.clientX;
+    const spawnY = e.clientY;
+    const burstSize = 8 + (nextCount % 5) * 5; 
+    const newParticles: Particle[] = [];
 
-      for (let i = 0; i < burstSize; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const speed = 2 + Math.random() * 6;
-        newParticles.push({
-          id: Math.random(),
-          x: spawnX,
-          y: spawnY,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed,
-          size: 6 + Math.floor(Math.random() * 8),
-          color: BRAND_COLORS[Math.floor(Math.random() * BRAND_COLORS.length)],
-        });
-      }
+    for (let i = 0; i < burstSize; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 2 + Math.random() * 6;
+      newParticles.push({
+        id: Math.random(),
+        x: spawnX,
+        y: spawnY,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        size: 6 + Math.floor(Math.random() * 8),
+        color: BRAND_COLORS[Math.floor(Math.random() * BRAND_COLORS.length)],
+      });
+    }
+    setParticles((curr) => [...curr, ...newParticles]);
 
-      setParticles((curr) => [...curr, ...newParticles]);
-
-      if (nextCount === 5) {
-        triggerShatterTransition(true);
-      } else if (nextCount === 10) {
-        triggerShatterTransition(false);
-        return 0;
-      }
-
-      return nextCount;
-    });
-  }, [playRetroSound, triggerShatterTransition]);
+    // Handle transition and state setting
+    if (nextCount === 5) {
+      triggerShatterTransition(true);
+      setClickCount(5);
+    } else if (nextCount === 10) {
+      triggerShatterTransition(false);
+      setClickCount(0);
+    } else {
+      setClickCount(nextCount);
+    }
+  }, [clickCount, playRetroSound, triggerShatterTransition]);
 
   // Hook up event listener to the logo shape SVG globally
   React.useEffect(() => {
@@ -247,16 +245,17 @@ export function PixelEasterEgg() {
         }
       `}</style>
 
-      {/* SVG Displacement Glitch Filter Definition */}
-      <svg style={{ position: "absolute", width: 0, height: 0, pointerEvents: "none" }}>
-        <defs>
-          <filter id="digital-shatter-filter">
-            {/* baseFrequency="0.02 0.35" creates stretched slice-like displacement offsets */}
-            <feTurbulence type="fractalNoise" baseFrequency="0.02 0.35" numOctaves="1" result="noise" />
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale={shatterScale} xChannelSelector="R" yChannelSelector="G" />
-          </filter>
-        </defs>
-      </svg>
+      {/* SVG Displacement Glitch Filter Definition (ONLY mounted when transition is active to prevent page load compile lag) */}
+      {shatterScale > 0 && (
+        <svg style={{ position: "absolute", width: 0, height: 0, pointerEvents: "none" }}>
+          <defs>
+            <filter id="digital-shatter-filter">
+              <feTurbulence type="fractalNoise" baseFrequency="0.02 0.35" numOctaves="1" result="noise" />
+              <feDisplacementMap in="SourceGraphic" in2="noise" scale={shatterScale} xChannelSelector="R" yChannelSelector="G" />
+            </filter>
+          </defs>
+        </svg>
+      )}
 
       {/* Render Particles */}
       <div className="fixed inset-0 pointer-events-none z-[99999] overflow-hidden">
