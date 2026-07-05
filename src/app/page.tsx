@@ -13,6 +13,7 @@ import { Timeline } from "@/components/journal/Timeline";
 import { buttonVariants } from "@/components/ui/button";
 import { ProjectStatus } from "@/components/ui/project-status";
 import { cn } from "@/lib/utils";
+import { PixelEasterEgg } from "@/components/effects/PixelEasterEgg";
 import {
   getProjects,
   getJournalEntries,
@@ -58,6 +59,7 @@ export default function HomePage() {
   return (
     <PageTransition>
       <div className="flex-grow pb-16 relative overflow-hidden">
+        <PixelEasterEgg />
         <Container className="space-y-16 pt-16 md:pt-24">
           {/* 1. Hero Section (Split layout with stable logo shape and flowing gradient) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -119,8 +121,9 @@ export default function HomePage() {
             {/* Right Column: Stable organic logo shape with flowing gradient (no outer glows) */}
             <div className="lg:col-span-5 hidden lg:flex justify-center items-center h-full relative select-none">
               <motion.svg
+                id="easter-egg-trigger"
                 viewBox="0 0 91 96"
-                className="w-[320px] h-[320px] overflow-visible"
+                className="w-[320px] h-[320px] overflow-visible cursor-pointer"
                 animate={{
                   y: [0, -6, 6, 0],
                   rotate: [0, 1, -1, 0],
