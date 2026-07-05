@@ -91,14 +91,20 @@ export default function HomePage() {
               <div className="flex flex-wrap gap-4 pt-2">
                 <Link
                   href="/projects"
-                  className="relative group overflow-hidden bg-gradient-to-r from-brand-start via-brand-mid to-brand-end text-white px-6 py-2.5 rounded-lg text-sm font-medium flex items-center justify-center gap-1.5 bg-[length:200%_auto] hover:bg-right transition-all duration-500 active:scale-[0.98] outline-none"
+                  className="relative group overflow-hidden bg-gradient-to-r from-brand-start via-brand-mid to-brand-end text-white px-6 py-2.5 rounded-lg text-sm font-medium flex items-center justify-center bg-[length:200%_auto] hover:bg-right transition-all duration-500 active:scale-[0.98] outline-none w-[176px] h-10"
                 >
-                  <span className="relative flex items-center gap-1.5 overflow-hidden h-5">
-                    <span className="flex flex-col transition-transform duration-300 transform group-hover:-translate-y-5">
-                      <span className="h-5 flex items-center">View Showcase</span>
-                      <span className="h-5 flex items-center font-bold text-white/95">Projects</span>
+                  <span className="relative flex items-center justify-center w-full h-5 overflow-hidden">
+                    {/* View Showcase & Arrow slides out to the right */}
+                    <span className="absolute flex items-center gap-1.5 transition-all duration-300 ease-in-out transform group-hover:translate-x-32 group-hover:opacity-0">
+                      <span>View Showcase</span>
+                      <ArrowRight className="w-4 h-4" />
                     </span>
-                    <ArrowRight className="w-4 h-4 transition-transform duration-300 transform group-hover:translate-x-1" />
+                    
+                    {/* Projects & Arrow slides in from the left */}
+                    <span className="absolute flex items-center gap-1.5 transition-all duration-300 ease-in-out transform -translate-x-32 opacity-0 group-hover:translate-x-0 group-hover:opacity-100">
+                      <span>Projects</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </span>
                   </span>
                 </Link>
                 <Link
