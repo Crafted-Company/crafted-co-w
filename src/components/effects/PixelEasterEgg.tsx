@@ -13,7 +13,6 @@ interface Particle {
   color: string;
 }
 
-// Strictly purple, orange/rust site brand colors (avoiding random greens/blues)
 const BRAND_COLORS = [
   "#433fa9", // deep purple (brand-start)
   "#6864f6", // light purple (brand-mid accent)
@@ -25,15 +24,66 @@ const BRAND_COLORS = [
 export function PixelEasterEgg() {
   const [clickCount, setClickCount] = React.useState(0);
   const [particles, setParticles] = React.useState<Particle[]>([]);
+  const [shatterScale, setShatterScale] = React.useState(0);
   const lastClickTime = React.useRef(0);
 
-  // Initialize from localStorage on mount (client-side only)
+  // Initialize from localStorage on mount
   React.useEffect(() => {
     const saved = localStorage.getItem("pixelated-easter-egg");
     if (saved === "true") {
       document.documentElement.classList.add("pixelated-easter-egg");
       setClickCount(5);
     }
+  }, []);
+
+  // Sync the SVG filter to the document root element style
+  React.useEffect(() => {
+    if (shatterScale > 0) {
+      document.documentElement.style.filter = "url(#digital-shatter-filter)";
+    } else {
+      document.documentElement.style.filter = "";
+    }
+    return () => {
+      document.documentElement.style.filter = "";
+    };
+  }, [shatterScale]);
+
+  // Dynamic SVG Displacement Wave transition (shatters and rebuilds the page layout)
+  const triggerShatterTransition = React.useCallback((applyPixelated: boolean) => {
+    let start = performance.now();
+    const duration = 600; // 600ms total transition time (300ms shatter, 300ms rebuild)
+
+    const animate = (time: number) => {
+      const elapsed = time - start;
+      if (elapsed < duration) {
+        const peak = duration / 2;
+        let scale = 0;
+
+        if (elapsed < peak) {
+          // Ramp up scale (warp the screen)
+          scale = (elapsed / peak) * 160;
+        } else {
+          // Exact peak moment (300ms): Apply/Remove styling class while completely distorted
+          if (applyPixelated) {
+            document.documentElement.classList.add("pixelated-easter-egg");
+            localStorage.setItem("pixelated-easter-egg", "true");
+          } else {
+            document.documentElement.classList.remove("pixelated-easter-egg");
+            localStorage.removeItem("pixelated-easter-egg");
+          }
+
+          // Ramp down scale (restore screen layout)
+          scale = 160 - ((elapsed - peak) / peak) * 160;
+        }
+
+        setShatterScale(scale);
+        requestAnimationFrame(animate);
+      } else {
+        setShatterScale(0);
+      }
+    };
+
+    requestAnimationFrame(animate);
   }, []);
 
   // Play retro chiptune block crunch sound using Web Audio API
@@ -110,23 +160,20 @@ export function PixelEasterEgg() {
       setParticles((curr) => [...curr, ...newParticles]);
 
       if (nextCount === 5) {
-        document.documentElement.classList.add("pixelated-easter-egg");
-        localStorage.setItem("pixelated-easter-egg", "true");
+        triggerShatterTransition(true);
       } else if (nextCount === 10) {
-        document.documentElement.classList.remove("pixelated-easter-egg");
-        localStorage.removeItem("pixelated-easter-egg");
+        triggerShatterTransition(false);
         return 0;
       }
 
       return nextCount;
     });
-  }, [playRetroSound]);
+  }, [playRetroSound, triggerShatterTransition]);
 
   // Hook up event listener to the logo shape SVG globally
   React.useEffect(() => {
     const handleDocumentClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      // Check if target or parent has trigger ID
       const trigger = target.closest("#easter-egg-trigger");
       if (trigger) {
         handleClick(e);
@@ -200,6 +247,17 @@ export function PixelEasterEgg() {
         }
       `}</style>
 
+      {/* SVG Displacement Glitch Filter Definition */}
+      <svg style={{ position: "absolute", width: 0, height: 0, pointerEvents: "none" }}>
+        <defs>
+          <filter id="digital-shatter-filter">
+            {/* baseFrequency="0.02 0.35" creates stretched slice-like displacement offsets */}
+            <feTurbulence type="fractalNoise" baseFrequency="0.02 0.35" numOctaves="1" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale={shatterScale} xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+        </defs>
+      </svg>
+
       {/* Render Particles */}
       <div className="fixed inset-0 pointer-events-none z-[99999] overflow-hidden">
         <AnimatePresence>
@@ -237,3 +295,4 @@ export function PixelEasterEgg() {
     </>
   );
 }
+export default PixelEasterEgg;

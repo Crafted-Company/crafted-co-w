@@ -1,18 +1,7 @@
-const { createClient } = require('@supabase/supabase-js');
-require('dotenv').config({ path: '.env.local' });
+const fs = require('fs');
+const pagePath = 'c:\\Users\\adity\\Documents\\Code\\Abyss-Archive\\src\\app\\page.tsx';
+const content = fs.readFileSync(pagePath, 'utf8');
+const lines = content.split('\n');
 
-const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
-
-async function check() {
-  const { data, error } = await supabase.storage
-    .from("youtube")
-    .list("");
-    
-  if (error) {
-    console.error("Youtube bucket error:", error);
-  } else {
-    console.log("Youtube bucket files:", data);
-  }
-}
-
-check();
+console.log("Lines 270 to 310:");
+console.log(lines.slice(269, 310).join('\n'));

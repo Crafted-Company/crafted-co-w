@@ -11,8 +11,8 @@ export function CustomCursor() {
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
 
-  // Smooth spring physics for cursor follow
-  const springConfig = { damping: 30, stiffness: 300, mass: 0.5 };
+  // Smooth spring physics for cursor follow (tuned for slightly faster responsiveness)
+  const springConfig = { damping: 28, stiffness: 400, mass: 0.4 };
   const cursorX = useSpring(mouseX, springConfig);
   const cursorY = useSpring(mouseY, springConfig);
 
