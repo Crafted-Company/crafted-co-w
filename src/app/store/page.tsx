@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import * as React from "react";
 import { motion } from "framer-motion";
@@ -67,7 +67,9 @@ export default function StorePage() {
           {/* Header */}
           <div className="space-y-3">
             <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-white/15 bg-white/5 text-xs font-mono text-[#F3EFEF]">
-              <Sparkles className="w-3.5 h-3.5 text-brand-start" />
+              <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 text-brand-start">
+                <path d="M12 3 Q12 12 21 12 Q12 12 12 21 Q12 12 3 12 Q12 12 12 3 Z" />
+              </svg>
               <span>CRAFTED STORE REGISTRY</span>
             </div>
             <SectionHeader
@@ -77,7 +79,7 @@ export default function StorePage() {
           </div>
 
           {/* Android Store App Hero Feature Banner */}
-          <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-gradient-to-r from-[#241E1E] via-[#2A1E22] to-[#1B1515] p-6 sm:p-8 shadow-2xl">
+          <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-gradient-to-r from-[#241E1E] via-[#2A1E22] to-[#1B1515] p-5 sm:p-8 shadow-2xl">
             {/* Subtle radial glow */}
             <div className="absolute -right-16 -top-16 w-64 h-64 rounded-full bg-brand-start/15 blur-3xl pointer-events-none" />
             <div className="absolute -left-16 -bottom-16 w-64 h-64 rounded-full bg-brand-mid/10 blur-3xl pointer-events-none" />
@@ -172,7 +174,7 @@ export default function StorePage() {
 
           {/* Catalog Grid */}
           {filteredItems.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-5">
               {filteredItems.map((item) => (
                 <StoreCard
                   key={item.id}

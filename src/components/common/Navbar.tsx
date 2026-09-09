@@ -79,21 +79,27 @@ export function Navbar() {
           {/* Prominent Crafted Store Button */}
           <Link
             href="/store"
-            className={`group relative inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-mono uppercase tracking-wider font-semibold transition-all duration-300 border ${
+            className={`group relative inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono uppercase tracking-wider font-semibold transition-all duration-300 border backdrop-blur-md overflow-hidden ${
               pathname.startsWith("/store")
-                ? "border-white text-white shadow-[0_0_15px_rgba(104,100,246,0.35)]"
-                : "border-white/20 hover:border-white/60 text-white/90 hover:text-white"
-            } overflow-hidden`}
+                ? "border-white bg-white/15 text-white shadow-[0_0_12px_rgba(255,255,255,0.25)]"
+                : "border-white/30 hover:border-white bg-[#241E1E]/80 hover:bg-[#2C2525] text-white shadow-sm hover:shadow-[0_0_15px_rgba(104,100,246,0.25)]"
+            }`}
           >
-            {/* Shifting brand gradient background */}
-            <div className="absolute inset-0 bg-gradient-to-r from-brand-start/20 via-brand-mid/25 to-brand-end/20 group-hover:from-brand-start/40 group-hover:via-brand-mid/50 group-hover:to-brand-end/40 transition-all duration-500" />
-            
-            {/* Ambient internal shine sweep */}
-            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/20 via-transparent to-transparent transition-opacity duration-300 pointer-events-none" />
+            {/* Ambient radiant gradient fill */}
+            <div className="absolute inset-0 bg-gradient-to-r from-brand-start/20 via-brand-mid/25 to-brand-end/20 opacity-80 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
-            <span className="relative z-10 flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-brand-start animate-pulse" />
-              <span>Store</span>
+            {/* Micro-sparkle beam sweep */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out pointer-events-none" />
+
+            {/* 4-Point Star Particle Matching Logo */}
+            <span className="relative z-10 flex items-center justify-center text-brand-start group-hover:text-white transition-colors duration-300">
+              <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 animate-pulse group-hover:rotate-90 transition-transform duration-500">
+                <path d="M12 3 Q12 12 21 12 Q12 12 12 21 Q12 12 3 12 Q12 12 12 3 Z" />
+              </svg>
+            </span>
+
+            <span className="relative z-10 tracking-widest text-[11px] font-bold">
+              Store
             </span>
           </Link>
         </nav>
@@ -145,12 +151,14 @@ export function Navbar() {
             href="/store"
             className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl border text-sm font-mono uppercase tracking-wider font-semibold transition-all duration-300 ${
               pathname.startsWith("/store")
-                ? "border-white bg-white/10 text-white shadow-md"
-                : "border-white/20 bg-gradient-to-r from-brand-start/20 via-brand-mid/20 to-brand-end/20 text-white"
+                ? "border-white bg-white/15 text-white shadow-md"
+                : "border-white/30 bg-gradient-to-r from-brand-start/20 via-brand-mid/20 to-brand-end/20 text-white hover:border-white/60"
             }`}
           >
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-brand-start" />
+              <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-brand-start animate-pulse">
+                <path d="M12 3 Q12 12 21 12 Q12 12 12 21 Q12 12 3 12 Q12 12 12 3 Z" />
+              </svg>
               <span>Crafted Store</span>
             </div>
             <span className="text-[10px] font-mono text-brand-start bg-brand-start/10 px-2 py-0.5 rounded border border-brand-start/20">

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -50,39 +50,70 @@ export function StoreDetailModal({ item, onClose }: StoreDetailModalProps) {
         >
           {/* Header Row */}
           <div className="flex items-start justify-between gap-4">
-            <div className="flex items-start gap-4">
-              <div
-                className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl border border-white/10 flex items-center justify-center shadow-lg shrink-0"
-                style={{
-                  background: `linear-gradient(135deg, ${item.accentColor}33 0%, #241E1E 100%)`,
-                  color: item.accentColor
-                }}
-              >
-                {getStoreIcon(item.iconName, "w-7 h-7 sm:w-8 sm:h-8")}
+            <div className="flex items-start gap-4 min-w-0">
+              {/* App Icon */}
+              <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border border-white/10 bg-[#1B1515] shrink-0 shadow-xl flex items-center justify-center">
+                {item.iconImage ? (
+                  <img
+                    src={item.iconImage}
+                    alt={item.name}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div
+                    className="w-full h-full flex items-center justify-center"
+                    style={{
+                      background: `linear-gradient(135deg, ${item.accentColor}33 0%, #241E1E 100%)`,
+                      color: item.accentColor
+                    }}
+                  >
+                    {getStoreIcon(item.iconName, "w-8 h-8 sm:w-10 sm:h-10")}
+                  </div>
+                )}
               </div>
-              <div className="space-y-1">
+
+              <div className="space-y-1.5 min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
-                  <h2 className="text-xl sm:text-2xl font-bold tracking-tight font-sans text-white">
+                  <h2 className="text-xl sm:text-2xl font-bold tracking-tight font-sans text-white truncate">
                     {item.name}
                   </h2>
                   <span className="text-xs font-mono px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-[#A19898]">
                     {item.version}
                   </span>
                   {item.isSuite && (
-                    <span className="text-[11px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full bg-brand-start/20 border border-brand-start/30 text-brand-start">
+                    <span className="text-[11px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full bg-brand-start/20 border border-brand-start/30 text-brand-start font-semibold">
                       Crafted Suite
                     </span>
                   )}
                 </div>
-                <p className="text-sm text-[#A19898] leading-relaxed">
+
+                <p className="text-xs sm:text-sm text-[#A19898] leading-relaxed">
                   {item.tagline}
                 </p>
+
+                {/* Metrics bar: Rating, Category, Installs */}
+                <div className="flex items-center gap-3 text-xs font-mono text-[#A19898] pt-0.5">
+                  {item.rating && (
+                    <span className="flex items-center gap-1 text-amber-400 font-semibold">
+                      <span>{item.rating}</span>
+                      <span className="text-[10px]">★</span>
+                    </span>
+                  )}
+                  <span className="text-[#4D4242]">•</span>
+                  <span className="uppercase tracking-wider text-[11px] text-white/80">{item.category}</span>
+                  {item.installs && (
+                    <>
+                      <span className="text-[#4D4242]">•</span>
+                      <span className="text-[11px] text-[#A19898]">{item.installs}</span>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
 
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg border border-white/5 bg-white/5 hover:bg-white/10 text-[#A19898] hover:text-white transition-colors"
+              className="p-1.5 rounded-lg border border-white/5 bg-white/5 hover:bg-white/10 text-[#A19898] hover:text-white transition-colors shrink-0"
               aria-label="Close dialog"
             >
               <X className="w-5 h-5" />
@@ -202,26 +233,30 @@ export function StoreDetailModal({ item, onClose }: StoreDetailModalProps) {
               {item.screenshots.map((ss) => (
                 <div
                   key={ss.id}
-                  className={`rounded-xl border border-[#312929] bg-[#241E1E] p-3 flex flex-col justify-between overflow-hidden relative group ${
-                    ss.aspectRatio === "portrait" ? "aspect-[9/16] max-h-56" : "aspect-video"
-                  }`}
+                  className="rounded-2xl border border-[#312929] bg-[#241E1E] p-4 flex flex-col justify-between overflow-hidden relative group aspect-[9/16] max-h-72 shadow-md hover:border-brand-start/30 transition-colors"
                   style={{ backgroundColor: ss.placeholderColor || "#241E1E" }}
                 >
+                  {/* Phone frame top speaker bar indicator */}
                   <div className="flex items-center justify-between">
-                    <span className="w-2 h-2 rounded-full bg-white/20" />
-                    <span className="text-[10px] font-mono text-[#A19898] uppercase">
-                      {ss.aspectRatio || "Capture"}
-                    </span>
+                    <span className="w-8 h-1 rounded-full bg-white/20 mx-auto" />
                   </div>
                   
                   <div className="flex flex-col items-center justify-center my-auto py-2 text-center">
                     <div
-                      className="w-10 h-10 rounded-full flex items-center justify-center border border-white/10 mb-2"
+                      className="w-12 h-12 rounded-xl flex items-center justify-center border border-white/10 mb-2.5 overflow-hidden shadow"
                       style={{ background: `${item.accentColor}22`, color: item.accentColor }}
                     >
-                      {getStoreIcon(item.iconName, "w-5 h-5")}
+                      {item.iconImage ? (
+                        <img
+                          src={item.iconImage}
+                          alt={item.name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        getStoreIcon(item.iconName, "w-6 h-6")
+                      )}
                     </div>
-                    <span className="text-xs font-medium text-white/90 line-clamp-2 px-1">
+                    <span className="text-xs font-semibold text-white/90 line-clamp-2 px-1 leading-snug">
                       {ss.caption}
                     </span>
                   </div>

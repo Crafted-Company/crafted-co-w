@@ -1,5 +1,5 @@
 # Crafted Co Design System
-
+#test
 ## Philosophy
 
 Crafted Co is not an agency.
@@ -19,7 +19,7 @@ Visitors should leave with the impression that real things are being built here.
 ---
 
 # Core Principles
-
+sds
 Design should feel
 
 • Calm

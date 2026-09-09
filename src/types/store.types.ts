@@ -5,7 +5,7 @@ export interface PlatformDownload {
   label: string;
   version?: string;
   size?: string;
-  downloadUrl?: string; // empty/placeholder when not yet published
+  downloadUrl?: string;
   isAvailable: boolean;
 }
 
@@ -18,17 +18,19 @@ export interface StoreItem {
   tagline: string;
   description: string;
   category: StoreCategory;
-  isSuite?: boolean; // Part of Crafted Suite
+  isSuite?: boolean;
   status: "available" | "in-development" | "coming-soon";
   version: string;
   releaseDate?: string;
   githubUrl?: string;
   accentColor: string;
-  iconName: string; // lucide icon identifier
+  iconName: string;
+  iconImage?: string; // Optional direct URL to app icon
+  rating?: string;
+  installs?: string;
   screenshots: {
     id: string;
     caption: string;
-    aspectRatio?: "video" | "portrait";
     placeholderColor?: string;
   }[];
   platforms: PlatformDownload[];

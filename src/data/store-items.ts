@@ -5,7 +5,7 @@ export const STORE_ITEMS: StoreItem[] = [
     id: "craftnime",
     slug: "craftnime-x",
     name: "Craftnime",
-    tagline: "Anime tracking and high-performance streaming client",
+    tagline: "Anime tracking & high-performance streaming client",
     description: "A fast, unified anime viewer and catalog synchronizer designed with smooth transitions, subtitle controls, and a dedicated multi-source player engine.",
     category: "suite",
     isSuite: true,
@@ -15,10 +15,13 @@ export const STORE_ITEMS: StoreItem[] = [
     githubUrl: "https://github.com/Crafted-Company/craftnime-x",
     accentColor: "#6864F6",
     iconName: "Tv",
+    iconImage: "/store/icons/craftnime.png",
+    rating: "4.9",
+    installs: "Beta",
     screenshots: [
-      { id: "cn-1", caption: "Spotlight Hero Banner & Anime Details", aspectRatio: "video", placeholderColor: "#241D1D" },
-      { id: "cn-2", caption: "Trending & Catalog Browse Grid", aspectRatio: "video", placeholderColor: "#1F1818" },
-      { id: "cn-3", caption: "Mobile Player Controls & Watchlist", aspectRatio: "portrait", placeholderColor: "#2C2222" }
+      { id: "cn-1", caption: "Spotlight Hero Banner & Anime Details", placeholderColor: "#241D1D" },
+      { id: "cn-2", caption: "Trending & Catalog Browse Grid", placeholderColor: "#1F1818" },
+      { id: "cn-3", caption: "Mobile Player Controls & Watchlist", placeholderColor: "#2C2222" }
     ],
     platforms: [
       { platform: "android", label: "Android APK", version: "v1.4.2", size: "78 MB", isAvailable: false },
@@ -47,10 +50,13 @@ export const STORE_ITEMS: StoreItem[] = [
     githubUrl: "https://github.com/Crafted-Company/music-player-x",
     accentColor: "#A9452D",
     iconName: "Music",
+    iconImage: "/store/icons/music-player.png",
+    rating: "4.8",
+    installs: "Beta",
     screenshots: [
-      { id: "mp-1", caption: "Now Playing Interface with Waveform", aspectRatio: "video", placeholderColor: "#221A1A" },
-      { id: "mp-2", caption: "Navidrome Server Library & Albums", aspectRatio: "video", placeholderColor: "#1B1515" },
-      { id: "mp-3", caption: "Mobile Player Tray & Quick Controls", aspectRatio: "portrait", placeholderColor: "#261D1D" }
+      { id: "mp-1", caption: "Now Playing Interface with Waveform", placeholderColor: "#221A1A" },
+      { id: "mp-2", caption: "Navidrome Server Library & Albums", placeholderColor: "#1B1515" },
+      { id: "mp-3", caption: "Mobile Player Tray & Quick Controls", placeholderColor: "#261D1D" }
     ],
     platforms: [
       { platform: "android", label: "Android APK", version: "v0.9.0", size: "64 MB", isAvailable: false },
@@ -68,7 +74,7 @@ export const STORE_ITEMS: StoreItem[] = [
     id: "crafted-studio",
     slug: "crafted-studio-pc",
     name: "Crafted Studio",
-    tagline: "Visual workspace and developer workspace studio",
+    tagline: "Visual workspace & developer engineering cockpit",
     description: "A desktop engineering cockpit designed for rapid layout building, terminal docks, AI assistant orchestration, and modular project planning.",
     category: "suite",
     isSuite: true,
@@ -78,10 +84,12 @@ export const STORE_ITEMS: StoreItem[] = [
     githubUrl: "https://github.com/Crafted-Company/crafted-studio-pc",
     accentColor: "#6864F6",
     iconName: "Layout",
+    rating: "5.0",
+    installs: "Preview",
     screenshots: [
-      { id: "cs-1", caption: "Studio Multi-Pane Cockpit & Explorer", aspectRatio: "video", placeholderColor: "#201A1A" },
-      { id: "cs-2", caption: "Tool Dock & Guided Workflow Status", aspectRatio: "video", placeholderColor: "#241E1E" },
-      { id: "cs-3", caption: "Integrated Terminal & Architecture View", aspectRatio: "video", placeholderColor: "#1A1515" }
+      { id: "cs-1", caption: "Studio Multi-Pane Cockpit & Explorer", placeholderColor: "#201A1A" },
+      { id: "cs-2", caption: "Tool Dock & Guided Workflow Status", placeholderColor: "#241E1E" },
+      { id: "cs-3", caption: "Integrated Terminal & Architecture View", placeholderColor: "#1A1515" }
     ],
     platforms: [
       { platform: "windows", label: "Windows .exe", version: "v1.0.0", size: "110 MB", isAvailable: false },
@@ -108,10 +116,13 @@ export const STORE_ITEMS: StoreItem[] = [
     githubUrl: "https://github.com/Aditya0973/commit-habit-tracker-a",
     accentColor: "#D97706",
     iconName: "CheckCircle2",
+    iconImage: "/store/icons/commit.png",
+    rating: "4.9",
+    installs: "100+",
     screenshots: [
-      { id: "cm-1", caption: "Daily Habit Checklist with Streak Counters", aspectRatio: "portrait", placeholderColor: "#1E1818" },
-      { id: "cm-2", caption: "Monthly Completion Heatmap & Analytics", aspectRatio: "portrait", placeholderColor: "#221C1C" },
-      { id: "cm-3", caption: "Custom Frequency & Reminder Settings", aspectRatio: "portrait", placeholderColor: "#261E1E" }
+      { id: "cm-1", caption: "Daily Habit Checklist with Streak Counters", placeholderColor: "#1E1818" },
+      { id: "cm-2", caption: "Monthly Completion Heatmap & Analytics", placeholderColor: "#221C1C" },
+      { id: "cm-3", caption: "Custom Frequency & Reminder Settings", placeholderColor: "#261E1E" }
     ],
     platforms: [
       { platform: "android", label: "Google Play Store", version: "v1.2.0", downloadUrl: "https://play.google.com/store/apps/details?id=com.craftedco.commit", isAvailable: true },
@@ -138,10 +149,13 @@ export const STORE_ITEMS: StoreItem[] = [
     githubUrl: "https://github.com/Aditya0973/champione-a",
     accentColor: "#A9452D",
     iconName: "Dumbbell",
+    iconImage: "/store/icons/champione.png",
+    rating: "4.8",
+    installs: "100+",
     screenshots: [
-      { id: "cp-1", caption: "Hero Stats & Level Progression Screen", aspectRatio: "portrait", placeholderColor: "#231B1B" },
-      { id: "cp-2", caption: "Workout Routine Logger & Set Tracker", aspectRatio: "portrait", placeholderColor: "#1F1717" },
-      { id: "cp-3", caption: "Inventory Equipment & Milestone Badges", aspectRatio: "portrait", placeholderColor: "#271E1E" }
+      { id: "cp-1", caption: "Hero Stats & Level Progression Screen", placeholderColor: "#231B1B" },
+      { id: "cp-2", caption: "Workout Routine Logger & Set Tracker", placeholderColor: "#1F1717" },
+      { id: "cp-3", caption: "Inventory Equipment & Milestone Badges", placeholderColor: "#271E1E" }
     ],
     platforms: [
       { platform: "android", label: "Google Play Store", version: "v1.1.4", downloadUrl: "https://play.google.com/store/apps/details?id=com.craftedco.champione", isAvailable: true },
@@ -168,10 +182,13 @@ export const STORE_ITEMS: StoreItem[] = [
     githubUrl: "https://github.com/Aditya0973/the-last-crumb-ag",
     accentColor: "#F97316",
     iconName: "Gamepad2",
+    iconImage: "/store/icons/the-last-crumb.png",
+    rating: "4.7",
+    installs: "Alpha",
     screenshots: [
-      { id: "tlc-1", caption: "Arena Combat with Snake Boss AI", aspectRatio: "portrait", placeholderColor: "#221915" },
-      { id: "tlc-2", caption: "Roguelike Upgrade Tree & Power-Up Choice", aspectRatio: "portrait", placeholderColor: "#2A1D18" },
-      { id: "tlc-3", caption: "High Score Leaderboard & Death Summary", aspectRatio: "portrait", placeholderColor: "#1E1613" }
+      { id: "tlc-1", caption: "Arena Combat with Snake Boss AI", placeholderColor: "#221915" },
+      { id: "tlc-2", caption: "Roguelike Upgrade Tree & Power-Up Choice", placeholderColor: "#2A1D18" },
+      { id: "tlc-3", caption: "High Score Leaderboard & Death Summary", placeholderColor: "#1E1613" }
     ],
     platforms: [
       { platform: "android", label: "Android APK", version: "v0.4.0", size: "38 MB", isAvailable: false }
@@ -197,9 +214,12 @@ export const STORE_ITEMS: StoreItem[] = [
     githubUrl: "https://github.com/Aditya0973/roguemetry-ag",
     accentColor: "#6864F6",
     iconName: "Crosshair",
+    iconImage: "/store/icons/roguemetry.png",
+    rating: "4.9",
+    installs: "500+",
     screenshots: [
-      { id: "rg-1", caption: "Geometric Wave Battle with Particle FX", aspectRatio: "video", placeholderColor: "#1F1A24" },
-      { id: "rg-2", caption: "Perk Selection Matrix", aspectRatio: "video", placeholderColor: "#1B1620" }
+      { id: "rg-1", caption: "Geometric Wave Battle with Particle FX", placeholderColor: "#1F1A24" },
+      { id: "rg-2", caption: "Perk Selection Matrix", placeholderColor: "#1B1620" }
     ],
     platforms: [
       { platform: "web", label: "Play Online", version: "v1.0.0", downloadUrl: "https://roguemetry.vercel.app/", isAvailable: true },
@@ -226,10 +246,12 @@ export const STORE_ITEMS: StoreItem[] = [
     githubUrl: "https://github.com/Aditya0973/abyss-archive-w",
     accentColor: "#6864F6",
     iconName: "Library",
+    rating: "5.0",
+    installs: "Cloud",
     screenshots: [
-      { id: "aa-1", caption: "Media Dashboard & Collection Overview", aspectRatio: "video", placeholderColor: "#1C1726" },
-      { id: "aa-2", caption: "Steam Wishlist Sync & Financial Insights", aspectRatio: "video", placeholderColor: "#181422" },
-      { id: "aa-3", caption: "Google Books Auto-Resolver & Journal", aspectRatio: "video", placeholderColor: "#20182A" }
+      { id: "aa-1", caption: "Media Dashboard & Collection Overview", placeholderColor: "#1C1726" },
+      { id: "aa-2", caption: "Steam Wishlist Sync & Financial Insights", placeholderColor: "#181422" },
+      { id: "aa-3", caption: "Google Books Auto-Resolver & Journal", placeholderColor: "#20182A" }
     ],
     platforms: [
       { platform: "web", label: "Launch Web App", version: "v1.1.0", downloadUrl: "https://www.abyssarchive.space/", isAvailable: true }
@@ -246,7 +268,7 @@ export const STORE_ITEMS: StoreItem[] = [
     id: "modyule",
     slug: "modyule-w",
     name: "Modyule",
-    tagline: "Token-driven SaaS generator and dashboard builder",
+    tagline: "Token-driven SaaS generator & dashboard builder",
     description: "Interactive visual component builder and full-stack code exporter that compiles production-ready Next.js & Supabase application templates.",
     category: "web",
     status: "available",
@@ -255,9 +277,11 @@ export const STORE_ITEMS: StoreItem[] = [
     githubUrl: "https://github.com/Aditya0973/modyule-w",
     accentColor: "#D97706",
     iconName: "Boxes",
+    rating: "4.8",
+    installs: "Cloud",
     screenshots: [
-      { id: "md-1", caption: "Visual Dashboard Token Editor & Inspector", aspectRatio: "video", placeholderColor: "#231B15" },
-      { id: "md-2", caption: "Code Exporter & Database Schema Bundler", aspectRatio: "video", placeholderColor: "#1E1712" }
+      { id: "md-1", caption: "Visual Dashboard Token Editor & Inspector", placeholderColor: "#231B15" },
+      { id: "md-2", caption: "Code Exporter & Database Schema Bundler", placeholderColor: "#1E1712" }
     ],
     platforms: [
       { platform: "web", label: "Launch Web App", version: "v1.0.7", downloadUrl: "https://modyule.vercel.app/", isAvailable: true }
