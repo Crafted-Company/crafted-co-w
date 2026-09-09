@@ -1,10 +1,10 @@
 -- =====================================================================
--- CRAFTED CO: COMPREHENSIVE SUPABASE DATABASE UPDATE
+-- CRAFTED CO: COMPREHENSIVE SUPABASE DATABASE UPDATE (V2 - Schema Aligned)
 -- Adds 7 new projects with real git dates, version histories, timeline events,
 -- journal devlogs, and updated /now items.
 -- =====================================================================
 
--- 1. Fix service_role permissions for future automated operations
+-- 1. Fix service_role and anon permissions for seamless future operations
 GRANT ALL ON ALL TABLES IN SCHEMA public TO service_role, anon;
 GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO service_role, anon;
 GRANT ALL ON ALL FUNCTIONS IN SCHEMA public TO service_role, anon;
@@ -339,21 +339,21 @@ INSERT INTO public.project_versions (id, project_id, version, changes_mdx, relea
 * Interactive search and breadcrumb travel path logging', '2026-04-30T21:55:19Z');
 
 
--- 5. Add Timeline Milestones (Actual Project Launch Dates)
-INSERT INTO public.timeline (id, project_id, title, description, date, category) VALUES
-  (gen_random_uuid(), 'a1000007-0000-0000-0000-000000000007', 'Launched Skyrim Live Tracker', 'Built a second-screen real-time navigation companion for Skyrim SE with WebSocket coordinate streaming.', '2026-04-30', 'milestone'),
-  (gen_random_uuid(), 'a1000004-0000-0000-0000-000000000004', 'Started Roguemetry Arcade Roguelite', 'Architected high-performance 60fps canvas vector physics and procedural wave spawns.', '2026-06-04', 'milestone'),
-  (gen_random_uuid(), 'a1000005-0000-0000-0000-000000000005', 'Conceived Legacies: Infinite Lives', 'Designed the generational lineage simulator with family tree inheritance across centuries.', '2026-06-17', 'milestone'),
-  (gen_random_uuid(), 'a1000003-0000-0000-0000-000000000003', 'Architected Crafted Studio Cockpit', 'Designed unified developer desktop environment combining Monaco editor and xterm.js terminals.', '2026-07-27', 'milestone'),
-  (gen_random_uuid(), 'a1000001-0000-0000-0000-000000000001', 'Began Craftnime Development', 'Created multi-source anime streaming and tracking suite with obsidian aesthetic on Android & desktop.', '2026-08-25', 'milestone'),
-  (gen_random_uuid(), 'a1000002-0000-0000-0000-000000000002', 'Built Crafted Music Player', 'Developed offline and Navidrome-connected audio client with retro-inspired tactile controls.', '2026-08-29', 'milestone'),
-  (gen_random_uuid(), 'a1000006-0000-0000-0000-000000000006', 'Developed Craftie Local AI Companion', 'Built private local GPU desktop assistant connected to Ollama with voice wake-word and memory.', '2026-08-31', 'milestone');
+-- 5. Add Timeline Milestones (Aligned with schema: type, reference_slug, reference_type)
+INSERT INTO public.timeline (id, project_id, title, description, date, type, reference_slug, reference_type, created_at) VALUES
+  (gen_random_uuid(), 'a1000007-0000-0000-0000-000000000007', 'Launched Skyrim Live Tracker', 'Built a second-screen real-time navigation companion for Skyrim SE with WebSocket coordinate streaming.', '2026-04-30', 'milestone', 'skyrim-live-tracker', 'project', '2026-04-30T20:31:12Z'),
+  (gen_random_uuid(), 'a1000004-0000-0000-0000-000000000004', 'Started Roguemetry Arcade Roguelite', 'Architected high-performance 60fps canvas vector physics and procedural wave spawns.', '2026-06-04', 'milestone', 'roguemetry', 'project', '2026-06-04T11:28:50Z'),
+  (gen_random_uuid(), 'a1000005-0000-0000-0000-000000000005', 'Conceived Legacies: Infinite Lives', 'Designed the generational lineage simulator with family tree inheritance across centuries.', '2026-06-17', 'milestone', 'legacies-infinite-lives', 'project', '2026-06-17T07:41:49Z'),
+  (gen_random_uuid(), 'a1000003-0000-0000-0000-000000000003', 'Architected Crafted Studio Cockpit', 'Designed unified developer desktop environment combining Monaco editor and xterm.js terminals.', '2026-07-27', 'milestone', 'crafted-studio', 'project', '2026-07-27T03:06:05Z'),
+  (gen_random_uuid(), 'a1000001-0000-0000-0000-000000000001', 'Began Craftnime Development', 'Created multi-source anime streaming and tracking suite with obsidian aesthetic on Android & desktop.', '2026-08-25', 'milestone', 'craftnime', 'project', '2026-08-25T07:47:13Z'),
+  (gen_random_uuid(), 'a1000002-0000-0000-0000-000000000002', 'Built Crafted Music Player', 'Developed offline and Navidrome-connected audio client with retro-inspired tactile controls.', '2026-08-29', 'milestone', 'music-player', 'project', '2026-08-29T06:33:13Z'),
+  (gen_random_uuid(), 'a1000006-0000-0000-0000-000000000006', 'Developed Craftie Local AI Companion', 'Built private local GPU desktop assistant connected to Ollama with voice wake-word and memory.', '2026-08-31', 'milestone', 'craftie', 'project', '2026-08-31T06:18:33Z');
 
 
--- 6. Add 2 New Journal Devlogs
+-- 6. Add 2 New Journal Devlogs (Aligned with schema: excerpt, visibility, reading_time)
 INSERT INTO public.journal_entries (
-  id, project_id, title, slug, summary, content_mdx,
-  published, pinned, published_at, created_at, updated_at
+  id, project_id, title, slug, excerpt, content_mdx,
+  reading_time, pinned, visibility, published, published_at, created_at, updated_at
 ) VALUES (
   'j1000001-0000-0000-0000-000000000001',
   'a1000001-0000-0000-0000-000000000001',
@@ -374,7 +374,7 @@ Media apps should get out of the way. We implemented vertical swipe zones for br
 
 ## 3. Offline State & Watchlist Sync
 All watchlist status records and episode timestamps are stored in persistent IndexedDB snapshots, ensuring that even in flight mode or on poor connections, the app boots instantly.',
-  true, true, '2026-08-28T12:00:00Z', '2026-08-28T12:00:00Z', '2026-08-28T12:00:00Z'
+  3, true, 'public', true, '2026-08-28T12:00:00Z', '2026-08-28T12:00:00Z', '2026-08-28T12:00:00Z'
 ), (
   'j1000002-0000-0000-0000-000000000002',
   'a1000003-0000-0000-0000-000000000003',
@@ -393,14 +393,14 @@ With the introduction of **Crafted Studio**, **Craftnime**, and the upcoming **C
 1. **Local-First Always:** Zero mandatory cloud lock-in. Your data belongs on your device.
 2. **Obsidian Dark Visual Language:** High contrast, minimal glow, and crisp typography using Geist and Instrument Serif sparingly.
 3. **Frictionless Distribution:** Direct APK releases, open catalogs, and verified binaries without walled-garden delays.',
-  true, false, '2026-09-02T10:00:00Z', '2026-09-02T10:00:00Z', '2026-09-02T10:00:00Z'
+  3, false, 'public', true, '2026-09-02T10:00:00Z', '2026-09-02T10:00:00Z', '2026-09-02T10:00:00Z'
 ) ON CONFLICT (slug) DO UPDATE SET
-  title = EXCLUDED.title, summary = EXCLUDED.summary, content_mdx = EXCLUDED.content_mdx;
+  title = EXCLUDED.title, excerpt = EXCLUDED.excerpt, content_mdx = EXCLUDED.content_mdx;
 
 
--- 7. Update /now Page Items
+-- 7. Update /now Page Items (Aligned with schema: category, title, description, sort_order)
 DELETE FROM public.now_items;
-INSERT INTO public.now_items (id, content, sort_order, category, created_at) VALUES
-  (gen_random_uuid(), 'Scaling the Crafted Co. ecosystem — polishing the Craftnime streaming engine and preparing the native Crafted Store Android client.', 1, 'Development', '2026-09-01T00:00:00Z'),
-  (gen_random_uuid(), 'Deepening local-first workflows with Crafted Studio and the Craftie autonomous desktop companion.', 2, 'Research', '2026-09-01T00:00:00Z'),
-  (gen_random_uuid(), 'Refining Roguemetry vector physics and preparing upcoming Play Store builds for Champione RPG.', 3, 'Gaming', '2026-09-01T00:00:00Z');
+INSERT INTO public.now_items (id, category, title, description, sort_order, created_at) VALUES
+  (gen_random_uuid(), 'Ecosystem', 'Craftnime & Crafted Store', 'Scaling the Crafted Co. ecosystem — polishing the Craftnime streaming engine and preparing the native Crafted Store Android client.', 1, '2026-09-01T00:00:00Z'),
+  (gen_random_uuid(), 'Engineering', 'Crafted Studio & Craftie', 'Deepening local-first workflows with the Crafted Studio desktop cockpit and Craftie autonomous AI companion.', 2, '2026-09-01T00:00:00Z'),
+  (gen_random_uuid(), 'Gaming', 'Roguemetry & Champione RPG', 'Refining Roguemetry vector physics and preparing upcoming Play Store builds for Champione workout RPG.', 3, '2026-09-01T00:00:00Z');
