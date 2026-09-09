@@ -33,9 +33,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
         className="overflow-hidden h-full flex flex-col border-border/80 dark:border-border/40 group-hover:border-brand-start/40 dark:group-hover:border-brand-start/30 transition-all duration-300 relative"
         hoverable
       >
-        {/* Cover Image */}
-        <div className="relative aspect-video w-full overflow-hidden bg-muted dark:bg-muted/10">
-          {!imgError ? (
+        {/* Cover Image / Icon Showcase */}
+        <div className="relative aspect-video w-full overflow-hidden bg-[#1B1515] border-b border-border/30">
+          {project.cover_image && !imgError ? (
             <Image
               src={imgSrc}
               alt={project.name}
@@ -44,24 +44,37 @@ export function ProjectCard({ project }: ProjectCardProps) {
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               onError={() => {
                 setImgError(true);
-                // Fallback to a styled CSS gradient based on the brand colors
-                setImgSrc("");
               }}
             />
           ) : (
-            <div
-              className="absolute inset-0 bg-gradient-to-br from-brand-start/20 via-background to-brand-end/10 flex items-center justify-center"
-              style={{ borderColor: project.color || "transparent" }}
-            >
-              <span className="font-serif text-lg text-muted-foreground opacity-60">
-                {project.name}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#241E1E] via-[#1E1818] to-[#141010] flex flex-col items-center justify-center p-4">
+              <div
+                className="w-14 h-14 rounded-2xl overflow-hidden border border-white/10 shadow-lg flex items-center justify-center group-hover:scale-105 transition-transform duration-300"
+                style={{
+                  background: `linear-gradient(135deg, ${project.color || "#6864F6"}25 0%, #1B1515 100%)`,
+                }}
+              >
+                {project.icon ? (
+                  <img
+                    src={project.icon}
+                    alt={project.name}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <span className="font-serif text-2xl font-bold text-white/80">
+                    {project.name.charAt(0)}
+                  </span>
+                )}
+              </div>
+              <span className="font-sans text-xs text-[#A19898] tracking-wide mt-2 font-medium">
+                {project.category?.name || "Crafted Project"}
               </span>
             </div>
           )}
           
           {/* Status Badge Overlaid */}
           <div className="absolute top-3 left-3 z-10">
-            <ProjectStatus status={project.status} className="bg-background/80 backdrop-blur-sm" />
+            <ProjectStatus status={project.status} className="bg-[#1B1515]/90 border border-white/10 backdrop-blur-sm shadow-md" />
           </div>
         </div>
 
