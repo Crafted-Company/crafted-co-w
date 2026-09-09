@@ -76,32 +76,54 @@ export function Navbar() {
             );
           })}
 
-          {/* Prominent Crafted Store Button */}
-          <Link
-            href="/store"
-            className={`group relative inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono uppercase tracking-wider font-semibold transition-all duration-300 border backdrop-blur-md overflow-hidden ${
-              pathname.startsWith("/store")
-                ? "border-white bg-white/15 text-white shadow-[0_0_12px_rgba(255,255,255,0.25)]"
-                : "border-white/30 hover:border-white bg-[#241E1E]/80 hover:bg-[#2C2525] text-white shadow-sm hover:shadow-[0_0_15px_rgba(104,100,246,0.25)]"
-            }`}
-          >
-            {/* Ambient radiant gradient fill */}
-            <div className="absolute inset-0 bg-gradient-to-r from-brand-start/20 via-brand-mid/25 to-brand-end/20 opacity-80 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-
-            {/* Micro-sparkle beam sweep */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out pointer-events-none" />
-
-            {/* 4-Point Star Particle Matching Logo */}
-            <span className="relative z-10 flex items-center justify-center text-brand-start group-hover:text-white transition-colors duration-300">
-              <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 animate-pulse group-hover:rotate-90 transition-transform duration-500">
+          {/* Prominent Crafted Store Button with External Shining Boundary Star */}
+          <div className="relative inline-flex items-center">
+            {/* External 4-Point Star on the boundary (zooming in & out / shining) */}
+            <motion.span
+              animate={{ scale: [0.9, 1.35, 0.9], rotate: [0, 20, -10, 0] }}
+              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+              className="absolute -top-1.5 -right-1.5 z-20 pointer-events-none text-brand-start filter drop-shadow-[0_0_6px_rgba(104,100,246,0.7)]"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5">
                 <path d="M12 3 Q12 12 21 12 Q12 12 12 21 Q12 12 3 12 Q12 12 12 3 Z" />
               </svg>
-            </span>
+            </motion.span>
 
-            <span className="relative z-10 tracking-widest text-[11px] font-bold">
-              Store
-            </span>
-          </Link>
+            <Link
+              href="/store"
+              className={`group relative inline-flex items-center justify-center px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-wider font-semibold transition-all duration-300 border backdrop-blur-md overflow-hidden ${
+                pathname.startsWith("/store")
+                  ? "border-brand-start bg-brand-start/15 text-brand-start shadow-[0_0_12px_rgba(104,100,246,0.3)] dark:border-white dark:bg-white/15 dark:text-white dark:shadow-[0_0_12px_rgba(255,255,255,0.25)]"
+                  : "border-brand-start/40 hover:border-brand-start bg-card/90 hover:bg-muted/70 text-foreground shadow-sm dark:border-white/30 dark:hover:border-white dark:bg-[#241E1E]/80 dark:hover:bg-[#2C2525] dark:text-white dark:shadow-[0_0_15px_rgba(104,100,246,0.2)]"
+              }`}
+            >
+              {/* Slanted rectangle strips animation moving left-to-right and right-to-left quickly */}
+              <motion.div
+                animate={{ x: ["-25%", "25%", "-25%"] }}
+                transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
+                className="absolute inset-0 pointer-events-none opacity-30 dark:opacity-40"
+                style={{
+                  backgroundImage: `repeating-linear-gradient(
+                    -45deg,
+                    transparent,
+                    transparent 6px,
+                    rgba(104, 100, 246, 0.45) 6px,
+                    rgba(104, 100, 246, 0.45) 12px,
+                    transparent 12px,
+                    transparent 18px,
+                    rgba(169, 69, 45, 0.4) 18px,
+                    rgba(169, 69, 45, 0.4) 24px
+                  )`,
+                  width: "160%",
+                  left: "-30%"
+                }}
+              />
+
+              <span className="relative z-10 tracking-widest text-[11px] font-bold">
+                Store
+              </span>
+            </Link>
+          </div>
         </nav>
 
         {/* Action Controls */}
@@ -151,8 +173,8 @@ export function Navbar() {
             href="/store"
             className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl border text-sm font-mono uppercase tracking-wider font-semibold transition-all duration-300 ${
               pathname.startsWith("/store")
-                ? "border-white bg-white/15 text-white shadow-md"
-                : "border-white/30 bg-gradient-to-r from-brand-start/20 via-brand-mid/20 to-brand-end/20 text-white hover:border-white/60"
+                ? "border-brand-start bg-brand-start/15 text-brand-start dark:border-white dark:bg-white/15 dark:text-white shadow-md"
+                : "border-border bg-card text-foreground hover:bg-muted dark:border-white/30 dark:bg-gradient-to-r dark:from-brand-start/20 dark:via-brand-mid/20 dark:to-brand-end/20 dark:text-white"
             }`}
           >
             <div className="flex items-center gap-2">

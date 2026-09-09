@@ -66,7 +66,7 @@ export default function StorePage() {
         <Container className="space-y-10 max-w-6xl">
           {/* Header */}
           <div className="space-y-3">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-white/15 bg-white/5 text-xs font-mono text-[#F3EFEF]">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-border bg-card text-xs font-mono text-foreground shadow-sm">
               <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 text-brand-start">
                 <path d="M12 3 Q12 12 21 12 Q12 12 12 21 Q12 12 3 12 Q12 12 12 3 Z" />
               </svg>
@@ -79,7 +79,7 @@ export default function StorePage() {
           </div>
 
           {/* Android Store App Hero Feature Banner */}
-          <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-gradient-to-r from-[#241E1E] via-[#2A1E22] to-[#1B1515] p-5 sm:p-8 shadow-2xl">
+          <div className="relative overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-card via-secondary/40 to-card dark:from-[#241E1E] dark:via-[#2A1E22] dark:to-[#1B1515] dark:border-white/15 p-5 sm:p-8 shadow-md dark:shadow-2xl">
             {/* Subtle radial glow */}
             <div className="absolute -right-16 -top-16 w-64 h-64 rounded-full bg-brand-start/15 blur-3xl pointer-events-none" />
             <div className="absolute -left-16 -bottom-16 w-64 h-64 rounded-full bg-brand-mid/10 blur-3xl pointer-events-none" />
@@ -90,24 +90,24 @@ export default function StorePage() {
                   <Smartphone className="w-4 h-4" />
                   <span className="uppercase tracking-wider font-semibold">Native Android Client</span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-bold font-sans tracking-tight text-white">
+                <h2 className="text-2xl sm:text-3xl font-bold font-sans tracking-tight text-foreground">
                   Crafted Store App for Android
                 </h2>
-                <p className="text-sm text-[#A19898] leading-relaxed">
+                <p className="text-sm text-muted-foreground leading-relaxed">
                   Experience frictionless 1-click APK downloads, auto-update background polling, and direct Android Package Installer integration. Zero accounts or tracking required.
                 </p>
 
-                <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-[#F3EFEF]/80 pt-1">
-                  <span className="flex items-center gap-1.5">
-                    <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-muted-foreground pt-1">
+                  <span className="flex items-center gap-1.5 text-foreground/90">
+                    <ShieldCheck className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />
                     Verified Binaries
                   </span>
-                  <span className="flex items-center gap-1.5">
+                  <span className="flex items-center gap-1.5 text-foreground/90">
                     <RefreshCw className="w-4 h-4 text-brand-start" />
                     GitHub Releases Sync
                   </span>
-                  <span className="flex items-center gap-1.5">
-                    <PackageCheck className="w-4 h-4 text-amber-400" />
+                  <span className="flex items-center gap-1.5 text-foreground/90">
+                    <PackageCheck className="w-4 h-4 text-amber-500 dark:text-amber-400" />
                     Zero Ads / Open Catalog
                   </span>
                 </div>
@@ -126,7 +126,7 @@ export default function StorePage() {
                   <Download className="w-4 h-4" />
                   <span>Download Store APK</span>
                 </button>
-                <span className="text-[11px] font-mono text-[#6E6666] text-center">
+                <span className="text-[11px] font-mono text-muted-foreground text-center">
                   v1.0.0-preview • Direct GitHub Asset
                 </span>
               </div>
@@ -147,8 +147,8 @@ export default function StorePage() {
                       onClick={() => setActiveCategory(tab.value)}
                       className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono whitespace-nowrap transition-all border ${
                         isActive
-                          ? "bg-white/10 text-white border-white/25 shadow-md"
-                          : "bg-[#241E1E]/60 text-[#A19898] border-[#312929] hover:text-white hover:bg-[#2C2525]"
+                          ? "bg-foreground text-background border-foreground shadow-sm dark:bg-white/15 dark:text-white dark:border-white/30"
+                          : "bg-card text-muted-foreground border-border hover:text-foreground hover:bg-muted/70 dark:bg-[#241E1E]/60 dark:text-[#A19898] dark:border-[#312929] dark:hover:text-white dark:hover:bg-[#2C2525]"
                       }`}
                     >
                       <Icon className="w-3.5 h-3.5" />
@@ -160,13 +160,13 @@ export default function StorePage() {
 
               {/* Search input */}
               <div className="relative min-w-[240px]">
-                <Search className="w-4 h-4 text-[#A19898] absolute left-3 top-1/2 -translate-y-1/2" />
+                <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search catalog or tech..."
-                  className="w-full pl-9 pr-3 py-2 rounded-xl bg-[#241E1E]/80 border border-[#312929] text-xs font-mono text-white placeholder:text-[#6E6666] focus:outline-none focus:border-brand-start/50 transition-colors"
+                  className="w-full pl-9 pr-3 py-2 rounded-xl bg-card border border-border text-xs font-mono text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-start/50 transition-colors shadow-sm dark:bg-[#241E1E]/80 dark:border-[#312929] dark:text-white"
                 />
               </div>
             </div>
@@ -184,10 +184,10 @@ export default function StorePage() {
               ))}
             </div>
           ) : (
-            <div className="p-12 text-center rounded-2xl border border-dashed border-[#312929] bg-[#241E1E]/30 space-y-3">
-              <PackageCheck className="w-8 h-8 text-[#A19898] mx-auto" />
-              <div className="text-sm font-semibold text-white">No items found</div>
-              <p className="text-xs text-[#A19898] max-w-sm mx-auto">
+            <div className="p-12 text-center rounded-2xl border border-dashed border-border bg-card/40 dark:border-[#312929] dark:bg-[#241E1E]/30 space-y-3">
+              <PackageCheck className="w-8 h-8 text-muted-foreground mx-auto" />
+              <div className="text-sm font-semibold text-foreground">No items found</div>
+              <p className="text-xs text-muted-foreground max-w-sm mx-auto">
                 No store applications or tools match the current filter and search query.
               </p>
             </div>
