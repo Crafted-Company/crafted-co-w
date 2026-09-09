@@ -355,7 +355,7 @@ INSERT INTO public.journal_entries (
   id, project_id, title, slug, excerpt, content_mdx,
   reading_time, pinned, visibility, published, published_at, created_at, updated_at
 ) VALUES (
-  'j1000001-0000-0000-0000-000000000001',
+  gen_random_uuid(),
   'a1000001-0000-0000-0000-000000000001',
   'Engineering Craftnime: Multi-Source Playback and Obsidian Aesthetics',
   'engineering-craftnime-multi-source-streaming',
@@ -376,7 +376,7 @@ Media apps should get out of the way. We implemented vertical swipe zones for br
 All watchlist status records and episode timestamps are stored in persistent IndexedDB snapshots, ensuring that even in flight mode or on poor connections, the app boots instantly.',
   3, true, 'public', true, '2026-08-28T12:00:00Z', '2026-08-28T12:00:00Z', '2026-08-28T12:00:00Z'
 ), (
-  'j1000002-0000-0000-0000-000000000002',
+  gen_random_uuid(),
   'a1000003-0000-0000-0000-000000000003',
   'From Standalone Apps to the Crafted Co. Ecosystem',
   'evolution-of-crafted-co-ecosystem',
