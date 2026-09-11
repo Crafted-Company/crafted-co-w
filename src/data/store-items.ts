@@ -20,21 +20,27 @@ export const STORE_ITEMS: StoreItem[] = [
     installs: "100+",
     screenshots: [
       {
-        id: "cn-1",
-        caption: "Spotlight Hero Banner & Anime Details",
-        image: "/store/screenshots/craftnime-1.png",
+        id: "cn-d1",
+        caption: "Desktop Studio Interface & Spotlight Hero",
+        image: "/store/screenshots/craftnime-desktop-1.png",
+        aspectRatio: "landscape"
+      },
+      {
+        id: "cn-m1",
+        caption: "Mobile Android Home & Trending Hub",
+        image: "/store/screenshots/craftnime-mobile-1.png",
         aspectRatio: "portrait"
       },
       {
-        id: "cn-2",
-        caption: "Trending & Catalog Browse Grid",
-        image: "/store/screenshots/craftnime-2.png",
-        aspectRatio: "portrait"
+        id: "cn-d2",
+        caption: "Desktop Episode Matrix & Stream Player",
+        image: "/store/screenshots/craftnime-desktop-2.png",
+        aspectRatio: "landscape"
       },
       {
-        id: "cn-3",
-        caption: "Episodes Matrix & Streaming Hub",
-        image: "/store/screenshots/craftnime-3.png",
+        id: "cn-m2",
+        caption: "Mobile Episodes & Watchlist Sync",
+        image: "/store/screenshots/craftnime-mobile-2.png",
         aspectRatio: "portrait"
       }
     ],
