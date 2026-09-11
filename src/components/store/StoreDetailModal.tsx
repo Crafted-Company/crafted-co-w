@@ -223,49 +223,95 @@ export function StoreDetailModal({ item, onClose }: StoreDetailModalProps) {
             </div>
           </div>
 
-          {/* Screenshots Placeholders (Clean Mockup Frames) */}
+          {/* Screenshots Gallery (Adaptive Mobile Phone & PC Window Frames) */}
           <div className="space-y-2.5">
             <h3 className="text-xs font-mono uppercase tracking-wider text-muted-foreground flex items-center justify-between">
               <span>Preview Gallery</span>
               <span className="text-[11px] lowercase text-muted-foreground/70">Official release captures</span>
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {item.screenshots.map((ss) => (
-                <div
-                  key={ss.id}
-                  className="rounded-2xl border border-border bg-card p-4 flex flex-col justify-between overflow-hidden relative group aspect-[9/16] max-h-72 shadow-sm hover:border-brand-start/40 transition-colors dark:border-[#312929] dark:bg-[#241E1E]"
-                  style={{ backgroundColor: ss.placeholderColor || undefined }}
-                >
-                  {/* Phone frame top speaker bar indicator */}
-                  <div className="flex items-center justify-between">
-                    <span className="w-8 h-1 rounded-full bg-foreground/20 dark:bg-white/20 mx-auto" />
-                  </div>
-                  
-                  <div className="flex flex-col items-center justify-center my-auto py-2 text-center">
-                    <div
-                      className="w-12 h-12 rounded-xl flex items-center justify-center border border-border/80 dark:border-white/10 mb-2.5 overflow-hidden shadow-sm"
-                      style={{ background: `${item.accentColor}18`, color: item.accentColor }}
-                    >
-                      {item.iconImage ? (
-                        <img
-                          src={item.iconImage}
-                          alt={item.name}
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        getStoreIcon(item.iconName, "w-6 h-6")
-                      )}
-                    </div>
-                    <span className="text-xs font-semibold text-foreground/90 line-clamp-2 px-1 leading-snug">
-                      {ss.caption}
-                    </span>
-                  </div>
+            <div
+              className={`grid gap-3 ${
+                item.category === "tools" || item.category === "web" || item.id === "crafted-studio"
+                  ? "grid-cols-1 sm:grid-cols-2"
+                  : "grid-cols-1 sm:grid-cols-3"
+              }`}
+            >
+              {item.screenshots.map((ss) => {
+                const isLandscape =
+                  ss.aspectRatio === "landscape" ||
+                  item.category === "tools" ||
+                  item.category === "web" ||
+                  item.id === "crafted-studio";
 
-                  <div className="text-[10px] font-mono text-center text-muted-foreground tracking-tight">
-                    {item.name} • {item.version}
+                return (
+                  <div
+                    key={ss.id}
+                    className={`rounded-2xl border border-border bg-card p-4 flex flex-col justify-between overflow-hidden relative group shadow-sm hover:border-brand-start/40 transition-colors dark:border-[#312929] dark:bg-[#241E1E] ${
+                      isLandscape ? "aspect-[16/10] max-h-64" : "aspect-[9/16] max-h-72"
+                    }`}
+                    style={{ backgroundColor: ss.placeholderColor || undefined }}
+                  >
+                    {ss.image ? (
+                      <div className="relative w-full h-full rounded-lg overflow-hidden">
+                        <img
+                          src={ss.image}
+                          alt={ss.caption}
+                          className="w-full h-full object-cover rounded-lg"
+                        />
+                        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-2 text-white">
+                          <p className="text-[11px] font-semibold leading-tight line-clamp-1">{ss.caption}</p>
+                        </div>
+                      </div>
+                    ) : (
+                      <>
+                        {/* Device Frame Top Bar: Mobile speaker pill vs PC desktop window controls */}
+                        <div className="flex items-center justify-between w-full">
+                          {isLandscape ? (
+                            <div className="flex items-center gap-1.5 opacity-60">
+                              <span className="w-2 h-2 rounded-full bg-red-500/80" />
+                              <span className="w-2 h-2 rounded-full bg-amber-500/80" />
+                              <span className="w-2 h-2 rounded-full bg-emerald-500/80" />
+                            </div>
+                          ) : (
+                            <span className="w-8 h-1 rounded-full bg-foreground/20 dark:bg-white/20 mx-auto" />
+                          )}
+                          {isLandscape && (
+                            <span className="text-[9px] font-mono text-muted-foreground truncate max-w-[120px]">
+                              {item.slug}
+                            </span>
+                          )}
+                        </div>
+
+                        {/* Center Mockup Info */}
+                        <div className="flex flex-col items-center justify-center my-auto py-2 text-center">
+                          <div
+                            className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center border border-border/80 dark:border-white/10 mb-2 overflow-hidden shadow-sm shrink-0"
+                            style={{ background: `${item.accentColor}18`, color: item.accentColor }}
+                          >
+                            {item.iconImage ? (
+                              <img
+                                src={item.iconImage}
+                                alt={item.name}
+                                className="w-full h-full object-cover"
+                              />
+                            ) : (
+                              getStoreIcon(item.iconName, "w-6 h-6")
+                            )}
+                          </div>
+                          <span className="text-xs font-semibold text-foreground/90 line-clamp-2 px-1 leading-snug">
+                            {ss.caption}
+                          </span>
+                        </div>
+
+                        {/* Bottom Tag */}
+                        <div className="text-[10px] font-mono text-center text-muted-foreground tracking-tight">
+                          {item.name} • {item.version}
+                        </div>
+                      </>
+                    )}
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 

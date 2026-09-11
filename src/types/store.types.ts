@@ -1,4 +1,4 @@
-﻿export type PlatformType = "android" | "windows" | "linux" | "web";
+export type PlatformType = "android" | "windows" | "linux" | "web";
 
 export interface PlatformDownload {
   platform: PlatformType;
@@ -31,7 +31,9 @@ export interface StoreItem {
   screenshots: {
     id: string;
     caption: string;
+    image?: string; // Direct URL to screenshot image (e.g. /store/screenshots/app-1.png)
     placeholderColor?: string;
+    aspectRatio?: "portrait" | "landscape"; // portrait (9:16) for mobile, landscape (16:10) for PC/Web
   }[];
   platforms: PlatformDownload[];
   features: string[];
