@@ -27,19 +27,19 @@ export const STORE_ITEMS: StoreItem[] = [
       },
       {
         id: "cn-m1",
-        caption: "Mobile Android Home & Trending Hub",
+        caption: "Mobile Trending Anime & Popularity Rankings",
         image: "/store/screenshots/craftnime-mobile-1.png",
         aspectRatio: "portrait"
       },
       {
         id: "cn-d2",
-        caption: "Desktop Episode Matrix & Stream Player",
+        caption: "Desktop Franchise Chronology & Canonical Watch Order",
         image: "/store/screenshots/craftnime-desktop-2.png",
         aspectRatio: "landscape"
       },
       {
         id: "cn-m2",
-        caption: "Mobile Episodes & Watchlist Sync",
+        caption: "Mobile Watchlist & MAL Cloud Sync Hub",
         image: "/store/screenshots/craftnime-mobile-2.png",
         aspectRatio: "portrait"
       }
