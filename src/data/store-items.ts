@@ -1,4 +1,4 @@
-﻿import { StoreItem } from "@/types/store.types";
+import { StoreItem } from "@/types/store.types";
 
 export const STORE_ITEMS: StoreItem[] = [
   {
@@ -9,32 +9,68 @@ export const STORE_ITEMS: StoreItem[] = [
     description: "A fast, unified anime viewer and catalog synchronizer designed with smooth transitions, subtitle controls, and a dedicated multi-source player engine.",
     category: "suite",
     isSuite: true,
-    status: "in-development",
-    version: "v1.4.2",
-    releaseDate: "Upcoming",
+    status: "available",
+    version: "v1.0.0",
+    releaseDate: "September 2026",
     githubUrl: "https://github.com/Crafted-Company/craftnime-x",
     accentColor: "#6864F6",
     iconName: "Tv",
     iconImage: "/store/icons/craftnime.png",
     rating: "4.9",
-    installs: "Beta",
+    installs: "100+",
     screenshots: [
-      { id: "cn-1", caption: "Spotlight Hero Banner & Anime Details", placeholderColor: "#241D1D" },
-      { id: "cn-2", caption: "Trending & Catalog Browse Grid", placeholderColor: "#1F1818" },
-      { id: "cn-3", caption: "Mobile Player Controls & Watchlist", placeholderColor: "#2C2222" }
+      {
+        id: "cn-1",
+        caption: "Spotlight Hero Banner & Anime Details",
+        image: "/store/screenshots/craftnime-1.png",
+        aspectRatio: "portrait"
+      },
+      {
+        id: "cn-2",
+        caption: "Trending & Catalog Browse Grid",
+        image: "/store/screenshots/craftnime-2.png",
+        aspectRatio: "portrait"
+      },
+      {
+        id: "cn-3",
+        caption: "Episodes Matrix & Streaming Hub",
+        image: "/store/screenshots/craftnime-3.png",
+        aspectRatio: "portrait"
+      }
     ],
     platforms: [
-      { platform: "android", label: "Android APK", version: "v1.4.2", size: "78 MB", isAvailable: false },
-      { platform: "windows", label: "Windows .exe", version: "v1.4.2", size: "95 MB", isAvailable: false },
-      { platform: "linux", label: "Linux AppImage", version: "v1.4.2", size: "92 MB", isAvailable: false }
+      {
+        platform: "android",
+        label: "Android APK",
+        version: "v1.0.0",
+        size: "11 MB",
+        downloadUrl: "https://github.com/Crafted-Company/craftnime-x/releases/download/v1.0.0/Craftnime.apk",
+        isAvailable: true
+      },
+      {
+        platform: "windows",
+        label: "Windows .exe",
+        version: "v1.0.0",
+        size: "105 MB",
+        downloadUrl: "https://github.com/Crafted-Company/craftnime-x/releases/download/v1.0.0/Craftnime-Setup-v1.0.0.exe",
+        isAvailable: true
+      },
+      {
+        platform: "linux",
+        label: "Linux Package",
+        version: "v1.0.0",
+        size: "155 MB",
+        downloadUrl: "https://github.com/Crafted-Company/craftnime-x/releases/download/v1.0.0/Craftnime-1.0.0-Linux.zip",
+        isAvailable: true
+      }
     ],
     features: [
-      "Dynamic multi-server streaming with quality selection",
-      "Offline cache and watchlist synchronization",
-      "Custom Crafted obsidian & violet UI layout",
-      "Optimized gesture-controlled video player"
+      "Dynamic multi-server streaming with quality selection (1080p Full HD)",
+      "Seamless HLS playback with subtitle controls & fast seeking",
+      "Offline cache, watchlist synchronization & AniList integration",
+      "Cross-platform obsidian & violet UI layout optimized for mobile & desktop"
     ],
-    techStack: ["TypeScript", "Capacitor", "Vite", "Tailwind CSS"]
+    techStack: ["TypeScript", "Capacitor", "Electron", "React", "Tailwind CSS"]
   },
   {
     id: "music-player",
