@@ -82,35 +82,62 @@ export const STORE_ITEMS: StoreItem[] = [
     id: "music-player",
     slug: "music-player-x",
     name: "Music Player",
-    tagline: "High-fidelity Navidrome & local audio player client",
-    description: "Obsidian-themed audio client with zero-friction server authentication, seamless gapless playback, playlist management, and offline cache support.",
+    tagline: "Retro iPod Classic & Gonic audio player client",
+    description: "Obsidian-themed iPod Classic click-wheel audio client with Gonic & Subsonic streaming, LRCLIB synced lyrics, full playlist management, and offline cache support.",
     category: "suite",
     isSuite: true,
-    status: "in-development",
-    version: "v0.9.0",
-    releaseDate: "Upcoming",
+    status: "available",
+    version: "v1.0.0",
+    releaseDate: "September 2026",
     githubUrl: "https://github.com/Crafted-Company/music-player-x",
     accentColor: "#A9452D",
     iconName: "Music",
     iconImage: "/store/icons/music-player.png",
-    rating: "4.8",
-    installs: "Beta",
+    rating: "4.9",
+    installs: "100+",
     screenshots: [
-      { id: "mp-1", caption: "Now Playing Interface with Waveform", placeholderColor: "#221A1A" },
-      { id: "mp-2", caption: "Navidrome Server Library & Albums", placeholderColor: "#1B1515" },
-      { id: "mp-3", caption: "Mobile Player Tray & Quick Controls", placeholderColor: "#261D1D" }
+      {
+        id: "mp-m1",
+        caption: "iPod Classic Click-Wheel & Gonic Server Navigation",
+        image: "/store/screenshots/music-player-mobile-1.png",
+        aspectRatio: "portrait"
+      },
+      {
+        id: "mp-m2",
+        caption: "Now Playing Screen with Dynamic Progress & Cover Art",
+        image: "/store/screenshots/music-player-mobile-2.png",
+        aspectRatio: "portrait"
+      },
+      {
+        id: "mp-m3",
+        caption: "Music Library, Albums & Subsonic Stream Browser",
+        image: "/store/screenshots/music-player-mobile-3.png",
+        aspectRatio: "portrait"
+      },
+      {
+        id: "mp-m4",
+        caption: "Real-time Synced Lyrics & Live Line Following",
+        image: "/store/screenshots/music-player-mobile-4.png",
+        aspectRatio: "portrait"
+      }
     ],
     platforms: [
-      { platform: "android", label: "Android APK", version: "v0.9.0", size: "64 MB", isAvailable: false },
-      { platform: "windows", label: "Windows .exe", version: "v0.9.0", size: "82 MB", isAvailable: false }
+      {
+        platform: "android",
+        label: "Android APK",
+        version: "v1.0.0",
+        size: "5 MB",
+        downloadUrl: "https://github.com/Crafted-Company/music-player-x/releases/download/v1.0.0/CraftedMusicPlayer-v1.0.0.apk",
+        isAvailable: true
+      }
     ],
     features: [
-      "Native Subsonic & Navidrome API protocol integration",
-      "Local audio scanner with ID3 tag parsing",
-      "Warm charcoal backdrop with audio-reactive accent lighting",
-      "Persistent mini-player and lockscreen audio controls"
+      "Authentic iPod Classic click-wheel tactile rotary navigation & haptics",
+      "Native Gonic & Subsonic cloud library streaming with instant playback",
+      "Real-time synced lyrics powered by LRCLIB with auto-scroll",
+      "Full playlist management: create, rename, delete & local audio scanning"
     ],
-    techStack: ["TypeScript", "Capacitor", "Vite", "Web Audio API"]
+    techStack: ["TypeScript", "Capacitor", "React", "Tailwind CSS", "Web Audio API"]
   },
   {
     id: "crafted-studio",
