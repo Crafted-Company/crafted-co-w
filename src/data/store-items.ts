@@ -98,19 +98,19 @@ export const STORE_ITEMS: StoreItem[] = [
     screenshots: [
       {
         id: "mp-m1",
-        caption: "iPod Classic Click-Wheel & Gonic Server Navigation",
+        caption: "Now Playing Screen with Song Cover & Click-Wheel",
         image: "/store/screenshots/music-player-mobile-1.png",
         aspectRatio: "portrait"
       },
       {
         id: "mp-m2",
-        caption: "Now Playing Screen with Dynamic Progress & Cover Art",
+        caption: "iPod Classic Menu & Gonic Server Navigation",
         image: "/store/screenshots/music-player-mobile-2.png",
         aspectRatio: "portrait"
       },
       {
         id: "mp-m3",
-        caption: "Music Library, Albums & Subsonic Stream Browser",
+        caption: "Automated Metadata & Cover Art Fetching",
         image: "/store/screenshots/music-player-mobile-3.png",
         aspectRatio: "portrait"
       },
