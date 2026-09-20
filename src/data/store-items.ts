@@ -346,37 +346,6 @@ export const STORE_ITEMS: StoreItem[] = [
     techStack: ["TypeScript", "HTML5 Canvas", "Capacitor", "Vite"]
   },
   {
-    id: "abyss-archive",
-    slug: "abyss-archive-w",
-    name: "Abyss Archive",
-    tagline: "Unified media vault for books, movies, series, and PC games",
-    description: "A centralized media tracking portal featuring Google Books metadata resolution, Steam library/wishlist integration, QR code sharing, and financial analytics.",
-    category: "web",
-    status: "available",
-    version: "v1.1.0",
-    releaseDate: "Live Platform",
-    githubUrl: "https://github.com/Aditya0973/abyss-archive-w",
-    accentColor: "#6864F6",
-    iconName: "Library",
-    rating: "5.0",
-    installs: "Cloud",
-    screenshots: [
-      { id: "aa-1", caption: "Media Dashboard & Collection Overview", placeholderColor: "#1C1726" },
-      { id: "aa-2", caption: "Steam Wishlist Sync & Financial Insights", placeholderColor: "#181422" },
-      { id: "aa-3", caption: "Google Books Auto-Resolver & Journal", placeholderColor: "#20182A" }
-    ],
-    platforms: [
-      { platform: "web", label: "Launch Web App", version: "v1.1.0", downloadUrl: "https://www.abyssarchive.space/", isAvailable: true }
-    ],
-    features: [
-      "Google Books API integration for instant ISBN metadata resolution",
-      "Undocumented Steam API wishlist and ownership import sync",
-      "CSV parser adapters for Goodreads and Letterboxd diary imports",
-      "Supabase PostgreSQL backend with Row-Level Security (RLS)"
-    ],
-    techStack: ["Next.js", "React", "TypeScript", "Supabase", "Tailwind CSS"]
-  },
-  {
     id: "modyule",
     slug: "modyule-w",
     name: "Modyule",
