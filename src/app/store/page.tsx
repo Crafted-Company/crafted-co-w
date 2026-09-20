@@ -114,20 +114,17 @@ export default function StorePage() {
               </div>
 
               {/* Action */}
-              <div className="flex flex-col sm:flex-row md:flex-col gap-2.5 shrink-0">
+              <div className="flex flex-col sm:flex-row md:flex-col gap-2 shrink-0">
                 <button
                   type="button"
-                  onClick={() => {
-                    const storeApp = STORE_ITEMS.find((i) => i.id === "craftnime");
-                    if (storeApp) setSelectedItem(storeApp);
-                  }}
-                  className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-brand-start via-brand-mid to-brand-end text-white text-sm font-semibold shadow-lg hover:shadow-brand-start/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                  disabled
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-muted/60 dark:bg-white/10 border border-border/80 dark:border-white/20 text-muted-foreground text-sm font-mono cursor-not-allowed opacity-90 shadow-sm"
                 >
-                  <Download className="w-4 h-4" />
-                  <span>Download Store APK</span>
+                  <Sparkles className="w-4 h-4 text-amber-500 dark:text-amber-400 shrink-0" />
+                  <span>App in Development</span>
                 </button>
                 <span className="text-[11px] font-mono text-muted-foreground text-center">
-                  v1.0.0-preview • Direct GitHub Asset
+                  Coming Soon • Native Android APK
                 </span>
               </div>
             </div>
