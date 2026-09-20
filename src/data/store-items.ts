@@ -338,29 +338,59 @@ export const STORE_ITEMS: StoreItem[] = [
     slug: "modyule-w",
     name: "Modyule",
     tagline: "Token-driven SaaS generator & dashboard builder",
-    description: "Interactive visual component builder and full-stack code exporter that compiles production-ready Next.js & Supabase application templates.",
+    description: "An interactive, token-driven web application customizer and dynamic server-side codebase generator. Visually configure design presets, slot structures, databases (Supabase, Firebase, Prisma), and SaaS modules, and instantly export a fully-typed Next.js codebase in a clean ZIP bundle.",
     category: "web",
     status: "available",
     version: "v1.0.7",
     releaseDate: "Live Platform",
     githubUrl: "https://github.com/Aditya0973/modyule-w",
-    accentColor: "#D97706",
+    accentColor: "#076653",
     iconName: "Boxes",
-    rating: "4.8",
+    iconImage: "/store/icons/modyule.png",
+    rating: "4.9",
     installs: "Cloud",
     screenshots: [
-      { id: "md-1", caption: "Visual Dashboard Token Editor & Inspector", placeholderColor: "#231B15" },
-      { id: "md-2", caption: "Code Exporter & Database Schema Bundler", placeholderColor: "#1E1712" }
+      {
+        id: "md-1",
+        caption: "Style & Design Token Customizer (Modern, Glass, Brutalist, Soft, Enterprise)",
+        image: "/store/screenshots/modyule-1.png",
+        aspectRatio: "landscape"
+      },
+      {
+        id: "md-2",
+        caption: "Layout & Navigation Grid Configuration (Sidebar, Topbar, Hybrid)",
+        image: "/store/screenshots/modyule-2.png",
+        aspectRatio: "landscape"
+      },
+      {
+        id: "md-3",
+        caption: "Dashboard Card Slots & Component Customizer (KPIs, Charts, Tables)",
+        image: "/store/screenshots/modyule-3.png",
+        aspectRatio: "landscape"
+      },
+      {
+        id: "md-4",
+        caption: "Database & Authentication Config Generator (Supabase, Firebase, Prisma)",
+        image: "/store/screenshots/modyule-4.png",
+        aspectRatio: "landscape"
+      },
+      {
+        id: "md-5",
+        caption: "Production SaaS Modules & Feature Suite (Stripe Billing, Teams, Calendar)",
+        image: "/store/screenshots/modyule-5.png",
+        aspectRatio: "landscape"
+      }
     ],
     platforms: [
       { platform: "web", label: "Launch Web App", version: "v1.0.7", downloadUrl: "https://modyule.vercel.app/", isAvailable: true }
     ],
     features: [
       "Real-time visual token customizer with instant preview",
-      "Automated export package bundler with clean ZIP generator",
-      "Pre-configured Supabase, Firebase, and Prisma client setups",
-      "Cyber brutalist theme with responsive glass layouts"
+      "Multi-preset design languages (Modern, Glass, Brutalist, Soft, Enterprise)",
+      "Dynamic code exporter with pre-configured Supabase, Firebase & Prisma setups",
+      "Modular SaaS features suite (Stripe billing, teams, calendars, command bar)",
+      "Child-simple developer manual (README) generated in every export ZIP"
     ],
-    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Prisma"]
+    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "Prisma", "Zustand"]
   }
 ];
