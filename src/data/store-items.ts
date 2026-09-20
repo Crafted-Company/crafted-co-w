@@ -435,5 +435,78 @@ export const STORE_ITEMS: StoreItem[] = [
       "Child-simple developer manual (README) generated in every export ZIP"
     ],
     techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "Prisma", "Zustand"]
+  },
+  {
+    id: "abyss-archive",
+    slug: "abyss-archive-w",
+    name: "Abyss Archive",
+    tagline: "Minimalist universal vault for books, movies, and games",
+    description: "A unified, distraction-free media catalog and backlog organizer for books, movies, series, and PC games. Featuring automated Steam library and wishlist sync, live price tracking, custom shelf curation, deep library insights, and public profile sharing.",
+    category: "web",
+    status: "available",
+    version: "v1.0.0",
+    releaseDate: "Live Platform",
+    githubUrl: "https://github.com/Aditya0973/abyss-archive-w",
+    accentColor: "#6864F6",
+    iconName: "Library",
+    iconImage: "/store/icons/abyss-archive.svg",
+    rating: "4.9",
+    installs: "Cloud",
+    screenshots: [
+      {
+        id: "aa-1",
+        caption: "Unified Books Vault with ISBN Lookup & Shelf Categorization",
+        image: "/store/screenshots/abyss-archive-1.png",
+        aspectRatio: "landscape"
+      },
+      {
+        id: "aa-2",
+        caption: "Steam Games Library Sync, Wishlist Tracking & Playtime Metrics",
+        image: "/store/screenshots/abyss-archive-2.png",
+        aspectRatio: "landscape"
+      },
+      {
+        id: "aa-3",
+        caption: "Movie & Series Details with Cast, Crew & Rotten Tomatoes Ratings",
+        image: "/store/screenshots/abyss-archive-3.png",
+        aspectRatio: "landscape"
+      },
+      {
+        id: "aa-4",
+        caption: "Book Overview Card with Page Count, Publisher & Direct Notes",
+        image: "/store/screenshots/abyss-archive-4.png",
+        aspectRatio: "landscape"
+      },
+      {
+        id: "aa-5",
+        caption: "Quick Add Game Dialog with Live Steam API Search",
+        image: "/store/screenshots/abyss-archive-5.png",
+        aspectRatio: "landscape"
+      },
+      {
+        id: "aa-6",
+        caption: "Deep Library Analytics & Media Completion Insights",
+        image: "/store/screenshots/abyss-archive-6.png",
+        aspectRatio: "landscape"
+      }
+    ],
+    platforms: [
+      {
+        platform: "web",
+        label: "Launch Web App",
+        version: "v1.0.0",
+        downloadUrl: "https://abyssarchive.space",
+        isAvailable: true
+      }
+    ],
+    features: [
+      "Track books, movies, TV shows, and games in a single cohesive vault",
+      "Seamless Steam integration with automatic library & wishlist price sync",
+      "Live search via Google Books, Open Library, TMDB, and Steam Store APIs",
+      "Interactive media insights, rating distributions, and shelf statistics",
+      "Public profile sharing with custom vanity links"
+    ],
+    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "Lucide Icons"]
   }
 ];
+
