@@ -3,10 +3,10 @@
   "description": "",
   "blueprintId": "blank",
   "selectedModules": [],
-  "currentStage": "deployment",
+  "currentStage": "planning",
   "completedChecklistItems": [],
   "createdAt": "2026-07-24T18:28:10.411Z",
-  "updatedAt": "2026-08-07T14:06:54.847Z",
+  "updatedAt": "2026-09-20T05:02:17.512Z",
   "template": "imported",
   "version": "1.0.0",
   "projectType": "General Project"

@@ -142,35 +142,78 @@ export const STORE_ITEMS: StoreItem[] = [
   {
     id: "crafted-studio",
     slug: "crafted-studio-pc",
-    name: "Crafted Studio",
-    tagline: "Visual workspace & developer engineering cockpit",
-    description: "A desktop engineering cockpit designed for rapid layout building, terminal docks, AI assistant orchestration, and modular project planning.",
+    name: "Crafted Studio Code",
+    tagline: "Agentic AI workbench & local developer engineering cockpit",
+    description: "An agentic AI development workbench and multi-pane engineering cockpit featuring embedded Monaco editor, live multi-provider LLM orchestration, 4 specialized responsibility agents, and sandboxed terminal tool execution.",
     category: "suite",
     isSuite: true,
-    status: "in-development",
+    status: "available",
     version: "v1.0.0",
-    releaseDate: "Active Dev",
-    githubUrl: "https://github.com/Crafted-Company/crafted-studio-pc",
-    accentColor: "#6864F6",
-    iconName: "Layout",
+    releaseDate: "September 2026",
+    githubUrl: "https://github.com/Aditya0973/crafted-studio-pc",
+    accentColor: "#E05A36",
+    iconName: "Code2",
+    iconImage: "/store/icons/crafted-studio-code.png",
     rating: "5.0",
-    installs: "Preview",
+    installs: "100+",
     screenshots: [
-      { id: "cs-1", caption: "Studio Multi-Pane Cockpit & Explorer", placeholderColor: "#201A1A" },
-      { id: "cs-2", caption: "Tool Dock & Guided Workflow Status", placeholderColor: "#241E1E" },
-      { id: "cs-3", caption: "Integrated Terminal & Architecture View", placeholderColor: "#1A1515" }
+      {
+        id: "cs-1",
+        caption: "4-Pane AI Workbench: Explorer, Agent Chat, Monaco Editor & Live Tool Dock",
+        image: "/store/screenshots/crafted-studio-1.png",
+        aspectRatio: "landscape"
+      },
+      {
+        id: "cs-2",
+        caption: "Integrated Tool Dock with Live Web Sandbox & Embedded Developer Browser",
+        image: "/store/screenshots/crafted-studio-2.png",
+        aspectRatio: "landscape"
+      },
+      {
+        id: "cs-3",
+        caption: "Flexible Multi-Pane Layout with Local Ollama & Cloud Model Orchestrator",
+        image: "/store/screenshots/crafted-studio-3.png",
+        aspectRatio: "landscape"
+      },
+      {
+        id: "cs-4",
+        caption: "Full-Screen Code Editor with Integrated Multi-Tab Terminal Dock",
+        image: "/store/screenshots/crafted-studio-4.png",
+        aspectRatio: "landscape"
+      },
+      {
+        id: "cs-5",
+        caption: "Custom Keyboard Shortcuts & Granular Workspace Configuration",
+        image: "/store/screenshots/crafted-studio-5.png",
+        aspectRatio: "landscape"
+      }
     ],
     platforms: [
-      { platform: "windows", label: "Windows .exe", version: "v1.0.0", size: "110 MB", isAvailable: false },
-      { platform: "linux", label: "Linux AppImage", version: "v1.0.0", size: "105 MB", isAvailable: false }
+      {
+        platform: "windows",
+        label: "Windows .exe",
+        version: "v1.0.0",
+        size: "115 MB",
+        downloadUrl: "https://github.com/Aditya0973/crafted-studio-pc/releases/download/v1.0.0/Crafted-Studio-Code-Setup-v1.0.0.exe",
+        isAvailable: true
+      },
+      {
+        platform: "linux",
+        label: "Linux Package",
+        version: "v1.0.0",
+        size: "140 MB",
+        downloadUrl: "https://github.com/Aditya0973/crafted-studio-pc/releases/download/v1.0.0/Crafted-Studio-Code-1.0.0-Linux.AppImage",
+        isAvailable: true
+      }
     ],
     features: [
-      "Side-by-side IDE docking and workspace linking",
-      "Modular design token inspector and palette exporter",
-      "Built-in guided checklist workflow system",
-      "Obsidian dark mode with customizable panel ratios"
+      "Multi-agent orchestration with 4 specialized roles (Architect, Designer, Engineer, Reviewer)",
+      "Local-first LLM support via Ollama alongside cloud providers (OpenAI, Anthropic, Gemini)",
+      "Resilient backend runtime with human-in-the-loop tool execution approvals",
+      "Integrated Monaco code editor, interactive PTY terminal dock, and live web tool container",
+      "Offline-first SQLite conversation persistence with hardware-encrypted API key storage"
     ],
-    techStack: ["TypeScript", "Electron", "Vite", "Tailwind CSS"]
+    techStack: ["TypeScript", "Electron", "React", "Tailwind CSS", "Monaco Editor", "SQLite", "Node-PTY"]
   },
   {
     id: "commit",
