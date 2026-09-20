@@ -17,6 +17,73 @@ export async function getCategories(): Promise<Category[]> {
   return data || [];
 }
 
+import { STORE_ITEMS } from "@/data/store-items";
+
+function findMatchingStoreItem(slugOrName: string) {
+  if (!slugOrName) return null;
+  const normalized = slugOrName.toLowerCase().replace(/[^a-z0-9]/g, "");
+  return STORE_ITEMS.find((item) => {
+    const itemNormSlug = item.slug.toLowerCase().replace(/[^a-z0-9]/g, "");
+    const itemNormId = item.id.toLowerCase().replace(/[^a-z0-9]/g, "");
+    const itemNormName = item.name.toLowerCase().replace(/[^a-z0-9]/g, "");
+    return (
+      itemNormSlug === normalized ||
+      itemNormId === normalized ||
+      itemNormName === normalized ||
+      normalized.includes(itemNormId) ||
+      itemNormId.includes(normalized)
+    );
+  });
+}
+
+function enrichProject(project: Project): Project {
+  if (!project) return project;
+  const storeItem = findMatchingStoreItem(project.slug || project.name);
+
+  let updatedName = project.name;
+  if (
+    project.slug === "crafted-studio" ||
+    project.slug === "crafted-studio-pc" ||
+    project.slug === "crafted-studio-code" ||
+    project.name.toLowerCase().trim() === "crafted studio"
+  ) {
+    updatedName = "Crafted Studio Code";
+  }
+
+  let coverImage = project.cover_image;
+  if (!coverImage || coverImage.includes("placeholder")) {
+    if (storeItem && storeItem.screenshots && storeItem.screenshots.length > 0) {
+      coverImage = storeItem.screenshots[0].image || storeItem.iconImage || null;
+    } else if (storeItem?.iconImage) {
+      coverImage = storeItem.iconImage || null;
+    }
+  }
+
+  let icon = project.icon;
+  if (!icon && storeItem?.iconImage) {
+    icon = storeItem.iconImage || null;
+  }
+
+  let shortDesc = project.short_description;
+  if ((!shortDesc || shortDesc.length < 5) && storeItem) {
+    shortDesc = storeItem.tagline || storeItem.description;
+  }
+
+  let techStack = project.tech_stack;
+  if ((!techStack || techStack.length === 0) && storeItem?.techStack) {
+    techStack = storeItem.techStack;
+  }
+
+  return {
+    ...project,
+    name: updatedName,
+    cover_image: coverImage,
+    icon,
+    short_description: shortDesc,
+    tech_stack: techStack,
+  };
+}
+
 export async function getProjects(): Promise<Project[]> {
   const { data, error } = await supabase
     .from("projects")
@@ -26,7 +93,7 @@ export async function getProjects(): Promise<Project[]> {
     console.error("Error fetching projects:", error);
     return [];
   }
-  return data || [];
+  return (data || []).map(enrichProject);
 }
 
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
@@ -35,11 +102,19 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
     .select("*, category:category_id(*)")
     .eq("slug", slug)
     .single();
-  if (error) {
+  if (error || !data) {
+    // If exact slug match failed, try alternate suffixes
+    const altSlug = slug.endsWith("-pc") ? slug.replace("-pc", "") : `${slug}-pc`;
+    const { data: altData } = await supabase
+      .from("projects")
+      .select("*, category:category_id(*)")
+      .eq("slug", altSlug)
+      .single();
+    if (altData) return enrichProject(altData);
     console.error("Error fetching project by slug:", error);
     return null;
   }
-  return data;
+  return enrichProject(data);
 }
 
 export async function getProjectImages(projectId: string, projectSlug: string): Promise<ProjectImage[]> {
@@ -86,17 +161,33 @@ export async function getProjectImages(projectId: string, projectSlug: string): 
     console.error("Error listing storage images:", err);
   }
 
-  // 2. Fallback to database table if no storage folder/files exist
+  // 2. Try database table
   const { data, error } = await supabase
     .from("project_images")
     .select("*")
     .eq("project_id", projectId)
     .order("order_index", { ascending: true });
-  if (error) {
-    console.error("Error fetching project images:", error);
-    return [];
+  if (!error && data && data.length > 0) {
+    return data;
   }
-  return data || [];
+
+  // 3. Fallback to local store item screenshots (e.g. craftnime, music-player, crafted-studio)
+  const storeItem = findMatchingStoreItem(projectSlug);
+  if (storeItem && storeItem.screenshots && storeItem.screenshots.length > 0) {
+    return storeItem.screenshots
+      .filter((s) => s.image)
+      .map((s, index) => ({
+        id: s.id || `${projectSlug}-${index}`,
+        project_id: projectId,
+        image_url: s.image!,
+        alt_text: s.caption || `${storeItem.name} screenshot ${index + 1}`,
+        caption: s.caption || null,
+        created_at: new Date().toISOString(),
+        order_index: index,
+      }));
+  }
+
+  return [];
 }
 
 export async function getProjectVersions(projectId: string): Promise<ProjectVersion[]> {

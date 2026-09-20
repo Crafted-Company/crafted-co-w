@@ -52,8 +52,8 @@ Craftnime is a flagship multiplatform media streaming and catalog tracking clien
 ## Engineering Challenges
 * **Stream Extraction & CORS Bypassing:** Resolved mobile webview CORS hurdles by implementing a custom capacitor HTTP bridge and torrent-stream proxy for high-availability feeds.',
   'in_progress', 75, 1,
-  NULL,
-  'https://craftedco.org/store/icons/craftnime.png',
+  '/store/screenshots/craftnime-desktop-1.png',
+  '/store/icons/craftnime.png',
   '#6864F6',
   ARRAY['TypeScript', 'React', 'Vite', 'Tailwind CSS', 'Zustand', 'Hls.js', 'Capacitor', 'WebTorrent', 'Consumet API'],
   'https://github.com/Crafted-Company/craftnime-x',
@@ -63,7 +63,7 @@ Craftnime is a flagship multiplatform media streaming and catalog tracking clien
   name = EXCLUDED.name, short_description = EXCLUDED.short_description,
   full_description_mdx = EXCLUDED.full_description_mdx, status = EXCLUDED.status,
   progress = EXCLUDED.progress, color = EXCLUDED.color, tech_stack = EXCLUDED.tech_stack,
-  icon = EXCLUDED.icon, repository_url = EXCLUDED.repository_url, updated_at = EXCLUDED.updated_at;
+  cover_image = EXCLUDED.cover_image, icon = EXCLUDED.icon, repository_url = EXCLUDED.repository_url, updated_at = EXCLUDED.updated_at;
 
 -- Project 2: Music Player
 INSERT INTO public.projects (
@@ -94,8 +94,8 @@ Music Player is a streamlined, distraction-free audio player inspired by classic
 ### 3. Retro-Modern Interface
 * **Tactile Navigation:** Fluid thumb-driven scrolling inspired by the classic clickwheel with modern micro-animations.',
   'in_progress', 65, 2,
-  NULL,
-  'https://craftedco.org/store/icons/music-player.png',
+  '/store/screenshots/music-player-mobile-1.png',
+  '/store/icons/music-player.png',
   '#A9452D',
   ARRAY['TypeScript', 'React', 'Vite', 'Tailwind CSS', 'Capacitor', 'Subsonic API', 'Web Audio API'],
   'https://github.com/Crafted-Company/music-player-x',
@@ -105,9 +105,9 @@ Music Player is a streamlined, distraction-free audio player inspired by classic
   name = EXCLUDED.name, short_description = EXCLUDED.short_description,
   full_description_mdx = EXCLUDED.full_description_mdx, status = EXCLUDED.status,
   progress = EXCLUDED.progress, color = EXCLUDED.color, tech_stack = EXCLUDED.tech_stack,
-  icon = EXCLUDED.icon, repository_url = EXCLUDED.repository_url, updated_at = EXCLUDED.updated_at;
+  cover_image = EXCLUDED.cover_image, icon = EXCLUDED.icon, repository_url = EXCLUDED.repository_url, updated_at = EXCLUDED.updated_at;
 
--- Project 3: Crafted Studio
+-- Project 3: Crafted Studio Code
 INSERT INTO public.projects (
   id, name, slug, category_id, short_description, full_description_mdx,
   status, progress, sort_order, cover_image, icon, color, tech_stack,
@@ -115,27 +115,27 @@ INSERT INTO public.projects (
   started_at, created_at, updated_at
 ) VALUES (
   'a1000003-0000-0000-0000-000000000003',
-  'Crafted Studio',
+  'Crafted Studio Code',
   'crafted-studio',
   'b5819949-0267-49ea-b981-1770411a6345',
-  'A desktop engineering cockpit and workspace featuring embedded Monaco editors, virtual terminal multiplexing, local SQLite storage, and modular AI agent docks.',
-  '# Crafted Studio: Developer Cockpit & AI Workspace
+  'An agentic AI development workbench and multi-pane engineering cockpit featuring embedded Monaco editor, live multi-provider LLM orchestration, and sandboxed terminal tool execution.',
+  '# Crafted Studio Code: Developer Cockpit & AI Workspace
 
-Crafted Studio is a dedicated desktop engineering workspace designed to unify code editing, shell execution, AI assistant interactions, and project management in a single distraction-free cockpit.
+Crafted Studio Code is a dedicated desktop engineering workspace designed to unify code editing, shell execution, multi-agent AI assistant interactions, and project management in a single distraction-free cockpit.
 
 ## Key Architecture & Features
 
-### 1. Unified Cockpit Layout
+### 1. 4-Pane AI Workbench
 * **Monaco Editor Integration:** Embedded high-performance code editor with TypeScript IntelliSense, diff viewer, and syntax highlighting.
 * **Multiplexed Terminals:** Built on `xterm.js` and native `node-pty` for multi-tab interactive shell execution.
 
-### 2. Local-First Workspace Database
-* **SQLite Persistence:** Uses `better-sqlite3` for local project state, snippets, and environment variable vaults.
-* **Modular AI Dock:** Side-by-side agent chat and code-refactor pipeline.',
+### 2. Multi-Agent Orchestration
+* **Specialized Agent Swarm:** Architect, Designer, Engineer, and Reviewer agents collaborating on complex codebases.
+* **Local & Cloud Model Bridge:** Native Ollama offline execution alongside OpenAI, Anthropic, and Gemini.',
   'in_progress', 60, 5,
-  NULL,
-  'https://craftedco.org/store/icons/crafted-studio.png',
-  '#6864F6',
+  '/store/screenshots/crafted-studio-1.png',
+  '/store/icons/crafted-studio-code.png',
+  '#E05A36',
   ARRAY['TypeScript', 'React', 'Electron', 'Monaco Editor', 'xterm.js', 'node-pty', 'SQLite', 'Zod', 'Tailwind CSS'],
   'https://github.com/Crafted-Company/crafted-studio-pc',
   NULL, NULL, NULL, false, true,
@@ -144,7 +144,7 @@ Crafted Studio is a dedicated desktop engineering workspace designed to unify co
   name = EXCLUDED.name, short_description = EXCLUDED.short_description,
   full_description_mdx = EXCLUDED.full_description_mdx, status = EXCLUDED.status,
   progress = EXCLUDED.progress, color = EXCLUDED.color, tech_stack = EXCLUDED.tech_stack,
-  icon = EXCLUDED.icon, repository_url = EXCLUDED.repository_url, updated_at = EXCLUDED.updated_at;
+  cover_image = EXCLUDED.cover_image, icon = EXCLUDED.icon, repository_url = EXCLUDED.repository_url, updated_at = EXCLUDED.updated_at;
 
 -- Project 4: Roguemetry
 INSERT INTO public.projects (
