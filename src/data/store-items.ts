@@ -150,7 +150,7 @@ export const STORE_ITEMS: StoreItem[] = [
     status: "available",
     version: "v1.0.0",
     releaseDate: "September 2026",
-    githubUrl: "https://github.com/Aditya0973/crafted-studio-pc",
+    githubUrl: "https://github.com/Crafted-Company/crafted-studio-pc",
     accentColor: "#E05A36",
     iconName: "Code2",
     iconImage: "/store/icons/crafted-studio-code.png",
@@ -194,7 +194,7 @@ export const STORE_ITEMS: StoreItem[] = [
         label: "Windows .exe",
         version: "v1.0.0",
         size: "115 MB",
-        downloadUrl: "https://github.com/Aditya0973/crafted-studio-pc/releases/download/v1.0.0/Crafted-Studio-Code-Setup-v1.0.0.exe",
+        downloadUrl: "https://github.com/Crafted-Company/crafted-studio-pc/releases/download/v1.0.0/Crafted-Studio-Code-Setup-v1.0.0.exe",
         isAvailable: true
       },
       {
@@ -202,7 +202,7 @@ export const STORE_ITEMS: StoreItem[] = [
         label: "Linux Package",
         version: "v1.0.0",
         size: "140 MB",
-        downloadUrl: "https://github.com/Aditya0973/crafted-studio-pc/releases/download/v1.0.0/Crafted-Studio-Code-1.0.0-Linux.AppImage",
+        downloadUrl: "https://github.com/Crafted-Company/crafted-studio-pc/releases/download/v1.0.0/Crafted-Studio-Code-1.0.0-Linux.AppImage",
         isAvailable: true
       }
     ],
